@@ -10,36 +10,48 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
-## A Glorified calculator
+#### Python can be used as a calculator
 
-At it's simplest, R is a very fancy calculator
-
-```{r}
+```{python}
 1 + 1
-2 - 3
+```
+
+```{python}
+2-3
+```
+
+```{python}
 6 / 2
+```
+
+```{python}
 3 * 4
 ```
 
-These basic operators form the basis for more complex calculations that are expressed slightly differently.
+Since Python is so widely used, there are many people who contribute to continuously improving and developing it. Let's imagine Python as a base version. It can do basic calculations, but it requires extra efforts to do more complicated things. People have created extras or add-ons to help create shortcuts for more complicated specific tasks or functions. These 'add-ons' are called packages. Packages can be imported to use to help make things easier. For example, there is a Python package called math that helps with basic mathematical operations. Let's look at an example here of calling the package using the ```import``` command.
 
-```{r}
-sqrt(9)
-log10(100)
+```{python}
+import math
+math.sqrt(9)
 ```
 
-R can also string numbers together
+Once it has been imported, it does not need to be re-imported for the rest of this document. You can also import multiple packages within the same document. We will get into more useful packages later on!
 
-```{r}
-1:10
+```{python}
+math.log(100)
 ```
 
-And groups of numbers can be calculated if the groups are multiples of each other
+Python can also string numbers together through a range. The range function consumes the variables range(start, end, step)
 
-```{r}
-1:10 + 11:20
-2 * 1:10
-1:2 * 1:10
+```{python}
+x = range(6)
+for n in x:
+  print(n)
+```
+
+```{python}
+for n in range(10, 100, 10):
+  print(n)
 ```
 
 :::exercise
@@ -48,7 +60,7 @@ Calculate the result of `3 + 2 * 6`, calculating the addition before multiplicat
 
 Take the square root of `20 * 5`
 
-Calculate the log base 2 of 16
+Calculate the log of 16
 
 Take the square root of the numbers 1 through 10
 
@@ -56,12 +68,12 @@ Take the square root of the numbers 1 through 10
 
 :::solution
 
-```{r, class.source = 'fold-hide'}
-(3 + 2) * 6
+```{python, class.source = 'fold-hide'}
+(3 + 2) * 6 # note python automatically will follow the order of operations
 
-sqrt(20 * 5)
+math.sqrt(20 * 5)
 
-log2(16)
+math.log(16)
 ```
 
 :::

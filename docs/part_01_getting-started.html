@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -452,51 +452,81 @@ $(document).ready(function () {
 </div>
 
 
-<div id="a-glorified-calculator" class="section level2">
-<h2>A Glorified calculator</h2>
-<p>At it’s simplest, R is a very fancy calculator</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
-<pre><code>[1] 2</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span></span></code></pre></div>
-<pre><code>[1] -1</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
-<pre><code>[1] 3</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span></code></pre></div>
-<pre><code>[1] 12</code></pre>
-<p>These basic operators form the basis for more complex calculations
-that are expressed slightly differently.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">9</span>)</span></code></pre></div>
-<pre><code>[1] 3</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log10</span>(<span class="dv">100</span>)</span></code></pre></div>
-<pre><code>[1] 2</code></pre>
-<p>R can also string numbers together</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
-<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<p>And groups of numbers can be calculated if the groups are multiples
-of each other</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span></span></code></pre></div>
-<pre><code> [1] 12 14 16 18 20 22 24 26 28 30</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
-<pre><code> [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
-<pre><code> [1]  1  4  3  8  5 12  7 16  9 20</code></pre>
+<div id="python-can-be-used-as-a-calculator" class="section level4">
+<h4>Python can be used as a calculator</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>2</code></pre>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">-</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>-1</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>3.0</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span></span></code></pre></div>
+<pre><code>12</code></pre>
+<p>Since Python is so widely used, there are many people who contribute
+to continuously improving and developing it. Let’s imagine Python as a
+base version. It can do basic calculations, but it requires extra
+efforts to do more complicated things. People have created extras or
+add-ons to help create shortcuts for more complicated specific tasks or
+functions. These ‘add-ons’ are called packages. Packages can be imported
+to use to help make things easier. For example, there is a Python
+package called math that helps with basic mathematical operations. Let’s
+look at an example here of calling the package using the
+<code>import</code> command.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>math.sqrt(<span class="dv">9</span>)</span></code></pre></div>
+<pre><code>3.0</code></pre>
+<p>Once it has been imported, it does not need to be re-imported for the
+rest of this document. You can also import multiple packages within the
+same document. We will get into more useful packages later on!</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>math.log(<span class="dv">100</span>)</span></code></pre></div>
+<pre><code>4.605170185988092</code></pre>
+<p>Python can also string numbers together through a range. The range
+function consumes the variables range(start, end, step)</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">range</span>(<span class="dv">6</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> x:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(n)</span></code></pre></div>
+<pre><code>0
+1
+2
+3
+4
+5</code></pre>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">10</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(n)</span></code></pre></div>
+<pre><code>10
+20
+30
+40
+50
+60
+70
+80
+90</code></pre>
 <div class="exercise">
 <p>Calculate the result of <code>3 + 2 * 6</code>, calculating the
 addition before multiplication</p>
 <p>Take the square root of <code>20 * 5</code></p>
-<p>Calculate the log base 2 of 16</p>
+<p>Calculate the log of 16</p>
 <p>Take the square root of the numbers 1 through 10</p>
 </div>
 <div class="solution">
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span> <span class="op">+</span> <span class="dv">2</span>) <span class="op">*</span> <span class="dv">6</span> <span class="co"># note python automatically will follow the order of operations</span></span></code></pre></div>
+<pre><code>30</code></pre>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>math.sqrt(<span class="dv">20</span> <span class="op">*</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>10.0</code></pre>
 <div class="sourceCode" id="cb21"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">6</span></span></code></pre></div>
-<pre><code>[1] 30</code></pre>
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">20</span> <span class="sc">*</span> <span class="dv">5</span>)</span></code></pre></div>
-<pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log2</span>(<span class="dv">16</span>)</span></code></pre></div>
-<pre><code>[1] 4</code></pre>
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>math.log(<span class="dv">16</span>)</span></code></pre></div>
+<pre><code>2.772588722239781</code></pre>
 </div>
 </div>
 
