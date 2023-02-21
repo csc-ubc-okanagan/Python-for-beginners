@@ -1,0 +1,211 @@
+---
+title: Subsetting
+output:
+  html_document:
+    code_folding: show
+---
+
+There are three subsetting operators in R -- [[, [, $ -- each of which will work with a data frame.
+
+We've already seen how we can select a named column in a data frame with the dollar sign selector.
+
+```{r, eval = FALSE}
+sq_data$Age
+```
+
+```{r, echo = FALSE}
+head(sq_data$Age)
+```
+
+We can also use indexed positions with square brackets
+
+```{r, eval = FALSE}
+sq_data[8]
+```
+
+```{r, echo = FALSE}
+head(sq_data[8])
+```
+
+If we only include a single digit, R defaults to selecting a column.
+
+We can select both rows and columns, however, using a comma, where the first number, or set of numbers, selects the rows, and the second, the columns.
+
+```{r}
+sq_data[1,1] # show the first row and first column of the data frame
+```
+
+If we wanted to see the first 6 rows
+
+```{r}
+sq_data[1:6, 1] # show the first six rows and first column of the data frame
+```
+
+Leaving a selection blank is the equivalent of selecting everything; either all rows, or all columns,
+
+```{r, eval = FALSE}
+sq_data[ ,1] # all rows, first column, ie one variable
+sq_data[1, ] # all columns, first row, ie one observation
+```
+
+We can also mix and match names and indexes,
+
+```{r, eval = FALSE}
+sq_data[1:6, "Running"]
+```
+
+:::exercise
+
+There are two ways to select a single column in a data frame; using [] or [ , ]. Extract a single variable, and all observations, from `sq_data` using each of these two methods, saving each to their own variable. Then using `str()` investigate the difference in the outputs.
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide'}
+matrix_ss <- sq_data[6]
+str(matrix_ss)
+
+list_ss <- sq_data[ ,6]
+str(list_ss)
+```
+
+:::
+
+:::exercise
+
+We've encountered `sample()`. We can use sample and index subsetting take a random sample from our data set. To do this, we'll need to use the `nrow()` function, that when fed a data set, reports on the number of rows,
+
+```{r}
+nrow(sq_data)
+```
+
+Using this information, Take a random sample of 10 observations for `sq_data` for the first 6 columns.
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide'}
+sq_data[sample(nrow(sq_data), 10), 1:6]
+```
+
+:::
+
+
+Lastly, we might want only observations that are complete, that is, records with no missing values
+
+```{r}
+(sq_data_complete <- sq_data[complete.cases(sq_data), ]) # not terribly useful with this particular data set
+```
+
+### Logical subsetting
+
+So far, we haven't applied any conditions to our subsets, but we can. In logical subsetting, the subset defaults to returning the results where the condition is TRUE.
+
+R allows us to specify several conditions
+
+* less than `>`
+* greater than `<`
+* less than or equal to `<=` 
+* greater than or equal `>=`
+* equivalent to `==`
+* not equivalent to `!=`
+
+As well as boolean operators
+
+* or `|`
+* and `&`
+
+:::note
+
+Note that `=` is equivalent to `<-`, setting a value, while `==` tests whether or not two things are the same.
+
+```{r}
+(x = 2)
+(x == 2)
+```
+
+:::
+
+```{r, eval = FALSE}
+sq_data[sq_data$Age == "Adult", ] # all variables for all Adult observations
+
+sq_data[sq_data$Age == "Adult" & sq_data$Shift == "PM", ] # all variables for all Adult, PM observat
+```
+
+### Subset()
+
+A lot this functionality has been built into a subset function, `subset()`.
+
+We'll provide `subset()` with three arguments:
+
+1. A data set to subset from
+2. The condition on which to subset
+3. The variables from the original data set to keep -- leave this empty to default to all original variables
+
+Let's say we only want to see the records for adult squirrels.
+
+```{r}
+sq_data_adult <- subset(sq_data, Age == "Adult") # from sq_data, select only rows where Age equals Adult
+```
+
+Or all records with cinnamon coloured adult squirrels.
+
+```{r}
+sq_data_c_adult <- subset(sq_data, Age == "Adult" & Primary.Fur.Color == "Cinnamon")
+```
+
+Or all records where an age has been recorded. This can be done in two ways
+
+```{r}
+sq_data_age_1 <- subset(sq_data, !is.na(Age))
+
+sq_data_age_2 <- subset(sq_data, Age == "Adult" | Age == "Juvenile")
+```
+
+:::note
+
+Remember, `NA` values are a special value, indicating that a value is missing. This is different from writing the characters NA. `is.na()` tests for `NA`. It's for this reason that running `subset(sq_data, sq_data$Age == 'NA')` will give you an empty data frame.
+
+:::
+
+Or maybe we want to investigate patterns of only those squirrels for which we don't have age recorded!
+
+```{r}
+sq_data_age_na <- subset(sq_data, is.na(Age))
+```
+
+:::exercise
+
+All data was collected between October 6 and October 20, 2018.  Create a subset of the data that includes only data collected on or before October 14, and only retains the variables `Date` and `Age`. Verify your date range output with `unique()` and if you get that far, order this output from `unique()` using `sort()` for easier reading.
+
+Remember that we have not yet converted our `Date` variable to a date class. 
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide', results = FALSE}
+sq_data$Date <- as.Date(sq_data$Date, "%m%d%Y")
+sq_data_date <- subset(sq_data, Date <= "2018-10-14", select = c(Date, Age))
+sort(unique(sq_data_date$Date))
+```
+
+:::
+
+:::summary
+
+Subsetting can be achieved in many ways. We can use indexing to get specific observations (rows) and / or variable (columns), we can use conditions on which to subset, we can use other functions like `is.na()` and `complete.cases()` to work around missing values, and we can use `subset()`, among other functions, subset.
+
+:::
+
+:::functions
+
+| Function | Description |
+| :--- | :--- |
+| `subset` | conditionally susbet a data frame |
+| `is.na` | conditionally test if values in a vector are `NA`. |
+| `complete.cases` | conditionally test if cases (rows) are complete. |
+
+:::

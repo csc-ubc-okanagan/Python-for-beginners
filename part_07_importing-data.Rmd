@@ -1,0 +1,167 @@
+---
+title: "Loading Data"
+output:
+  html_document:
+    code_folding: show
+---
+
+We're going to work with a (hopefully) fun data set today, which we'll download and then import.
+
+:::note
+
+* See the data here: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-29
+* Read about the project here: https://www.thesquirrelcensus.com/
+
+:::
+
+First things first, we'll use R to set up a place for us to work. We'll begin by creating a directory on our desktop
+
+```{r create-project-folder, eval = FALSE}
+dir.create("~/Desktop/r-for-beginners") # create a project directory
+```
+
+:::note
+
+Most systems - MacOS, Windows, Linux - will set your home directory to your user directory. The tilde `~` is shorthand for your user directory. If your home directory is not your user directory, the above will not work.
+
+:::
+
+We'll then make sure that our current session is working with the files in this folder, we'll verify where we are, and finally create a directory to hold our data.
+
+```{r working-directory}
+setwd("~/Desktop/r-for-beginners") # set the working directory to the directory we just created
+getwd() # print current working directory
+dir.create("data") # create a directory in our working directory called data
+list.dirs() # list the directories to verify things.
+```
+
+And then we'll download our data
+
+```{r download-sdata, eval = FALSE}
+data_src <- "https://tinyurl.com/mu8y9n29" # define the source of our data, in this case, a url
+
+download.file(url = data_src, destfile = 'data/2018-cp_squirrel_census.csv') # download the file, and save it with a specified name
+```
+
+Now that our data is downloaded and we have a local copy, we'll pull it into R
+
+We can simply import the data and display it to our console
+
+```{r import-squirrel-console, eval = FALSE}
+read.csv('data/2018-cp_squirrel_census.csv', header = TRUE) # read the data
+```
+
+But this isn't terribly useful. We want to store this data in memory, so we'll load it into a variable
+
+```{r import-squirrel-var}
+sq_data <- read.csv('data/2018-cp_squirrel_census.csv', header = TRUE) # read the data into a variable called sq_data
+```
+
+We can now explore the data, looking at the data types and data structures R is defaulting to when importing this csv file
+
+```{r squirrel-var-str}
+str(sq_data) # explore the structure of the data set.
+```
+
+We can get slightly better access to the data itself with `View()`
+
+```{r squireel-var-view, eval = FALSE}
+View(sq_data) # look at the data in a 'spreadsheet' like format. Note the capital V.
+```
+
+This output tells us that we're working with a data frame, that there are 3023 rows or observations, and 31 columns or variables. It then lists all of the variables, tells us what data type they were interpreted as on import, and show us the first six values of each variable.
+
+## Missing Values
+
+Before digging much deeper into the data set, one of the first things we'll note is that there are a lot of missing values. Missing values need to be properly encoded to be programatically useful. An application -- or user -- may represent missing values in many ways. Sometimes it's by using an out of range value, so when a variable is binary, and values are represented as 0 or 1, 99 may be used to indicate a missing value. Files exported from SPSS might be encoded with a period, `.`. In Excel, it's extremely easy for a user to accidentally introduce spaces, ` `, in an otherwise empty cell, or they may choose to write the characters `NA`. A data base export might include either `NA` or `NULL`.
+
+When exported, especially using a format like `csv`, all of these notations for missing values are converted to character strings or numbers. Ideally, when importing into a piece of software, like R, we would have a way to provide a list of possible ways of encoding missing values and standardize how these are presented.
+
+In R, `NA` values are a specific way of indicating that a value is missing. And `read.csv()` has a specific argument for converting strings into `NA` encoded values on import.
+
+:::exercise
+
+Using the help documentation -- `?read.csv` -- see if you can figure out how to update your data import -- `sq_data <- read.csv('data/2018-cp_squirrel_census.csv', header = TRUE)` -- to convert a list of strings to `NA` values.
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide', results = FALSE}
+sq_data <- read.csv('2018-cp_squirrel_census.csv', header = TRUE, na.strings = c("", " ", "NA", "NULL", ".", "+"))
+```
+
+:::
+
+```{r, echo = FALSE}
+sq_data <- read.csv('2018-cp_squirrel_census.csv', header = TRUE, na.strings = c("", " ", "NA", "NULL", ".", "+"))
+```
+
+Review the data structure again...
+
+```{r}
+str(sq_data)
+```
+
+We'll see a number of other things that we need to sort out before we can do much with our data. For example, many of our variable of have not been assigned to the appropriate data type. We have logical variables, date variables etc not yet sorted.
+
+## Changing Data Types
+
+We can isolate or target a single variable in our data set using the dollar sign `$`.
+
+```{r, eval = FALSE}
+sq_data$Running
+```
+
+Now that we can target a variable, we can assign new properties to that variable. R has a series of `as.` functions to allow us to manipulate data types and classes. To view all `as.` functions available to you
+
+```{r, eval = FALSE}
+apropos("^as\\.")
+```
+
+```{r, echo = FALSE}
+head(apropos("^as\\."))
+cat("...")
+```
+
+We can see in the list, that we have several useful `as.` functions for our current data set, including `as.Date` and `as.logical`. We'll start with the latter.
+
+```{r}
+sq_data$Running <- as.logical(sq_data$Running) # re-assign the variable Running from character to logical
+
+str(sq_data$Running) # view the results
+```
+
+:::exercise
+
+`read.csv` allows us to assign variable types on import. Revisit the help documentation for `read.csv` and see if you can update your import line -- `sq_data <- read.csv('data/2018-cp_squirrel_census.csv', na.strings = c("", " ", "NA", "NULL", ".", "+"))` -- to also convert the columns 'Running', 'Chasing', and 'Climbing' to logical on import.
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide', results = FALSE}
+sq_data <- read.csv('2018-cp_squirrel_census.csv',
+                    header = TRUE,
+                    na.strings = c("", " ", "NA", "NULL", ".", "+"),
+                    colClasses = c("Chasing" = "logical",
+                                   "Running" = "logical",
+                                   "Climbing" = "logical")
+                    )
+```
+
+:::
+
+:::functions
+
+| Function | Description |
+| :--- | :--- |
+| `dir.create` | create a directory on your file system. |
+| `setwd` | set the working directory. See also `getwd` to get current working directory. |
+| `read.csv` | read a csv file into R. |
+| `str` | display information about the data including structure, types, and a few values. |
+| `View` | open the data set in a spreadsheet like viewer. |
+| `apropos` | search for functions and variables. |
+| `as.` | a family of functions for converting data types and structures. |
+
+:::

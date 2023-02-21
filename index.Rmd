@@ -1,0 +1,50 @@
+---
+Title: "Python For Beginners"
+pagetitle: "Python For Beginners"
+output:
+  html_document:
+    includes:
+      in_header: header.html
+---
+```{r echo=FALSE}
+knitr::opts_chunk$set(comment = NA)
+knitr::read_chunk("./scripts/workshop_files.R")
+```
+
+This workshop is offered through UBC Okanagan's [Centre for Scholarly Communications](https://csc.ok.ubc.ca). Questions can be directed to [csc.ok@ubc.ca](mailto:csc.ok@ubc.ca).
+
+## Description
+
+This four-part workshop is designed for the absolute beginner to Python with no programming experience in Python or other languages.
+
+**Session 1** will cover what Python is and introduce users to a common application for programming in Python. We'll cover basic concepts related to conducting academic work with a programming language, write a simple script, explore options for getting help, and discuss the benefits of using Python.
+
+**Session 2** will get a little deeper into how Python works, beginning with an introduction to built in data types and structures. From there we'll look at the purpose of using packages, and a handful of basic functions.
+
+**Session 3** will then dive into getting a data set ready for subsequent analysis. This will involve importing data, creating new variables from existing variables, cleaning data, and basic sub-setting to isolate observations and variables.
+
+**Session 4** will cover exploring methods used to perform a preliminary analysis on data frames, as well as visualization tools available in Python.
+
+You will need a laptop for this workshop. You will also need to install R and RStudio before coming to the first session. Instructions for getting these set up will be provided after registration.
+
+## Outcomes
+
+This is an introductory workshop intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. It is intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS. We will not cover statistical analyses.
+
+Instead, the hope is that you will walk away with a base set of skills and language to engage in some self directed learning that might involve more workshops on more advanced applications of R, texts available through the library or on-line, and forums where other users are asking questions and sharing their solutions.
+
+## Schedule
+
+| Date | Time | Location |
+| :- | :- | :- |
+| March 7, 2023 | 2:00pm - 3:00pm | LIB 111 |
+| March 14, 2023 | 2:00pm - 3:00pm | LIB 111 |
+| March 21, 2023 | 2:00pm - 3:00pm | LIB 111 |
+| March 28, 2023 | 2:00pm - 3:00pm | LIB 111 |
+
+### Files
+
+Right click or ctrl + left click on a Mac to save files.
+
+```{r loadfiles, results='asis', echo=FALSE}
+```

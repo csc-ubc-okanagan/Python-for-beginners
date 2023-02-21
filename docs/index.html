@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Python For Beginners</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<div id="BannerContainer">
+<img id="CSCBanner" src="images/UBCO-CSC-Unit%20mark-colour.png" alt="CSC Banner">
+</div>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R for Beginners</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Part 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="part_01_getting-started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+    </li>
+    <li>
+      <a href="part_03_functions.html">Functions</a>
+    </li>
+    <li>
+      <a href="part_04_variables.html">Variables</a>
+    </li>
+    <li>
+      <a href="part_05_getting-help.html">Getting Help</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Part 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="part_06_data-types.html">Data Types</a>
+    </li>
+    <li>
+      <a href="part_07_importing-data.html">Importing Data</a>
+    </li>
+    <li>
+      <a href="part_08_rproject.html">RProjects</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Part 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+    </li>
+    <li>
+      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+    </li>
+    <li>
+      <a href="part_11_subsetting.html">Subsetting</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Part 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="part_12_libraries.html">Libraries</a>
+    </li>
+    <li>
+      <a href="part_13_ggplot2.html">ggplot2</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<p>This workshop is offered through UBC Okanagan’s <a
+href="https://csc.ok.ubc.ca">Centre for Scholarly Communications</a>.
+Questions can be directed to <a
+href="mailto:csc.ok@ubc.ca">csc.ok@ubc.ca</a>.</p>
+<div id="description" class="section level2">
+<h2>Description</h2>
+<p>This four-part workshop is designed for the absolute beginner to
+Python with no programming experience in Python or other languages.</p>
+<p><strong>Session 1</strong> will cover what Python is and introduce
+users to a common application for programming in Python. We’ll cover
+basic concepts related to conducting academic work with a programming
+language, write a simple script, explore options for getting help, and
+discuss the benefits of using Python.</p>
+<p><strong>Session 2</strong> will get a little deeper into how Python
+works, beginning with an introduction to built in data types and
+structures. From there we’ll look at the purpose of using packages, and
+a handful of basic functions.</p>
+<p><strong>Session 3</strong> will then dive into getting a data set
+ready for subsequent analysis. This will involve importing data,
+creating new variables from existing variables, cleaning data, and basic
+sub-setting to isolate observations and variables.</p>
+<p><strong>Session 4</strong> will cover exploring methods used to
+perform a preliminary analysis on data frames, as well as visualization
+tools available in Python.</p>
+<p>You will need a laptop for this workshop. You will also need to
+install R and RStudio before coming to the first session. Instructions
+for getting these set up will be provided after registration.</p>
+</div>
+<div id="outcomes" class="section level2">
+<h2>Outcomes</h2>
+<p>This is an introductory workshop intended for individuals with little
+to no familiarity with R or similar tools that rely on a scripted
+environment. It is intended as a low barrier entry into the world of
+using your computer to engage with data outside of graphical tools like
+Excel or SPSS. We will not cover statistical analyses.</p>
+<p>Instead, the hope is that you will walk away with a base set of
+skills and language to engage in some self directed learning that might
+involve more workshops on more advanced applications of R, texts
+available through the library or on-line, and forums where other users
+are asking questions and sharing their solutions.</p>
+</div>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Date</th>
+<th align="left">Time</th>
+<th align="left">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">March 7, 2023</td>
+<td align="left">2:00pm - 3:00pm</td>
+<td align="left">LIB 111</td>
+</tr>
+<tr class="even">
+<td align="left">March 14, 2023</td>
+<td align="left">2:00pm - 3:00pm</td>
+<td align="left">LIB 111</td>
+</tr>
+<tr class="odd">
+<td align="left">March 21, 2023</td>
+<td align="left">2:00pm - 3:00pm</td>
+<td align="left">LIB 111</td>
+</tr>
+<tr class="even">
+<td align="left">March 28, 2023</td>
+<td align="left">2:00pm - 3:00pm</td>
+<td align="left">LIB 111</td>
+</tr>
+</tbody>
+</table>
+<div id="files" class="section level3">
+<h3>Files</h3>
+<p>Right click or ctrl + left click on a Mac to save files.</p>
+<ul>
+<li><a
+href="https://github.com/csc-ubc-okanagan/R-for-beginners/raw/main/./files/_datadictionary.csv">_datadictionary
+(csv) (3.5 Kb)</a></li>
+<li><a
+href="https://github.com/csc-ubc-okanagan/R-for-beginners/raw/main/./files/2018-cp_squirrel_census.csv">2018-cp_squirrel_census
+(csv) (695.4 Kb)</a></li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

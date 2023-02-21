@@ -1,0 +1,54 @@
+---
+title: "R & RStudio"
+output:
+  html_document:
+    code_folding: show
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      comment = NA)
+```
+
+## What is R
+
+R is a programming language designed to facilitate statistical analyses and to generate graphs. R is also the program that converts what we write or input into something your computer can execute.
+
+**Writing (R language) and Executing (R interpreter)**
+
+Thinking about the language, in typing `sqrt()` we are writing an R function that takes a piece of data - your input. Thinking about the R program -- or interpreter, since it interprets your code -- it takes this data and executes it according to the function, namely computing the square root of the input.
+
+Even just using the console to write simple math your coding in R. If you want to be more traditional, we can write our first 'hello world' program.
+
+```{r}
+print("Hello World!")
+```
+
+## RStudio
+
+RStudio is an IDE -- Integrated Development Environment. It's a fancy name for a program designed to help you write and execute code. In one interface, it brings together several key elements related to writing code.
+
+1. a scripting pane, where we write stuff
+2. an R console, where R runs and processes what you write. You can also write directly here, but it's ephemeral.
+3. an environment pane, where we can see the data objects, functions etc that we create
+4. a viewing pane that gives us access to our files, plots, and help
+
+:::note
+
+Most people who work with R do it using RStudio. But this is not necessary. All you really need is a plain text editor and the R interpreter to execute what you write.
+
+:::
+
+## Building Blocks
+
+The big difference with working in something like R, over say Excel or another point and click tool for working with data, is that it moves us into the realm of programming, which brings with it a need to understand some core concepts about how data are handled and stored by computers.
+
+While we're not outright programming, we will be writing scripts to do things with our data --and basically, that's what a program is -- data, and a series of instructions--functions--to do things with these data.
+
+## How it Works
+
+1. You write instructions
+2. You give those instructions some data
+3. A compiler converts those instructions to something you computer can execute
+4. Your computer executes those instructions on your data
+5. You get the results presented to you, either on your screen, stored to a file, sent to a printer etc.

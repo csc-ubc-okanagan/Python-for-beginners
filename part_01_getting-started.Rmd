@@ -1,0 +1,67 @@
+---
+title: "Getting Started"
+output:
+  html_document:
+    code_folding: show
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      comment = NA)
+```
+
+## A Glorified calculator
+
+At it's simplest, R is a very fancy calculator
+
+```{r}
+1 + 1
+2 - 3
+6 / 2
+3 * 4
+```
+
+These basic operators form the basis for more complex calculations that are expressed slightly differently.
+
+```{r}
+sqrt(9)
+log10(100)
+```
+
+R can also string numbers together
+
+```{r}
+1:10
+```
+
+And groups of numbers can be calculated if the groups are multiples of each other
+
+```{r}
+1:10 + 11:20
+2 * 1:10
+1:2 * 1:10
+```
+
+:::exercise
+
+Calculate the result of `3 + 2 * 6`, calculating the addition before multiplication
+
+Take the square root of `20 * 5`
+
+Calculate the log base 2 of 16
+
+Take the square root of the numbers 1 through 10
+
+:::
+
+:::solution
+
+```{r, class.source = 'fold-hide'}
+(3 + 2) * 6
+
+sqrt(20 * 5)
+
+log2(16)
+```
+
+:::

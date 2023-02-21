@@ -1,0 +1,48 @@
+name: "R for Beginners"
+date: "2022-11-14"
+output_dir: "docs"
+exclude: ["files", "*.csv"]
+navbar:
+  title: "R for Beginners"
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Part 1"
+      menu:
+        - text: "Getting Started"
+          href: part_01_getting-started.html
+        - text: "R & RStudio"
+          href: part_02_r-rstudio.html
+        - text: "Functions"
+          href: part_03_functions.html
+        - text: "Variables"
+          href: part_04_variables.html
+        - text: "Getting Help"
+          href: part_05_getting-help.html
+    - text: "Part 2"
+      menu:
+        - text: "Data Types"
+          href: part_06_data-types.html
+        - text: "Importing Data"
+          href: part_07_importing-data.html
+        - text: "RProjects"
+          href: part_08_rproject.html
+    - text: "Part 3"
+      menu:
+        - text: "Dates & Factors"
+          href: part_09_dates-factors-dictionary.html
+        - text: "Adding & Renaming Variables"
+          href: part_10_variables-continued.html
+        - text: "Subsetting"
+          href: part_11_subsetting.html
+    - text: "Part 4"
+      menu:
+        - text: "Libraries"
+          href: part_12_libraries.html
+        - text: "ggplot2"
+          href: part_13_ggplot2.html
+output:
+  html_document:
+    theme: flatly
+    highlight: kate
+    css: styles.css
