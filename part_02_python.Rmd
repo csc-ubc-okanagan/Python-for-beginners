@@ -10,21 +10,21 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
-## What is R
+## What is Python
 
-R is a programming language designed to facilitate statistical analyses and to generate graphs. R is also the program that converts what we write or input into something your computer can execute.
+Python is a general programming language used to create many different programs. It is often used to build websites, conduct data analysis, and automate tasks. It is an object-oriented language, meaning that different objects are defined with different attributes and properties. It is often used to facilitate statistical analysis and generate graphs. Python is also the program that converts what we write or input into something your computer can execute.
 
-**Writing (R language) and Executing (R interpreter)**
+Python is the second most widely used programming language in 2022, only behind Java. Knowing basic Python can open up many job opportunities in a variety of industries, for virtually any background. Did you know that YouTube (owned by Google) is written mostly in Python? How about Instagram? Reddit? Pinterest?
 
-Thinking about the language, in typing `sqrt()` we are writing an R function that takes a piece of data - your input. Thinking about the R program -- or interpreter, since it interprets your code -- it takes this data and executes it according to the function, namely computing the square root of the input.
+In academia, Python is widely used in data science and computer science. It is also used in a lot of research in a variety of subject areas, including the humanities, sciences, and engineering. Python is especially good for sentiment analysis, which is when language or text is processed.
 
-Even just using the console to write simple math your coding in R. If you want to be more traditional, we can write our first 'hello world' program.
+Speaking of text, let's see how we print a line of text in Python.
 
-```{r}
+```{Python}
 print("Hello World!")
 ```
 
-## RStudio
+## Jupyter Notebook
 
 RStudio is an IDE -- Integrated Development Environment. It's a fancy name for a program designed to help you write and execute code. In one interface, it brings together several key elements related to writing code.
 
