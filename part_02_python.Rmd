@@ -16,7 +16,7 @@ Python is a general programming language used to create many different programs.
 
 Python is the second most widely used programming language in 2022, only behind Java. Knowing basic Python can open up many job opportunities in a variety of industries, for virtually any background. Did you know that YouTube (owned by Google) is written mostly in Python? How about Instagram? Reddit? Pinterest?
 
-In academia, Python is widely used in data science and computer science. It is also used in a lot of research in a variety of subject areas, including the humanities, sciences, and engineering. Python is especially good for sentiment analysis, which is when language or text is processed.
+In academia, Python is widely used in data science and computer science. It is also used in a lot of research in a variety of subject areas, including the humanities, sciences, and engineering. Python is also great for sentiment analysis, which is when language or text is processed.
 
 Speaking of text, let's see how we print a line of text in Python.
 
@@ -26,22 +26,20 @@ print("Hello World!")
 
 ## Jupyter Notebook
 
-RStudio is an IDE -- Integrated Development Environment. It's a fancy name for a program designed to help you write and execute code. In one interface, it brings together several key elements related to writing code.
+Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python.
 
-1. a scripting pane, where we write stuff
-2. an R console, where R runs and processes what you write. You can also write directly here, but it's ephemeral.
-3. an environment pane, where we can see the data objects, functions etc that we create
-4. a viewing pane that gives us access to our files, plots, and help
+Think of Python as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.
+
 
 :::note
 
-Most people who work with R do it using RStudio. But this is not necessary. All you really need is a plain text editor and the R interpreter to execute what you write.
+There are many different IDEs (integrated development environment) for Python. To name a few, [Programiz](https://www.programiz.com/python-programming/online-compiler/), Atom, Visual Studio Code, Spyder, and many more. If anyone has trouble with the Jupyter install, try using Programiz, as it doesn't require any downloads.
 
 :::
 
 ## Building Blocks
 
-The big difference with working in something like R, over say Excel or another point and click tool for working with data, is that it moves us into the realm of programming, which brings with it a need to understand some core concepts about how data are handled and stored by computers.
+The big difference with working in something like Python, over say Excel or another point and click tool for working with data, is that it moves us into the realm of programming, which brings with it a need to understand some core concepts about how data are handled and stored by computers.
 
 While we're not outright programming, we will be writing scripts to do things with our data --and basically, that's what a program is -- data, and a series of instructions--functions--to do things with these data.
 

@@ -25,13 +25,13 @@ This four-part workshop is designed for the absolute beginner to Python with no 
 
 **Session 4** will cover exploring methods used to perform a preliminary analysis on data frames, as well as visualization tools available in Python.
 
-You will need a laptop for this workshop. You will also need to install R and RStudio before coming to the first session. Instructions for getting these set up will be provided after registration.
+You will need a laptop for this workshop. You will also need to install Python and Jupyter Notebook before coming to the first session. Instructions for getting these set up will be provided after registration.
 
 ## Outcomes
 
-This is an introductory workshop intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. It is intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS. We will not cover statistical analyses.
+This is an introductory workshop intended for individuals with little to no familiarity with Python or similar tools that rely on a scripted environment. It is intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS. We will not cover statistical analyses.
 
-Instead, the hope is that you will walk away with a base set of skills and language to engage in some self directed learning that might involve more workshops on more advanced applications of R, texts available through the library or on-line, and forums where other users are asking questions and sharing their solutions.
+Instead, the hope is that you will walk away with a base set of skills and language to engage in some self directed learning that might involve more workshops on more advanced applications of Python, texts available through the library or on-line, and forums where other users are asking questions and sharing their solutions.
 
 ## Schedule
 
