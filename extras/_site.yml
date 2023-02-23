@@ -1,9 +1,9 @@
-name: "R for Beginners"
-date: "2022-11-14"
+name: "Python for Beginners"
+date: "2023-02-20"
 output_dir: "docs"
 exclude: ["files", "*.csv"]
 navbar:
-  title: "R for Beginners"
+  title: "Python for Beginners"
   right:
     - text: "Home"
       href: index.html
@@ -11,8 +11,8 @@ navbar:
       menu:
         - text: "Getting Started"
           href: part_01_getting-started.html
-        - text: "R & RStudio"
-          href: part_02_r-rstudio.html
+        - text: "Python and Jupyter Notebook"
+          href: part_02_python.html
         - text: "Functions"
           href: part_03_functions.html
         - text: "Variables"
@@ -25,20 +25,22 @@ navbar:
           href: part_06_data-types.html
         - text: "Importing Data"
           href: part_07_importing-data.html
+        - text: "Packages"
+          href: part_08_packages.html
     - text: "Part 3"
       menu:
-        - text: "Importing Data Continued"
-          href: part_08_dates-factors-dictionary.html
-        - text: "Variables Continued"
-          href: part_09_variables-continued.html
+        - text: "Importing & Cleaning"
+          href: part_09_importing-cleaning.html
+        - text: "Adding & Renaming Variables"
+          href: part_10_variables-continued.html
         - text: "Subsetting"
-          href: part_10_subsetting.html
+          href: part_11_subsetting.html
     - text: "Part 4"
       menu:
-        - text: "Libraries"
-          href: part_11_libraries.html
-        - text: "ggplot2"
-          href: part_12_ggplot2.html
+        - text: "Preliminary Analysis"
+          href: part_12_analysis.html
+        - text: "Visualization"
+          href: part_13_visualization.html
 output:
   html_document:
     theme: flatly
