@@ -5,59 +5,50 @@ output:
     code_folding: show
 ---
 
-We're going to work with a (hopefully) fun data set today, which we'll download and then import.
+We're going to work with a data set today, which we won't even have to download. We are going to access this data set through a URL which will save on storage.
 
 :::note
 
-* See the data here: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-29
-* Read about the project here: https://www.thesquirrelcensus.com/
+* See the data here: https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv
 
 :::
 
-First things first, we'll use R to set up a place for us to work. We'll begin by creating a directory on our desktop
+First things first, we need to use the trusty pandas package. This is the go-to Python package for dataframes and data set analysis. We will talk about packages more later on.
 
-```{r create-project-folder, eval = FALSE}
-dir.create("~/Desktop/r-for-beginners") # create a project directory
+```{python}
+import pandas as pd # we nickname it pd to save time when calling it later
 ```
 
-:::note
+We can enter the URL to the data set and save it as a variable so that it is easily accessible. Since the data set is a `.csv` file, we can use the pandas function `read_csv()` to save the data into a dataframe!
 
-Most systems - MacOS, Windows, Linux - will set your home directory to your user directory. The tilde `~` is shorthand for your user directory. If your home directory is not your user directory, the above will not work.
-
-:::
-
-We'll then make sure that our current session is working with the files in this folder, we'll verify where we are, and finally create a directory to hold our data.
-
-```{r working-directory}
-setwd("~/Desktop/r-for-beginners") # set the working directory to the directory we just created
-getwd() # print current working directory
-dir.create("data") # create a directory in our working directory called data
-list.dirs() # list the directories to verify things.
+```{python}
+url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
+df = pd.read_csv(url)
 ```
 
-And then we'll download our data
+The `head()` function is often used to show the first few rows of a dataframe. The default is the first five rows, but you can enter a different value inside the brackets to get the first n number of rows.
 
-```{r download-sdata, eval = FALSE}
-data_src <- "https://tinyurl.com/mu8y9n29" # define the source of our data, in this case, a url
-
-download.file(url = data_src, destfile = 'data/2018-cp_squirrel_census.csv') # download the file, and save it with a specified name
+```{python}
+df.head()
 ```
 
-Now that our data is downloaded and we have a local copy, we'll pull it into R
+But if we only wanted to see the first 3 rows....
 
-We can simply import the data and display it to our console
-
-```{r import-squirrel-console, eval = FALSE}
-read.csv('data/2018-cp_squirrel_census.csv', header = TRUE) # read the data
+```{python}
+df.head(3)
 ```
 
-But this isn't terribly useful. We want to store this data in memory, so we'll load it into a variable
+Remember, Python starts at 0 and not 1, so the first row of data is technically zero! Also, notice that pandas noticed that the first row of the csv file was header names, so it automatically created column titles.
 
-```{r import-squirrel-var}
-sq_data <- read.csv('data/2018-cp_squirrel_census.csv', header = TRUE) # read the data into a variable called sq_data
-```
+We can now explore the data a bit more, looking at the data types and data structures.
 
-We can now explore the data, looking at the data types and data structures R is defaulting to when importing this csv file
+
+
+
+
+
+
+
 
 ```{r squirrel-var-str}
 str(sq_data) # explore the structure of the data set.
