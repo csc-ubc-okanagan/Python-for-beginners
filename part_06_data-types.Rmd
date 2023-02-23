@@ -14,121 +14,235 @@ When we talk about data, we can talk about data types, data classes, and data st
 
 ## Types
 
-Data types are fundamental building blocks for storing information. R has five atomic data types -- the data types from which other objects are created. The three of importance to us here are:
+Data types are fundamental building blocks for storing information. Below, we can see a chart of all of the datatypes in Python.
 
-| Type | Representation |
-| :--- | :--- |
-| Numeric | Numbers |
-| Character | Text |
-| Logical | True and False Values|
+#### Datatypes
+
+| <span style="color:lightBlue">English name</span>  | <span style="color:lightBlue">Type name</span>  | <span style="color:lightBlue">Description</span>   | <span style="color:lightBlue">Example</span>  |
+| :---         | :---:     | :---:                           | ---:    |
+|integer       |**int**        |positive/negative whole numbers   |<span style="color:green">13</span>       |
+|floating point number|**float** |real number in decimal form     |<span style="color:green">3.1415</span>|
+|boolean       |**bool**        |true or false                    |<span style="color:green">True</span>|
+|string        |**str**         |text                             |<span style="color:green">"Do you like Python?"</span>|
+|list          |**list**        |a collection of objects - mutable & ordered |<span style="color:green">['Hi','Hello','Hola']</span>|
+|tuple         |**tuple**       |a collection of objects - immutable & ordered|<span style="color:green">('Tuesday',3,14,2023)</span>|
+|dictionary    |**dict**       |mapping of key-value pairs       |<span style="color:green">{'name':'Madison','Program':'Data Science','Age':23}</span>|
+|none          |**NoneType**    |represents no value              |<span style="color:green">None</span>|
+
 
 :::note
 
-Character data, also known as strings, are always wrapped in "quotation marks".
-
-Numeric data can be stored two ways, as integers or as floating point, also called 'double'.
+Character data, also known as strings, are always wrapped in "quotation marks". You can use single quotes like 'this' or double quotes like "this". As long as you use two of the same, it doesn't matter which you use!
 
 :::
 
-## Classes
+We can use the function `type()` to view the datatype of the stored value in a variable. Let's explore a few examples of this.
 
-Data types can have specific attributes that influence what we can and cannot do with these data. One of these attributes is a class.
+```{python}
+# Datatype 
+x = 1 + 1
+type(x)
+``` 
 
-Consider the following numbers -- 20220301.
-
-Without context, this is simply one big number. Or a list of smaller numbers. Classify it as a date, however, that has a set of rules for how a date is written -- yyyymmdd -- and a series of conventions for how dates function -- a specific calendar type, the length of a year, month, or day etc -- and we can start to be able to do some date specific operations with this data, like calculating a person's age.
-
-We'll assign some numbers that could be a date to a variable
-
-```{r}
-(numbers <- 20220301) # create variable numbers as atomic type numeric
-
-# convert numbers to class date and assign to a new variable
-(numbers_as_date <- as.Date(as.character(numbers), '%Y%m%d')) 
+```{python}
+x = 2.0
+type(x)
 ```
 
-After which we can inquire about their class
+```{python}
+# String
+string = 'Okanagan'
+print(string)
+type(x)
+```
+## Comparison Operators
 
-```{r}
-class(numbers) # inquire about the class
-class(numbers_as_date)
+We can compare objects (or variables) using comparison operators. The result is a Boolean value. Recall from above that a Boolean gives either a True or False.
+
+First, let's look at a table of the different comparison operators.
+
+#### Comparison Operators
+
+|<span style="color:blue">Operator</span> | <span style="color:blue">Description</span> |
+| :--- | :--- |
+|<span style="color:green">x == y</span>|is <span style="color:green">x</span> equal to <span style="color:green">y</span>?|
+|<span style="color:green">x != y</span>|is <span style="color:green">x</span> not equal to <span style="color:green">y</span>?|
+|<span style="color:green">x > y</span>|is <span style="color:green">x</span> greater than <span style="color:green">y</span>?|
+|<span style="color:green">x >= y</span>|is <span style="color:green">x</span> greater than or equal to <span style="color:green">y</span>?|
+|<span style="color:green">x < y</span>|is <span style="color:green">x</span> less than <span style="color:green">y</span>?|
+|<span style="color:green">x <= y</span>|is <span style="color:green">x</span> less than or equal to <span style="color:green">y</span>?|
+|<span style="color:green">x is y</span>|is <span style="color:green">x</span> the same object as <span style="color:green">y</span>?|
+|<span style="color:green">x and y</span>|are <span style="color:green">x</span> and <span style="color:green">y</span> both true?|
+|<span style="color:green">x or y</span>| is at least one of <span style="color:green">x</span> and <span style="color:green">y</span> true?|
+|<span style="color:green">not x</span>| is <span style="color:green">x</span> false? |
+
+Now, let's look at a few examples.
+
+```{python}
+5 < 7
 ```
 
-And see the utility of adding the date class
-
-```{r, error=TRUE}
-Sys.Date() # retrieve today's data
-
-# calculate the number of days that have passed since numbers
-(days_since_March_31 <- Sys.Date() - numbers) # doesn't make sense
-(days_since_March_31 <- Sys.Date() - numbers_as_date) # works
+```{python}
+five = 5
+seven = 7
+five < seven
 ```
 
-## Structures
-
-Data structures can be thought of how these data are stored collectively -- the structure that groups multiple values from a variable together, or the values from multiple variables together. R has a few basic data structures that you'll frequently encounter. These include vectors, lists, matrices, and data frames.
-
-### Vectors
-
-A vector is a very simple list. It is uni-dimensional - think of it as a single column or row of data - and it can only contain data of exactly the same type. So, if you have a list of numbers or words in R, these will likely be contained within a vector. In fact, the data set rivers is a vector,
-
-```{r}
-rivers
+```{python}
+5.0 > 5
 ```
 
-To test if something is a vector, we have a couple of options. We can use `is.vector()`, but it's more appropriate to use `is.atomic()`,
+## Lists
 
-```{r}
-is.vector(rivers)
-is.atomic(rivers)
+Lists are an important tool used in Python. Lists can contain elements of mixed types as well. Let's look at a few examples.
+
+```{python}
+# List
+list1 = []
+list1
 ```
 
-### Data Frames
+```{python}
+list2 = [1, 'UBC', 100]
+list2
+```
 
-A data frame essentially functions as a series of connected vectors, where each vector is a column. In this sense a data frame is also a special kind of list.
+Now let's see a few operations we can perform on a list.
+
+```{python}
+len(list1)
+```
+
+```{python}
+len(list2)
+```
+
+```{python}
+# Indexing Example - we will talk more about this later on
+list2[2]
+```
+Note - Python indexing starts at zero, so the first element in the list is 0, the second is 1, and the third is 2, so if we actually wanted the second element, we would have to do this:
+
+```{python}
+list2[1]
+```
+
+```{python}
+
+type(list2)
+```
+
+```{python}
+type(list2[1])
+```
+
+## Dictionaries
+
+A dictionary lists key-value pairs, which could also be thought of as associated values where a key matches to the associated value. Let's look at a few examples.
+
+```{python}
+# Dictionary - mapping between values
+house = {'bedrooms': 3, 'bathrooms': 2, 
+         'city': 'Kelowna', 'price': 2499999}
+```
+
+```{python}
+course = {'Data Science': ['DATA100', 'DATA200', 'DATA300'],
+            'Science': ['SCIENCE100', 'SCIENCE200', 'SCIENCE300']}
+```
+
+```{python}
+house['price']
+```
+```{python}
+course['Data Science']
+```
+
+## Loops
+
+Loops are a common tool used in Python to help users iterate through lists, or perform the same operation numerous times without added efforts.
+
+Let's look at a few examples:
+
+```{python}
+# Loops
+
+for n in [0, 1, 5, 2, -5]:
+    # this is inside the loop
+    print("The number is", n, "and its squared value is", n**2)
+# this is outside the loop
+```
+
+```{python}
+## Loop
+s = "Python"
+for c in s:
+    print("Gimme a " + c + "!")
+```
+
+```{python}
+# range(10) sets values 0-9, because recall Python starts at 0, not 1
+for i in range(10):
+    print(i)
+```
+
+This is equivalent to writing:
+
+```{python}
+for i in range(0,10):
+    print(i)
+```
+
+If we wanted it to start at 1 and go to 10 (inclusive), we would write:
+
+```{python}
+for i in range(1,11):
+    print(i)
+```
+
+Other examples:
+
+```{python}
+#(start,end,increments)
+for i in range(0,101,10):
+    print(i)
+```
+
+```{python}
+n = 3
+while n > 0:
+    print(n)
+    n = n - 1
+
+print("Smile!")
+```
+
+## Data Frames
+
+A data frame essentially functions as a series of connected vectors or lists, where each vector or list is a column. In this sense a data frame is also a special kind of list.
 
 In a data frame, all vectors need to be of the same length. And while each vector must hold the same data type, not all vectors need to be of the same data type. Data frames also allow us to apply column names.
 
-```{r create-into_df}
-(data.frame(
-  numbers = c(1,5,8,9, 11),
-  words = c('I', 'want', 'to', 'learn', 'R')
-))
+Let's look at an example of creating a dataframe from two lists.
+
+```{python}
+letter_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+number_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+import pandas as pd
+df = pd.DataFrame(
+    {'Letters': letter_list,
+     'Numbers': number_list})
+
+df
 ```
 
-### Lists
+Alternatively, you could write a data frame directly like this:
 
-A list also essentially functions as a series of connected vectors, but breaks us free of each column needing to be the same length as in a data frame. You can also nest a list within a list. This can start to get complicated.
-
-```{r create-intro_list}
-(list(
-  breakfast = c('Eggs', 'Muffins', 'Coffee'),
-  lunch = c('Grilled Cheese Sandwich with Orange Juice'),
-  numbers = c(1,4,6,7)
-))
+```{python}
+df1 = pd.DataFrame({'x' : [1., 2., 3., 4.],
+                   'y' : [4., 3., 2., 1.],
+                   'z' : [1, 2, 3, 4]})
+df1
 ```
 
-### Matrices
-
-A matrix resembles a data frame when displayed on screen, but is more accurately a vector with attributes that define the number of columns to divide the vector into. As a result, a matrix can only hold a single data type or class.
-
-In the following, a series of numeric data. Instead of having column names, we have column and row numbers.
-
-```{r create-intro_matrix}
-(matrix(round(rnorm(12, 10, 1), 2), nrow = 3))
-```
-
-:::summary
-
-Vectors are the building blocks of data frames, lists, and matrices. Matrices are vectors broken into columns of the same length and same data types. Data frames are joined vectors of the same length and different data types. Lists are joined vectors of different lengths and data types. Each is useful in certain situations.
-
-:::
-
-:::functions
-
-| Function | Description |
-| :--- | :--- |
-| `class` | reports the type of data or data structure. |
-| `is.` | a family of functions for identifying data types and structures. |
-
-:::
+Data frames are a VERY powerful data type in Python. We will spend most of our remaining time working with data frames because there is so much to learn about. 

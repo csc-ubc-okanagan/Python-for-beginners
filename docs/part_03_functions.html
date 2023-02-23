@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -453,74 +453,58 @@ $(document).ready(function () {
 
 
 <p>Functions take in data and do things with that data. We can write our
-own functions, but generally in R we’ll be using functions that have
-already been written or built. You’ve already seen three functions,
-<code>sqrt()</code>, <code>log10</code>, and <code>log2</code>.</p>
+own functions, but generally in Python we’ll be using functions that
+have already been written or built. You’ve already seen the functions,
+<code>math.sqrt()</code> and <code>math.log()</code>.</p>
 <p>Calling a function requires 2 things: the function itself and any
 arguments the function allows us to specify – one of these arguments is
 the data source, but there are usually other parameters we can
 specify.</p>
-<div id="rivers-descriptive-stats" class="section level2">
-<h2>Rivers &amp; Descriptive Stats</h2>
+<div id="descriptive-stats" class="section level2">
+<h2>Descriptive Stats</h2>
 <p>We’ll explore the basics of a handful of functions for descriptive
-stats with a built in data set called rivers. We can look at the data in
-rivers simply by calling it:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rivers <span class="co"># call the rivers dataset</span></span></code></pre></div>
-<pre><code>  [1]  735  320  325  392  524  450 1459  135  465  600  330  336  280  315  870
- [16]  906  202  329  290 1000  600  505 1450  840 1243  890  350  407  286  280
- [31]  525  720  390  250  327  230  265  850  210  630  260  230  360  730  600
- [46]  306  390  420  291  710  340  217  281  352  259  250  470  680  570  350
- [61]  300  560  900  625  332 2348 1171 3710 2315 2533  780  280  410  460  260
- [76]  255  431  350  760  618  338  981 1306  500  696  605  250  411 1054  735
- [91]  233  435  490  310  460  383  375 1270  545  445 1885  380  300  380  377
-[106]  425  276  210  800  420  350  360  538 1100 1205  314  237  610  360  540
-[121] 1038  424  310  300  444  301  268  620  215  652  900  525  246  360  529
-[136]  500  720  270  430  671 1770</code></pre>
-<p>rivers consists of a single variable – lengths in miles of a set of
-rivers in the United States.</p>
-<p>To calculate the mean of these data, we use the function
-<code>mean()</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rivers) <span class="co"># calculate the mean of rivers</span></span></code></pre></div>
-<pre><code>[1] 591.1844</code></pre>
+stats with a randomized set of data. We can generate a random list of
+data using a package called random.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate 50 random numbers between 10 and 200</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>randomlist <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">200</span>), <span class="dv">50</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(randomlist)</span></code></pre></div>
+<pre><code>[113, 63, 168, 76, 11, 162, 181, 92, 123, 97, 171, 149, 78, 124, 129, 189, 133, 29, 114, 173, 195, 19, 93, 151, 193, 28, 25, 132, 130, 158, 34, 185, 180, 44, 135, 146, 115, 199, 117, 116, 150, 86, 10, 174, 161, 98, 51, 80, 89, 112]</code></pre>
+<p>To calculate the mean of this data, we use the function
+<code>mean()</code> which is a part of the package numpy</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>np.mean(randomlist) <span class="co"># calculate the mean </span></span></code></pre></div>
+<pre><code>115.62</code></pre>
+<p>Alternatively, the mean could also be calculated with this:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(randomlist) <span class="op">/</span> <span class="bu">len</span>(randomlist) <span class="co"># calculate the mean</span></span></code></pre></div>
+<pre><code>115.62</code></pre>
 <p>For the median,</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(rivers) <span class="co"># calculate the median of rivers</span></span></code></pre></div>
-<pre><code>[1] 425</code></pre>
-<p>There is no built in function for the mode of a data set. We’ll look
-later at how we can calculate the mode.</p>
-<p>But we can calculate the variance and standard deviation,</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(rivers) <span class="co"># variance of rivers</span></span></code></pre></div>
-<pre><code>[1] 243908.4</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(rivers) <span class="co"># standard deviation of rivers</span></span></code></pre></div>
-<pre><code>[1] 493.8708</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics <span class="im">as</span> st</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>st.median(randomlist) <span class="co"># calculate the median</span></span></code></pre></div>
+<pre><code>120.0</code></pre>
+<p>The statistics and numpy package are very useful for computing
+functions.</p>
+<p>But we can calculate the variance and standard deviation using NumPy
+again,</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>np.var(randomlist) <span class="co"># variance</span></span></code></pre></div>
+<pre><code>2869.1956</code></pre>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.std(randomlist) <span class="co"># standard deviation</span></span></code></pre></div>
+<pre><code>53.56487281792052</code></pre>
 </div>
 <div id="arguments" class="section level2">
 <h2>Arguments</h2>
 <p>So far, the only ‘argument’ we’ve passed to any of these functions is
 the data itself.</p>
-<p>When calculating the mean, it is not uncommon to trim a percentage
-from the lower and upper ends of the data set. How much to trim is an
-argument we can pass to <code>mean()</code>. The value we can assign to
-trim is a fraction from 0 (the default) to 0.5 or 50% of the data
-set.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rivers, <span class="at">trim =</span> <span class="fl">0.1</span>) <span class="co"># drops the upper and lower 10% of the data set from the calculation</span></span></code></pre></div>
-<pre><code>[1] 490.9469</code></pre>
-</div>
-<div id="sampling" class="section level2">
-<h2>Sampling</h2>
-<p>Another function that is conceptually good to know includes
-<code>sample()</code>, which takes a random sample from a data set.
-<code>sample()</code> can take several arguments, the first of which is
-a data set to sample, and the second, the number of samples to take.</p>
-<p>To take a random sample of 5 values from rivers,</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(rivers, <span class="dv">5</span>) <span class="co"># random sample of 5 from rivers. Will be different every time you run it.</span></span></code></pre></div>
-<pre><code>[1]  270  383  460  390 1459</code></pre>
-<p>This is a useful tool for generating data to test code or building
-random subsets of a data set to support analysis. We’ll explore this
-application later.</p>
 <div class="note">
-<p>Other functions to create random samples include <code>runif()</code>
-for uniformly distributed data and <code>rnorm()</code> for normally
-distributed data.</p>
+<p>Other functions to create random samples include
+<code>random.uniform()</code> for uniformly distributed data and
+<code>random.normal()</code> for normally distributed data.</p>
 </div>
 <div class="summary">
 <p>Functions are mini programs that do things with our data. They
@@ -549,13 +533,13 @@ customize how the function operates.</p>
 <td align="left">calculate the variance of a range of values.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>sd</code></td>
+<td align="left"><code>std</code></td>
 <td align="left">calculate the standard deviation of a range of
 values.</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>sample</code></td>
-<td align="left">take a randmon sample from a range of values.</td>
+<td align="left">take a random sample from a range of values.</td>
 </tr>
 </tbody>
 </table>

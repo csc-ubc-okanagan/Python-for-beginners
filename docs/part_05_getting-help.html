@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -452,49 +452,51 @@ $(document).ready(function () {
 </div>
 
 
-<p>There are several ways to get help with R.</p>
+<p>There are several ways to get help with Python.</p>
 <div id="built-in-help" class="section level2">
 <h2>Built in Help</h2>
 <p>In general, packages and their functions and data are pretty well
 documented.</p>
-<p>There are several ways to access this documentation from within R.
-The one we’ll use frequently here is to load the help page of a known
-function, which will provide a brief overview of the function, the list
-of arguments it accepts, what defaults for these arguments are set to,
-related functions, and examples. To access these help pages, pre-pend
-the function name with a ?</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div>
+<p>There are many ways to access this documentation from within
+Python.</p>
+<p>We follow the syntax <code>help([object])</code> to call the help
+documentation.</p>
+<p>We can see an example of this with the print function.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">help</span>(<span class="bu">print</span>)</span></code></pre></div>
+<pre><code>Help on built-in function print in module builtins:
+
+print(...)
+    print(value, ..., sep=&#39; &#39;, end=&#39;\n&#39;, file=sys.stdout, flush=False)
+    
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.</code></pre>
 </div>
 <div id="blogs-tutorials-forums" class="section level2">
 <h2>Blogs, Tutorials &amp; Forums</h2>
-<p>These can be hit and miss, but when they’re a hit, they’re
-invaluable.</p>
-<p>As a new user to R, they can also be a bit confusing, even if they’re
-a hit. This is partly because there are many ways to solve the same
-problem when programming, so you’ll likely see lots of different
-approaches, some of which are more familiar to you than others. The
-other is that R supports multiple syntaxes; that is, multiple ways of
-expressing or constructing the arguments that one puts together. This is
-kind of an unusual feature of R and something people struggle with. But
-as a result, you may see a solution that uses a different syntax than
-you’re used to.</p>
+<p>Millions of people all over the world use Python, and it’s likely
+that if you’re having a problem, someone else has come across that
+problem too. There are many blogs and forums where people share their
+problems and crowd source solutions! It is a great tool for others to
+learn from and share their knowledge and tips.</p>
+<p>As a new user, they can also be a bit confusing. This is partly
+because there are many ways to solve the same problem when programming,
+so you’ll likely see lots of different approaches, some of which are
+more familiar to you than others. The other is that Python supports
+multiple syntaxes; that is, multiple ways of expressing or constructing
+the arguments that one puts together. This is kind of an unusual feature
+and as a result, you may see a solution that uses a different syntax
+than you’re used to.</p>
 <p>The key here is to spend time reading blogs and forum responses and
 working your way through problems; the proposed solutions will start to
 make more sense with time and familiarity, just like learning any other
 language.</p>
 <p>The easiest portal to these resources is Google or a similar search
 engine.</p>
-</div>
-<div id="books" class="section level2">
-<h2>Books</h2>
-<p>There are books that are general all purpose introductions to R,
-books that address specific aspects of R such as visualizing data or
-performing statistics, books that address specific packages, and books
-that teach R using a problem based approach; these latter are referred
-to as ‘cookbooks’. At UBC, one of your best portals to these books is
-the O’Rielly platform, accessible at <a
-href="https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&amp;id=2460"
-class="uri">https://resources.library.ubc.ca/page.php?details=oreilly-for-higher-education&amp;id=2460</a>.</p>
 </div>
 
 

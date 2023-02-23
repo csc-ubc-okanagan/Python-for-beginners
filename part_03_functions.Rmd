@@ -10,65 +10,60 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
-Functions take in data and do things with that data. We can write our own functions, but generally in R we'll be using functions that have already been written or built. You've already seen three functions, `sqrt()`, `log10`, and `log2`.
+Functions take in data and do things with that data. We can write our own functions, but generally in Python we'll be using functions that have already been written or built. You've already seen the functions, `math.sqrt()` and `math.log()`.
 
 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify -- one of these arguments is the data source, but there are usually other parameters we can specify.
 
-## Rivers & Descriptive Stats
+## Descriptive Stats
 
-We'll explore the basics of a handful of functions for descriptive stats with a built in data set called rivers. We can look at the data in rivers simply by calling it:
+We'll explore the basics of a handful of functions for descriptive stats with a randomized set of data. We can generate a random list of data using a package called random.
 
-```{r}
-rivers # call the rivers dataset
+```{python}
+import random
+#Generate 50 random numbers between 10 and 200
+randomlist = random.sample(range(10, 200), 50)
+print(randomlist)
 ```
-rivers consists of a single variable -- lengths in miles of a set of rivers in the United States.
 
-To calculate the mean of these data, we use the function `mean()`
+To calculate the mean of this data, we use the function `mean()` which is a part of the package numpy
 
-```{r}
-mean(rivers) # calculate the mean of rivers
+```{python}
+import numpy as np
+np.mean(randomlist) # calculate the mean 
+```
+
+Alternatively, the mean could also be calculated with this:
+
+```{python}
+sum(randomlist) / len(randomlist) # calculate the mean
 ```
 
 For the median,
 
-```{r}
-median(rivers) # calculate the median of rivers
+```{python}
+import statistics as st
+st.median(randomlist) # calculate the median
 ```
 
-There is no built in function for the mode of a data set. We'll look later at how we can calculate the mode.
+The statistics and numpy package are very useful for computing functions.
 
-But we can calculate the variance and standard deviation,
+But we can calculate the variance and standard deviation using NumPy again,
 
-```{r}
-var(rivers) # variance of rivers
-sd(rivers) # standard deviation of rivers
+```{python}
+np.var(randomlist) # variance
+```
+
+```{python}
+np.std(randomlist) # standard deviation
 ```
 
 ## Arguments
 
 So far, the only 'argument' we've passed to any of these functions is the data itself.
 
-When calculating the mean, it is not uncommon to trim a percentage from the lower and upper ends of the data set. How much to trim is an argument we can pass to `mean()`. The value we can assign to trim is a fraction from 0 (the default) to 0.5 or 50% of the data set.
-
-```{r}
-mean(rivers, trim = 0.1) # drops the upper and lower 10% of the data set from the calculation
-```
-
-## Sampling
-
-Another function that is conceptually good to know includes `sample()`, which takes a random sample from a data set. `sample()` can take several arguments, the first of which is a data set to sample, and the second, the number of samples to take.
-
-To take a random sample of 5 values from rivers,
-
-```{r}
-sample(rivers, 5) # random sample of 5 from rivers. Will be different every time you run it.
-```
-
-This is a useful tool for generating data to test code or building random subsets of a data set to support analysis. We'll explore this application later.
-
 :::note
 
-Other functions to create random samples include `runif()` for uniformly distributed data and `rnorm()` for normally distributed data.
+Other functions to create random samples include `random.uniform()` for uniformly distributed data and `random.normal()` for normally distributed data.
 
 :::
 
@@ -85,7 +80,7 @@ Functions are mini programs that do things with our data. They generally have pa
 | `mean` | calculate the mean of a range of values. |
 | `median` | calculate the median of a range of values. |
 | `var` | calculate the variance of a range of values. |
-| `sd` | calculate the standard deviation of a range of values. |
-| `sample` | take a randmon sample from a range of values. |
+| `std` | calculate the standard deviation of a range of values. |
+| `sample` | take a random sample from a range of values. |
 
 :::

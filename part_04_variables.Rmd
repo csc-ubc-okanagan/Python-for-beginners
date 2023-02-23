@@ -10,46 +10,61 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
-When we have a function do something with our data, there are several ways in which we might direct the output of that function. So far, we've directed that output to our terminal -- or screens. We have other options though. We can direct that output to a file if needed. We can also store the value within what R calls our global environment, which for all intents and purposes means writing the output to memory. We do this by directing that output to, or storing that output in, a variable.
+When we have a function do something with our data, there are several ways in which we might direct the output of that function. So far, we've directed that output to our terminal -- or screens. We have other options though. We can direct that output to a file if needed. We can also store the value within our Python workspace. We do this by directing that output to, or storing that output in, a variable.
 
 :::note
 
-When we collect data, we assign these to a variable, like 'ht' to record height. When we need to store values in memory on our computer, we assign them a variable, or name, by which to update or recall them. In this way, we can store, for example, the output of a calculation, such as the output of `mean(rivers)` with reference to a name.
+When we collect data, we assign these to a variable, like 'ht' to record height. When we need to store values in memory on our computer, we assign them a variable, or name, by which to update or recall them. In this way, we can store, for example, the output of a calculation, such as the output of `np.mean(randomlist)` with reference to a name.
 
 Sometimes when we say 'variable' we'll mean the category of data you've collected and sometimes we'll mean a place holder for a stored value on your computer.
 
 :::
 
-In R, things are assigned to variables with the lesser than symbol `<` and a hyphen `-`, like `<-`, as in, put what's on the right of this into the variable on the left.
+In Python, things are assigned to variables with the equals sign `=`, as in, put what's on the right of this into the variable on the left.
 
-To store the mean of rivers in a variable called `rivers_mean`,
 
-```{r}
-rivers_mean <- mean(rivers) # store the value of mean(rivers) in the variable rivers_mean
+```{python}
+# Defining a variable
+x = 5
 ```
 
 And to recall that value,
 
-```{r}
-rivers_mean # print the value stored in the variable rivers_mean
+```{python}
+print(x)
+```
+
+And we can update this value,
+
+```{python}
+x = 10
+x
+```
+
+We could perform operations within the variable
+
+```{python}
+# Basic Operations
+x = 1 + 1
+x
 ```
 
 or run a computation with that value
 
-```{r}
-rivers_mean ^ 2 # square the mean
+```{python}
+x ** 2 # square the variable x
 ```
 
 :::note
 
-When naming variables in `R`, keep in mind that variable names:
+When naming variables in `Python`, keep in mind that variable names:
 
 * Should first and foremost be meaningful. This is not a rule, just best practice.
 * **Cannot** start with a number or a dot followed by a number.
 * **Cannot** contain spaces or hyphens.
-* **Can** contain letters, numbers, dots, and underscores.
+* **Can** contain letters, numbers, and underscores.
 
-Additionally, some words are *reserved* and cannot be used, such as *if* and *for*. More details can be found with `?make.names`
+Additionally, some words are *reserved* and cannot be used, such as *if* and *for*.
 
 :::   
 
@@ -61,14 +76,15 @@ Save the output of a random sample of 10 digits between 1 and 100 to a variable 
 
 :::solution
 
-```{r, class.source = 'fold-hide'}
-(random_sample <- sample(1:100, 10))
+```{python, class.source = 'fold-hide'}
+import random
+random_sample = random.sample(range(1, 100), 10)
 ```
 
 :::
 
 :::summary
 
-Variables can represent either a group of values from the data we've collected or be a named place holder used by R to store our data, sometimes called objects.
+Variables can represent either a group of values from the data we've collected or be a named place holder used by Python to store our data, sometimes called objects.
 
 :::

@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -456,162 +456,119 @@ $(document).ready(function () {
 and data structures.</p>
 <div id="types" class="section level2">
 <h2>Types</h2>
-<p>Data types are fundamental building blocks for storing information. R
-has five atomic data types – the data types from which other objects are
-created. The three of importance to us here are:</p>
+<p>Data types are fundamental building blocks for storing information.
+Below, we can see a chart of all of the datatypes in Python.</p>
+<div id="datatypes" class="section level4">
+<h4>Datatypes</h4>
 <table>
+<colgroup>
+<col width="22%" />
+<col width="27%" />
+<col width="27%" />
+<col width="22%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Type</th>
-<th align="left">Representation</th>
+<th align="left"><span style="color:lightBlue">English name</span></th>
+<th align="center"><span style="color:lightBlue">Type name</span></th>
+<th align="center"><span style="color:lightBlue">Description</span></th>
+<th align="right"><span style="color:lightBlue">Example</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Numeric</td>
-<td align="left">Numbers</td>
+<td align="left">integer</td>
+<td align="center"><strong>int</strong></td>
+<td align="center">positive/negative whole numbers</td>
+<td align="right"><span style="color:green">13</span></td>
 </tr>
 <tr class="even">
-<td align="left">Character</td>
-<td align="left">Text</td>
+<td align="left">floating point number</td>
+<td align="center"><strong>float</strong></td>
+<td align="center">real number in decimal form</td>
+<td align="right"><span style="color:green">3.1415</span></td>
 </tr>
 <tr class="odd">
-<td align="left">Logical</td>
-<td align="left">True and False Values</td>
+<td align="left">boolean</td>
+<td align="center"><strong>bool</strong></td>
+<td align="center">true or false</td>
+<td align="right"><span style="color:green">True</span></td>
+</tr>
+<tr class="even">
+<td align="left">string</td>
+<td align="center"><strong>str</strong></td>
+<td align="center">text</td>
+<td align="right"><span style="color:green">“Do you like
+Python?”</span></td>
+</tr>
+<tr class="odd">
+<td align="left">list</td>
+<td align="center"><strong>list</strong></td>
+<td align="center">a collection of objects - mutable &amp; ordered</td>
+<td align="right"><span
+style="color:green">[‘Hi’,‘Hello’,‘Hola’]</span></td>
+</tr>
+<tr class="even">
+<td align="left">tuple</td>
+<td align="center"><strong>tuple</strong></td>
+<td align="center">a collection of objects - immutable &amp;
+ordered</td>
+<td align="right"><span
+style="color:green">(‘Tuesday’,3,14,2023)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">dictionary</td>
+<td align="center"><strong>dict</strong></td>
+<td align="center">mapping of key-value pairs</td>
+<td align="right"><span
+style="color:green">{‘name’:‘Madison’,‘Program’:‘Data
+Science’,‘Age’:23}</span></td>
+</tr>
+<tr class="even">
+<td align="left">none</td>
+<td align="center"><strong>NoneType</strong></td>
+<td align="center">represents no value</td>
+<td align="right"><span style="color:green">None</span></td>
 </tr>
 </tbody>
 </table>
 <div class="note">
 <p>Character data, also known as strings, are always wrapped in
-“quotation marks”.</p>
-<p>Numeric data can be stored two ways, as integers or as floating
-point, also called ‘double’.</p>
+“quotation marks”. You can use single quotes like ‘this’ or double
+quotes like “this”. As long as you use two of the same, it doesn’t
+matter which you use!</p>
+</div>
+<p>We can use the function <code>type()</code> to view the datatype of
+the stored value in a variable. Let’s explore a few examples of
+this.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datatype </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code></pre></div>
+<pre><code>&lt;class &#39;int&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code></pre></div>
+<pre><code>&lt;class &#39;float&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>string <span class="op">=</span> <span class="st">&#39;Okanagan&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(string)</span></code></pre></div>
+<pre><code>Okanagan</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code></pre></div>
+<pre><code>&lt;class &#39;float&#39;&gt;</code></pre>
 </div>
 </div>
-<div id="classes" class="section level2">
-<h2>Classes</h2>
-<p>Data types can have specific attributes that influence what we can
-and cannot do with these data. One of these attributes is a class.</p>
-<p>Consider the following numbers – 20220301.</p>
-<p>Without context, this is simply one big number. Or a list of smaller
-numbers. Classify it as a date, however, that has a set of rules for how
-a date is written – yyyymmdd – and a series of conventions for how dates
-function – a specific calendar type, the length of a year, month, or day
-etc – and we can start to be able to do some date specific operations
-with this data, like calculating a person’s age.</p>
-<p>We’ll assign some numbers that could be a date to a variable</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(numbers <span class="ot">&lt;-</span> <span class="dv">20220301</span>) <span class="co"># create variable numbers as atomic type numeric</span></span></code></pre></div>
-<pre><code>[1] 20220301</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert numbers to class date and assign to a new variable</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(numbers_as_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(numbers), <span class="st">&#39;%Y%m%d&#39;</span>)) </span></code></pre></div>
-<pre><code>[1] &quot;2022-03-01&quot;</code></pre>
-<p>After which we can inquire about their class</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numbers) <span class="co"># inquire about the class</span></span></code></pre></div>
-<pre><code>[1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numbers_as_date)</span></code></pre></div>
-<pre><code>[1] &quot;Date&quot;</code></pre>
-<p>And see the utility of adding the date class</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>() <span class="co"># retrieve today&#39;s data</span></span></code></pre></div>
-<pre><code>[1] &quot;2023-02-14&quot;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the number of days that have passed since numbers</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(days_since_March_31 <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>() <span class="sc">-</span> numbers) <span class="co"># doesn&#39;t make sense</span></span></code></pre></div>
-<pre><code>[1] &quot;-53339-10-26&quot;</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(days_since_March_31 <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>() <span class="sc">-</span> numbers_as_date) <span class="co"># works</span></span></code></pre></div>
-<pre><code>Time difference of 350 days</code></pre>
-</div>
-<div id="structures" class="section level2">
-<h2>Structures</h2>
-<p>Data structures can be thought of how these data are stored
-collectively – the structure that groups multiple values from a variable
-together, or the values from multiple variables together. R has a few
-basic data structures that you’ll frequently encounter. These include
-vectors, lists, matrices, and data frames.</p>
-<div id="vectors" class="section level3">
-<h3>Vectors</h3>
-<p>A vector is a very simple list. It is uni-dimensional - think of it
-as a single column or row of data - and it can only contain data of
-exactly the same type. So, if you have a list of numbers or words in R,
-these will likely be contained within a vector. In fact, the data set
-rivers is a vector,</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rivers</span></code></pre></div>
-<pre><code>  [1]  735  320  325  392  524  450 1459  135  465  600  330  336  280  315  870
- [16]  906  202  329  290 1000  600  505 1450  840 1243  890  350  407  286  280
- [31]  525  720  390  250  327  230  265  850  210  630  260  230  360  730  600
- [46]  306  390  420  291  710  340  217  281  352  259  250  470  680  570  350
- [61]  300  560  900  625  332 2348 1171 3710 2315 2533  780  280  410  460  260
- [76]  255  431  350  760  618  338  981 1306  500  696  605  250  411 1054  735
- [91]  233  435  490  310  460  383  375 1270  545  445 1885  380  300  380  377
-[106]  425  276  210  800  420  350  360  538 1100 1205  314  237  610  360  540
-[121] 1038  424  310  300  444  301  268  620  215  652  900  525  246  360  529
-[136]  500  720  270  430  671 1770</code></pre>
-<p>To test if something is a vector, we have a couple of options. We can
-use <code>is.vector()</code>, but it’s more appropriate to use
-<code>is.atomic()</code>,</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(rivers)</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.atomic</span>(rivers)</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div id="data-frames" class="section level3">
-<h3>Data Frames</h3>
-<p>A data frame essentially functions as a series of connected vectors,
-where each vector is a column. In this sense a data frame is also a
-special kind of list.</p>
-<p>In a data frame, all vectors need to be of the same length. And while
-each vector must hold the same data type, not all vectors need to be of
-the same data type. Data frames also allow us to apply column names.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">data.frame</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">numbers =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">9</span>, <span class="dv">11</span>),</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">words =</span> <span class="fu">c</span>(<span class="st">&#39;I&#39;</span>, <span class="st">&#39;want&#39;</span>, <span class="st">&#39;to&#39;</span>, <span class="st">&#39;learn&#39;</span>, <span class="st">&#39;R&#39;</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
-<pre><code>  numbers words
-1       1     I
-2       5  want
-3       8    to
-4       9 learn
-5      11     R</code></pre>
-</div>
-<div id="lists" class="section level3">
-<h3>Lists</h3>
-<p>A list also essentially functions as a series of connected vectors,
-but breaks us free of each column needing to be the same length as in a
-data frame. You can also nest a list within a list. This can start to
-get complicated.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">list</span>(</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">breakfast =</span> <span class="fu">c</span>(<span class="st">&#39;Eggs&#39;</span>, <span class="st">&#39;Muffins&#39;</span>, <span class="st">&#39;Coffee&#39;</span>),</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lunch =</span> <span class="fu">c</span>(<span class="st">&#39;Grilled Cheese Sandwich with Orange Juice&#39;</span>),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">numbers =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div>
-<pre><code>$breakfast
-[1] &quot;Eggs&quot;    &quot;Muffins&quot; &quot;Coffee&quot; 
-
-$lunch
-[1] &quot;Grilled Cheese Sandwich with Orange Juice&quot;
-
-$numbers
-[1] 1 4 6 7</code></pre>
-</div>
-<div id="matrices" class="section level3">
-<h3>Matrices</h3>
-<p>A matrix resembles a data frame when displayed on screen, but is more
-accurately a vector with attributes that define the number of columns to
-divide the vector into. As a result, a matrix can only hold a single
-data type or class.</p>
-<p>In the following, a series of numeric data. Instead of having column
-names, we have column and row numbers.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">matrix</span>(<span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">1</span>), <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">3</span>))</span></code></pre></div>
-<pre><code>      [,1] [,2]  [,3]  [,4]
-[1,] 11.03 9.06 10.93 10.55
-[2,]  9.76 9.98  7.81  9.31
-[3,] 10.45 8.97 10.05 11.51</code></pre>
-<div class="summary">
-<p>Vectors are the building blocks of data frames, lists, and matrices.
-Matrices are vectors broken into columns of the same length and same
-data types. Data frames are joined vectors of the same length and
-different data types. Lists are joined vectors of different lengths and
-data types. Each is useful in certain situations.</p>
-</div>
-<div class="functions">
+<div id="comparison-operators" class="section level2">
+<h2>Comparison Operators</h2>
+<p>We can compare objects (or variables) using comparison operators. The
+result is a Boolean value. Recall from above that a Boolean gives either
+a True or False.</p>
+<p>First, let’s look at a table of the different comparison
+operators.</p>
+<div id="comparison-operators-1" class="section level4">
+<h4>Comparison Operators</h4>
 <table>
 <colgroup>
 <col width="50%" />
@@ -619,24 +576,275 @@ data types. Each is useful in certain situations.</p>
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
+<th align="left"><span style="color:blue">Operator</span></th>
+<th align="left"><span style="color:blue">Description</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>class</code></td>
-<td align="left">reports the type of data or data structure.</td>
+<td align="left"><span style="color:green">x == y</span></td>
+<td align="left">is <span style="color:green">x</span> equal to <span
+style="color:green">y</span>?</td>
 </tr>
 <tr class="even">
-<td align="left"><code>is.</code></td>
-<td align="left">a family of functions for identifying data types and
-structures.</td>
+<td align="left"><span style="color:green">x != y</span></td>
+<td align="left">is <span style="color:green">x</span> not equal to
+<span style="color:green">y</span>?</td>
+</tr>
+<tr class="odd">
+<td align="left"><span style="color:green">x &gt; y</span></td>
+<td align="left">is <span style="color:green">x</span> greater than
+<span style="color:green">y</span>?</td>
+</tr>
+<tr class="even">
+<td align="left"><span style="color:green">x &gt;= y</span></td>
+<td align="left">is <span style="color:green">x</span> greater than or
+equal to <span style="color:green">y</span>?</td>
+</tr>
+<tr class="odd">
+<td align="left"><span style="color:green">x &lt; y</span></td>
+<td align="left">is <span style="color:green">x</span> less than <span
+style="color:green">y</span>?</td>
+</tr>
+<tr class="even">
+<td align="left"><span style="color:green">x &lt;= y</span></td>
+<td align="left">is <span style="color:green">x</span> less than or
+equal to <span style="color:green">y</span>?</td>
+</tr>
+<tr class="odd">
+<td align="left"><span style="color:green">x is y</span></td>
+<td align="left">is <span style="color:green">x</span> the same object
+as <span style="color:green">y</span>?</td>
+</tr>
+<tr class="even">
+<td align="left"><span style="color:green">x and y</span></td>
+<td align="left">are <span style="color:green">x</span> and <span
+style="color:green">y</span> both true?</td>
+</tr>
+<tr class="odd">
+<td align="left"><span style="color:green">x or y</span></td>
+<td align="left">is at least one of <span style="color:green">x</span>
+and <span style="color:green">y</span> true?</td>
+</tr>
+<tr class="even">
+<td align="left"><span style="color:green">not x</span></td>
+<td align="left">is <span style="color:green">x</span> false?</td>
 </tr>
 </tbody>
 </table>
+<p>Now, let’s look at a few examples.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">&lt;</span> <span class="dv">7</span></span></code></pre></div>
+<pre><code>True</code></pre>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>five <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>seven <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>five <span class="op">&lt;</span> seven</span></code></pre></div>
+<pre><code>True</code></pre>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5.0</span> <span class="op">&gt;</span> <span class="dv">5</span></span></code></pre></div>
+<pre><code>False</code></pre>
 </div>
 </div>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
+<p>Lists are an important tool used in Python. Lists can contain
+elements of mixed types as well. Let’s look at a few examples.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>list1 <span class="op">=</span> []</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>list1</span></code></pre></div>
+<pre><code>[]</code></pre>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>list2 <span class="op">=</span> [<span class="dv">1</span>, <span class="st">&#39;UBC&#39;</span>, <span class="dv">100</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>list2</span></code></pre></div>
+<pre><code>[1, &#39;UBC&#39;, 100]</code></pre>
+<p>Now let’s see a few operations we can perform on a list.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(list1)</span></code></pre></div>
+<pre><code>0</code></pre>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(list2)</span></code></pre></div>
+<pre><code>3</code></pre>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Indexing Example - we will talk more about this later on</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>list2[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>100</code></pre>
+<p>Note - Python indexing starts at zero, so the first element in the
+list is 0, the second is 1, and the third is 2, so if we actually wanted
+the second element, we would have to do this:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>list2[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>&#39;UBC&#39;</code></pre>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(list2)</span></code></pre></div>
+<pre><code>&lt;class &#39;list&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(list2[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>&lt;class &#39;str&#39;&gt;</code></pre>
+</div>
+<div id="dictionaries" class="section level2">
+<h2>Dictionaries</h2>
+<p>A dictionary lists key-value pairs, which could also be thought of as
+associated values where a key matches to the associated value. Let’s
+look at a few examples.</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary - mapping between values</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>house <span class="op">=</span> {<span class="st">&#39;bedrooms&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;bathrooms&#39;</span>: <span class="dv">2</span>, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&#39;city&#39;</span>: <span class="st">&#39;Kelowna&#39;</span>, <span class="st">&#39;price&#39;</span>: <span class="dv">2499999</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>course <span class="op">=</span> {<span class="st">&#39;Data Science&#39;</span>: [<span class="st">&#39;DATA100&#39;</span>, <span class="st">&#39;DATA200&#39;</span>, <span class="st">&#39;DATA300&#39;</span>],</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Science&#39;</span>: [<span class="st">&#39;SCIENCE100&#39;</span>, <span class="st">&#39;SCIENCE200&#39;</span>, <span class="st">&#39;SCIENCE300&#39;</span>]}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>house[<span class="st">&#39;price&#39;</span>]</span></code></pre></div>
+<pre><code>2499999</code></pre>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>course[<span class="st">&#39;Data Science&#39;</span>]</span></code></pre></div>
+<pre><code>[&#39;DATA100&#39;, &#39;DATA200&#39;, &#39;DATA300&#39;]</code></pre>
+</div>
+<div id="loops" class="section level2">
+<h2>Loops</h2>
+<p>Loops are a common tool used in Python to help users iterate through
+lists, or perform the same operation numerous times without added
+efforts.</p>
+<p>Let’s look at a few examples:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loops</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="op">-</span><span class="dv">5</span>]:</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is inside the loop</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The number is&quot;</span>, n, <span class="st">&quot;and its squared value is&quot;</span>, n<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this is outside the loop</span></span></code></pre></div>
+<pre><code>The number is 0 and its squared value is 0
+The number is 1 and its squared value is 1
+The number is 5 and its squared value is 25
+The number is 2 and its squared value is 4
+The number is -5 and its squared value is 25</code></pre>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loop</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;Python&quot;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> s:</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Gimme a &quot;</span> <span class="op">+</span> c <span class="op">+</span> <span class="st">&quot;!&quot;</span>)</span></code></pre></div>
+<pre><code>Gimme a P!
+Gimme a y!
+Gimme a t!
+Gimme a h!
+Gimme a o!
+Gimme a n!</code></pre>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># range(10) sets values 0-9, because recall Python starts at 0, not 1</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<pre><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+<p>This is equivalent to writing:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<pre><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+<p>If we wanted it to start at 1 and go to 10 (inclusive), we would
+write:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">11</span>):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10</code></pre>
+<p>Other examples:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(start,end,increments)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">101</span>,<span class="dv">10</span>):</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<pre><code>0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100</code></pre>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>3
+2
+1</code></pre>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Smile!&quot;</span>)</span></code></pre></div>
+<pre><code>Smile!</code></pre>
+</div>
+<div id="data-frames" class="section level2">
+<h2>Data Frames</h2>
+<p>A data frame essentially functions as a series of connected vectors
+or lists, where each vector or list is a column. In this sense a data
+frame is also a special kind of list.</p>
+<p>In a data frame, all vectors need to be of the same length. And while
+each vector must hold the same data type, not all vectors need to be of
+the same data type. Data frames also allow us to apply column names.</p>
+<p>Let’s look at an example of creating a dataframe from two lists.</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>letter_list <span class="op">=</span> [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;f&#39;</span>, <span class="st">&#39;g&#39;</span>, <span class="st">&#39;h&#39;</span>, <span class="st">&#39;i&#39;</span>]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>number_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;Letters&#39;</span>: letter_list,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;Numbers&#39;</span>: number_list})</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>  Letters  Numbers
+0       a        1
+1       b        2
+2       c        3
+3       d        4
+4       e        5
+5       f        6
+6       g        7
+7       h        8
+8       i        9</code></pre>
+<p>Alternatively, you could write a data frame directly like this:</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame({<span class="st">&#39;x&#39;</span> : [<span class="fl">1.</span>, <span class="fl">2.</span>, <span class="fl">3.</span>, <span class="fl">4.</span>],</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;y&#39;</span> : [<span class="fl">4.</span>, <span class="fl">3.</span>, <span class="fl">2.</span>, <span class="fl">1.</span>],</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;z&#39;</span> : [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]})</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>df1</span></code></pre></div>
+<pre><code>     x    y  z
+0  1.0  4.0  1
+1  2.0  3.0  2
+2  3.0  2.0  3
+3  4.0  1.0  4</code></pre>
+<p>Data frames are a VERY powerful data type in Python. We will spend
+most of our remaining time working with data frames because there is so
+much to learn about.</p>
 </div>
 
 

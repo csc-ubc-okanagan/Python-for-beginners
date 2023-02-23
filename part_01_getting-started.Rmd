@@ -10,6 +10,17 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
+#### Some basic syntax
+
+Syntax is the rules that define the combination and order of symbols in a computer language.
+
+```{python}
+# Intro to Python
+
+### this is a comment - it is not visible by the code, 
+# and it helps with readability
+```
+
 #### Python can be used as a calculator
 
 ```{python}

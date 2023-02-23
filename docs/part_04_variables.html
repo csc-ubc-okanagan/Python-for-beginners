@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -456,61 +456,70 @@ $(document).ready(function () {
 ways in which we might direct the output of that function. So far, we’ve
 directed that output to our terminal – or screens. We have other options
 though. We can direct that output to a file if needed. We can also store
-the value within what R calls our global environment, which for all
-intents and purposes means writing the output to memory. We do this by
-directing that output to, or storing that output in, a variable.</p>
+the value within our Python workspace. We do this by directing that
+output to, or storing that output in, a variable.</p>
 <div class="note">
 <p>When we collect data, we assign these to a variable, like ‘ht’ to
 record height. When we need to store values in memory on our computer,
 we assign them a variable, or name, by which to update or recall them.
 In this way, we can store, for example, the output of a calculation,
-such as the output of <code>mean(rivers)</code> with reference to a
-name.</p>
+such as the output of <code>np.mean(randomlist)</code> with reference to
+a name.</p>
 <p>Sometimes when we say ‘variable’ we’ll mean the category of data
 you’ve collected and sometimes we’ll mean a place holder for a stored
 value on your computer.</p>
 </div>
-<p>In R, things are assigned to variables with the lesser than symbol
-<code>&lt;</code> and a hyphen <code>-</code>, like <code>&lt;-</code>,
-as in, put what’s on the right of this into the variable on the
-left.</p>
-<p>To store the mean of rivers in a variable called
-<code>rivers_mean</code>,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rivers_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(rivers) <span class="co"># store the value of mean(rivers) in the variable rivers_mean</span></span></code></pre></div>
+<p>In Python, things are assigned to variables with the equals sign
+<code>=</code>, as in, put what’s on the right of this into the variable
+on the left.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a variable</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 <p>And to recall that value,</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rivers_mean <span class="co"># print the value stored in the variable rivers_mean</span></span></code></pre></div>
-<pre><code>[1] 591.1844</code></pre>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<pre><code>5</code></pre>
+<p>And we can update this value,</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>10</code></pre>
+<p>We could perform operations within the variable</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic Operations</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>2</code></pre>
 <p>or run a computation with that value</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rivers_mean <span class="sc">^</span> <span class="dv">2</span> <span class="co"># square the mean</span></span></code></pre></div>
-<pre><code>[1] 349499</code></pre>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">**</span> <span class="dv">2</span> <span class="co"># square the variable x</span></span></code></pre></div>
+<pre><code>4</code></pre>
 <div class="note">
-<p>When naming variables in <code>R</code>, keep in mind that variable
-names:</p>
+<p>When naming variables in <code>Python</code>, keep in mind that
+variable names:</p>
 <ul>
 <li>Should first and foremost be meaningful. This is not a rule, just
 best practice.</li>
 <li><strong>Cannot</strong> start with a number or a dot followed by a
 number.</li>
 <li><strong>Cannot</strong> contain spaces or hyphens.</li>
-<li><strong>Can</strong> contain letters, numbers, dots, and
-underscores.</li>
+<li><strong>Can</strong> contain letters, numbers, and underscores.</li>
 </ul>
 <p>Additionally, some words are <em>reserved</em> and cannot be used,
-such as <em>if</em> and <em>for</em>. More details can be found with
-<code>?make.names</code></p>
+such as <em>if</em> and <em>for</em>.</p>
 </div>
 <div class="exercise">
 <p>Save the output of a random sample of 10 digits between 1 and 100 to
 a variable called <code>random_sample</code>.</p>
 </div>
 <div class="solution">
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(random_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>))</span></code></pre></div>
-<pre><code> [1]  3 76 82 58 96 70  8  2 31  1</code></pre>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>random_sample <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="dv">10</span>)</span></code></pre></div>
 </div>
 <div class="summary">
 <p>Variables can represent either a group of values from the data we’ve
-collected or be a named place holder used by R to store our data,
+collected or be a named place holder used by Python to store our data,
 sometimes called objects.</p>
 </div>
 

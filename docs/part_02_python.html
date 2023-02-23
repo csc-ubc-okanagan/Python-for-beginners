@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -452,50 +452,51 @@ $(document).ready(function () {
 </div>
 
 
-<div id="what-is-r" class="section level2">
-<h2>What is R</h2>
-<p>R is a programming language designed to facilitate statistical
-analyses and to generate graphs. R is also the program that converts
-what we write or input into something your computer can execute.</p>
-<p><strong>Writing (R language) and Executing (R
-interpreter)</strong></p>
-<p>Thinking about the language, in typing <code>sqrt()</code> we are
-writing an R function that takes a piece of data - your input. Thinking
-about the R program – or interpreter, since it interprets your code – it
-takes this data and executes it according to the function, namely
-computing the square root of the input.</p>
-<p>Even just using the console to write simple math your coding in R. If
-you want to be more traditional, we can write our first ‘hello world’
-program.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hello World!&quot;</span>)</span></code></pre></div>
-<pre><code>[1] &quot;Hello World!&quot;</code></pre>
+<div id="what-is-python" class="section level2">
+<h2>What is Python</h2>
+<p>Python is a general programming language used to create many
+different programs. It is often used to build websites, conduct data
+analysis, and automate tasks. It is an object-oriented language, meaning
+that different objects are defined with different attributes and
+properties. It is often used to facilitate statistical analysis and
+generate graphs. Python is also the program that converts what we write
+or input into something your computer can execute.</p>
+<p>Python is the second most widely used programming language in 2022,
+only behind Java. Knowing basic Python can open up many job
+opportunities in a variety of industries, for virtually any background.
+Did you know that YouTube (owned by Google) is written mostly in Python?
+How about Instagram? Reddit? Pinterest?</p>
+<p>In academia, Python is widely used in data science and computer
+science. It is also used in a lot of research in a variety of subject
+areas, including the humanities, sciences, and engineering. Python is
+also great for sentiment analysis, which is when language or text is
+processed.</p>
+<p>Speaking of text, let’s see how we print a line of text in
+Python.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Hello World!&quot;</span>)</span></code></pre></div>
 </div>
-<div id="rstudio" class="section level2">
-<h2>RStudio</h2>
-<p>RStudio is an IDE – Integrated Development Environment. It’s a fancy
-name for a program designed to help you write and execute code. In one
-interface, it brings together several key elements related to writing
-code.</p>
-<ol style="list-style-type: decimal">
-<li>a scripting pane, where we write stuff</li>
-<li>an R console, where R runs and processes what you write. You can
-also write directly here, but it’s ephemeral.</li>
-<li>an environment pane, where we can see the data objects, functions
-etc that we create</li>
-<li>a viewing pane that gives us access to our files, plots, and
-help</li>
-</ol>
+<div id="jupyter-notebook" class="section level2">
+<h2>Jupyter Notebook</h2>
+<p>Jupyter Notebook is a web-based interactive computing platform, and
+it can be used for many things, aside from Python.</p>
+<p>Think of Python as the language you are writing in, and Jupyter as
+the pen and pencil. This is how Python and Jupyter are used
+together.</p>
 <div class="note">
-<p>Most people who work with R do it using RStudio. But this is not
-necessary. All you really need is a plain text editor and the R
-interpreter to execute what you write.</p>
+<p>There are many different IDEs (integrated development environment)
+for Python. To name a few, <a
+href="https://www.programiz.com/python-programming/online-compiler/">Programiz</a>,
+Atom, Visual Studio Code, Spyder, and many more. If anyone has trouble
+with the Jupyter install, try using Programiz, as it doesn’t require any
+downloads.</p>
 </div>
 </div>
 <div id="building-blocks" class="section level2">
 <h2>Building Blocks</h2>
-<p>The big difference with working in something like R, over say Excel
-or another point and click tool for working with data, is that it moves
-us into the realm of programming, which brings with it a need to
+<p>The big difference with working in something like Python, over say
+Excel or another point and click tool for working with data, is that it
+moves us into the realm of programming, which brings with it a need to
 understand some core concepts about how data are handled and stored by
 computers.</p>
 <p>While we’re not outright programming, we will be writing scripts to
