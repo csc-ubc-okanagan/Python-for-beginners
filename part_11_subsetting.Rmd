@@ -5,105 +5,84 @@ output:
     code_folding: show
 ---
 
-There are three subsetting operators in R -- [[, [, $ -- each of which will work with a data frame.
+Sometimes the data frame we are working with can be very large and take a while to process. Alternatively, we could only need a portion of the information. There is a way to filter through a data frame such that only the specified information is used, which saves space and time!
 
-We've already seen how we can select a named column in a data frame with the dollar sign selector.
+Let's re-load in our Gapminder data:
 
-```{r, eval = FALSE}
-sq_data$Age
+```{python}
+import pandas as pd
+url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
+df = pd.read_csv(url)
 ```
 
-```{r, echo = FALSE}
-head(sq_data$Age)
+We know that we can select just one column like this below:
+
+```{python}
+df['country']
 ```
 
-We can also use indexed positions with square brackets
+So if we wanted to create a new data frame by filtering our existing data frame for entries where the country column has the value 'Canada', we can do so like this:
 
-```{r, eval = FALSE}
-sq_data[8]
+```{python}
+df_2 = df[df['country'] == 'Canada']
+df_2.head()
 ```
 
-```{r, echo = FALSE}
-head(sq_data[8])
+Alternatively, if we didn't want to create a new data frame, but we wanted to view just a subset of the data frame temporarily, we could write this:
+
+```{python}
+cols = ['country', 'continent', 'pop']
+df[cols]
 ```
 
-If we only include a single digit, R defaults to selecting a column.
+We could also perform operations such as `.mean()`, `.median()`, `.max()`, etc. using filtering. An example of this can be found below.
 
-We can select both rows and columns, however, using a comma, where the first number, or set of numbers, selects the rows, and the second, the columns.
-
-```{r}
-sq_data[1,1] # show the first row and first column of the data frame
+```{python}
+cols = ['lifeExp', 'pop', 'gdpPercap']
+df[cols].mean()
 ```
 
-If we wanted to see the first 6 rows
+We can select different row & column combinations as well by indexing. If we wanted to select just the first entry in the first row and column, remembering that Python starts indexing at 0, it would look like this:
 
-```{r}
-sq_data[1:6, 1] # show the first six rows and first column of the data frame
+```{python}
+df.iloc[0,0]
 ```
 
-Leaving a selection blank is the equivalent of selecting everything; either all rows, or all columns,
+`.iloc()` is a function that helps us select a particular cell in the data set. We can also use it to select the first row entirely.
 
-```{r, eval = FALSE}
-sq_data[ ,1] # all rows, first column, ie one variable
-sq_data[1, ] # all columns, first row, ie one observation
+```{python}
+df.iloc[0]
 ```
 
-We can also mix and match names and indexes,
+We could also use it to select the first 3 rows like this:
 
-```{r, eval = FALSE}
-sq_data[1:6, "Running"]
+```{python}
+df.iloc[:3]
 ```
 
-:::exercise
+Which is equivalent to:
 
-There are two ways to select a single column in a data frame; using [] or [ , ]. Extract a single variable, and all observations, from `sq_data` using each of these two methods, saving each to their own variable. Then using `str()` investigate the difference in the outputs.
-
-:::
-
-:::solution
-
-```{r, class.source = 'fold-hide'}
-matrix_ss <- sq_data[6]
-str(matrix_ss)
-
-list_ss <- sq_data[ ,6]
-str(list_ss)
+```{python}
+df.iloc[0:3]
 ```
 
-:::
+If we wanted to select the first column only:
 
-:::exercise
-
-We've encountered `sample()`. We can use sample and index subsetting take a random sample from our data set. To do this, we'll need to use the `nrow()` function, that when fed a data set, reports on the number of rows,
-
-```{r}
-nrow(sq_data)
+```{python}
+df.iloc[:,0]
 ```
 
-Using this information, Take a random sample of 10 observations for `sq_data` for the first 6 columns.
+And then if we wanted to select all rows but only the second and third columns, we could do so like this:
 
-:::
-
-:::solution
-
-```{r, class.source = 'fold-hide'}
-sq_data[sample(nrow(sq_data), 10), 1:6]
-```
-
-:::
-
-
-Lastly, we might want only observations that are complete, that is, records with no missing values
-
-```{r}
-(sq_data_complete <- sq_data[complete.cases(sq_data), ]) # not terribly useful with this particular data set
+```{python}
+df.iloc[:, 1:3]
 ```
 
 ### Logical subsetting
 
-So far, we haven't applied any conditions to our subsets, but we can. In logical subsetting, the subset defaults to returning the results where the condition is TRUE.
+So far, we haven't applied many conditions to our subsets, but we can. In logical subsetting, the subset defaults to returning the results where the condition is TRUE.
 
-R allows us to specify several conditions
+Recall, Python allows us to specify several conditions:
 
 * less than `>`
 * greater than `<`
@@ -117,95 +96,42 @@ As well as boolean operators
 * or `|`
 * and `&`
 
-:::note
-
-Note that `=` is equivalent to `<-`, setting a value, while `==` tests whether or not two things are the same.
-
-```{r}
-(x = 2)
-(x == 2)
+```{python}
+df_3 = df[df['pop'] > 10000000] # all variables for when population is greater than 10 million
+df_3.head() 
 ```
 
-:::
+If we wanted to filter by country name and year, without saving to a new data frame, we can do so like this:
 
-```{r, eval = FALSE}
-sq_data[sq_data$Age == "Adult", ] # all variables for all Adult observations
-
-sq_data[sq_data$Age == "Adult" & sq_data$Shift == "PM", ] # all variables for all Adult, PM observat
-```
-
-### Subset()
-
-A lot this functionality has been built into a subset function, `subset()`.
-
-We'll provide `subset()` with three arguments:
-
-1. A data set to subset from
-2. The condition on which to subset
-3. The variables from the original data set to keep -- leave this empty to default to all original variables
-
-Let's say we only want to see the records for adult squirrels.
-
-```{r}
-sq_data_adult <- subset(sq_data, Age == "Adult") # from sq_data, select only rows where Age equals Adult
-```
-
-Or all records with cinnamon coloured adult squirrels.
-
-```{r}
-sq_data_c_adult <- subset(sq_data, Age == "Adult" & Primary.Fur.Color == "Cinnamon")
-```
-
-Or all records where an age has been recorded. This can be done in two ways
-
-```{r}
-sq_data_age_1 <- subset(sq_data, !is.na(Age))
-
-sq_data_age_2 <- subset(sq_data, Age == "Adult" | Age == "Juvenile")
-```
-
-:::note
-
-Remember, `NA` values are a special value, indicating that a value is missing. This is different from writing the characters NA. `is.na()` tests for `NA`. It's for this reason that running `subset(sq_data, sq_data$Age == 'NA')` will give you an empty data frame.
-
-:::
-
-Or maybe we want to investigate patterns of only those squirrels for which we don't have age recorded!
-
-```{r}
-sq_data_age_na <- subset(sq_data, is.na(Age))
+```{python}
+df[(df['country'] == 'Canada') & (df['year'] >= 2000)]
 ```
 
 :::exercise
 
-All data was collected between October 6 and October 20, 2018.  Create a subset of the data that includes only data collected on or before October 14, and only retains the variables `Date` and `Age`. Verify your date range output with `unique()` and if you get that far, order this output from `unique()` using `sort()` for easier reading.
+Let's say you want to know the average life expectancy in Australia for all recorded years before 2000. 
 
-Remember that we have not yet converted our `Date` variable to a date class. 
+To calculate this, we will first have to filter our data frame with two conditions, and then we will have to calculate the mean.
+
+Hint: We can calculate the mean for all columns at once, and then just read off the Life Expectancy value to get the answer we are looking for
 
 :::
 
 :::solution
 
-```{r, class.source = 'fold-hide', results = FALSE}
-sq_data$Date <- as.Date(sq_data$Date, "%m%d%Y")
-sq_data_date <- subset(sq_data, Date <= "2018-10-14", select = c(Date, Age))
-sort(unique(sq_data_date$Date))
+One way to do it:
+
+```{python, class.source = 'fold-hide', results = TRUE}
+df[(df['country'] == 'Australia') & (df['year'] < 2000)].mean(numeric_only = True)
 ```
 
-:::
+Another way to do it: 
 
-:::summary
+```{python, class.source = 'fold-hide', results = TRUE}
+filtered_df = df[(df['country'] == 'Australia') & (df['year'] < 2000)]
+filtered_df['lifeExp'].mean()
+```
 
-Subsetting can be achieved in many ways. We can use indexing to get specific observations (rows) and / or variable (columns), we can use conditions on which to subset, we can use other functions like `is.na()` and `complete.cases()` to work around missing values, and we can use `subset()`, among other functions, subset.
-
-:::
-
-:::functions
-
-| Function | Description |
-| :--- | :--- |
-| `subset` | conditionally susbet a data frame |
-| `is.na` | conditionally test if values in a vector are `NA`. |
-| `complete.cases` | conditionally test if cases (rows) are complete. |
+There are many different ways that will lead to the same answer! Try to think of another way to do it!
 
 :::

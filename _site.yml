@@ -31,7 +31,7 @@ navbar:
       menu:
         - text: "Importing & Cleaning"
           href: part_09_importing-cleaning.html
-        - text: "Adding & Renaming Variables"
+        - text: "Adding Variables"
           href: part_10_variables-continued.html
         - text: "Subsetting"
           href: part_11_subsetting.html

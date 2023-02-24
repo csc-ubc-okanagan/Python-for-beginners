@@ -11,7 +11,7 @@
 
 
 
-<title>Adding &amp; Naming Variables</title>
+<title>Adding Variables</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,10 +405,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -447,115 +447,125 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Adding &amp; Naming Variables</h1>
+<h1 class="title toc-ignore">Adding Variables</h1>
 
 </div>
 
 
+<div id="creating-our-own-variables" class="section level3">
+<h3>Creating our own Variables</h3>
 <p>Occasionally we need to derive variables form existing information. A
-good example of this is conversion between scales. With our current data
-set, the variable “Above.Ground.Sight.Measurement” is ostensibly in feet
-– the data dictionary could be clearer about this. To bring this to a
-Canadian context, we might need these measurements in a metric
-equivalent.</p>
-<p>To do this, we could simply multiple the vector by 0.3048</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sq_data<span class="sc">$</span>Above.Ground.Sighter.Measurement <span class="ot">&lt;-</span> sq_data<span class="sc">$</span>Above.Ground.Sighter.Measurement <span class="sc">*</span> .<span class="dv">3048</span></span></code></pre></div>
-<p>An alternative approach would be to create a new variable and to
-populate it with the converted values, this way we have the measurements
-in their untouched imperial scale as well as their modified metric
-scale.</p>
-<p>This exercise will allow us to explore a couple of issues. The first
-is that our variable names with this data set are often quite verbose,
-not ideal for coding. So first we’ll make some changes to our variable
-names, keeping in mind of course that this is something we should have
-been thinking about from the beginning when we created our data
-dictionary!</p>
-<p>First, we’ll create a list of existing variable names for our data
-set</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(sq_colnames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(sq_data))</span></code></pre></div>
-<pre><code>##  [1] &quot;X&quot;                                         
-##  [2] &quot;Y&quot;                                         
-##  [3] &quot;Unique.Squirrel.ID&quot;                        
-##  [4] &quot;Hectare&quot;                                   
-##  [5] &quot;Shift&quot;                                     
-##  [6] &quot;Date&quot;                                      
-##  [7] &quot;Hectare.Squirrel.Number&quot;                   
-##  [8] &quot;Age&quot;                                       
-##  [9] &quot;Primary.Fur.Color&quot;                         
-## [10] &quot;Highlight.Fur.Color&quot;                       
-## [11] &quot;Combination.of.Primary.and.Highlight.Color&quot;
-## [12] &quot;Color.notes&quot;                               
-## [13] &quot;Location&quot;                                  
-## [14] &quot;Above.Ground.Sighter.Measurement&quot;          
-## [15] &quot;Specific.Location&quot;                         
-## [16] &quot;Running&quot;                                   
-## [17] &quot;Chasing&quot;                                   
-## [18] &quot;Climbing&quot;                                  
-## [19] &quot;Eating&quot;                                    
-## [20] &quot;Foraging&quot;                                  
-## [21] &quot;Other.Activities&quot;                          
-## [22] &quot;Kuks&quot;                                      
-## [23] &quot;Quaas&quot;                                     
-## [24] &quot;Moans&quot;                                     
-## [25] &quot;Tail.flags&quot;                                
-## [26] &quot;Tail.twitches&quot;                             
-## [27] &quot;Approaches&quot;                                
-## [28] &quot;Indifferent&quot;                               
-## [29] &quot;Runs.from&quot;                                 
-## [30] &quot;Other.Interactions&quot;                        
-## [31] &quot;Lat.Long&quot;</code></pre>
+good example of this is conversion between scales. If we wanted to
+change a measurement from metres to kilometres or weight in pounds to
+kilograms, we could do this simply by performing a basic operation on an
+entire column. In this situation, let’s start by multiplying two columns
+together to create a new column. Let’s say we want to know the total GDP
+for the country. This could be calculated by multiplying the
+<code>population</code> by the <code>GDP_per_Cap</code>.</p>
+<p>Again, if you are just starting here, let’s re-load in our original
+Gapminder data:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;Total_GDP&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;pop&#39;</span>] <span class="op">*</span> df[<span class="st">&#39;gdpPercap&#39;</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  year  lifeExp       pop   gdpPercap     Total_GDP
+## 0  Afghanistan      Asia  1952   28.801   8425333  779.445314  6.567086e+09
+## 1  Afghanistan      Asia  1957   30.332   9240934  820.853030  7.585449e+09
+## 2  Afghanistan      Asia  1962   31.997  10267083  853.100710  8.758856e+09
+## 3  Afghanistan      Asia  1967   34.020  11537966  836.197138  9.648014e+09
+## 4  Afghanistan      Asia  1972   36.088  13079460  739.981106  9.678553e+09</code></pre>
+<p>Since the number is too large to actually interpret, let’s divide it
+by 1 billion so that the unit of measure is in billions.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;Total_GDP&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;Total_GDP&#39;</span>] <span class="op">/</span> <span class="dv">1000000000</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename({<span class="st">&#39;Total_GDP&#39;</span>: <span class="st">&#39;TotalGDP_Bil&#39;</span>}, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  year  lifeExp       pop   gdpPercap  TotalGDP_Bil
+## 0  Afghanistan      Asia  1952   28.801   8425333  779.445314      6.567086
+## 1  Afghanistan      Asia  1957   30.332   9240934  820.853030      7.585449
+## 2  Afghanistan      Asia  1962   31.997  10267083  853.100710      8.758856
+## 3  Afghanistan      Asia  1967   34.020  11537966  836.197138      9.648014
+## 4  Afghanistan      Asia  1972   36.088  13079460  739.981106      9.678553</code></pre>
+<p>Note that if you were to run this multiple times, it would keep
+dividing by 1 billion each time, so we want to ensure it is only run
+once.</p>
+<p>Now, let’s say we want to create a new column that contains both the
+country and continent information together. This is a useful tool if you
+had information where a first name and last name were separated, or even
+there was a username and you wanted to create a new column by combining
+the username and an email extension. Let’s take a look at our
+example.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;Country_Cont&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;country&#39;</span>].astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">&#39;_&#39;</span> <span class="op">+</span> df[<span class="st">&#39;continent&#39;</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  year  ...   gdpPercap  TotalGDP_Bil      Country_Cont
+## 0  Afghanistan      Asia  1952  ...  779.445314      6.567086  Afghanistan_Asia
+## 1  Afghanistan      Asia  1957  ...  820.853030      7.585449  Afghanistan_Asia
+## 2  Afghanistan      Asia  1962  ...  853.100710      8.758856  Afghanistan_Asia
+## 3  Afghanistan      Asia  1967  ...  836.197138      9.648014  Afghanistan_Asia
+## 4  Afghanistan      Asia  1972  ...  739.981106      9.678553  Afghanistan_Asia
+## 
+## [5 rows x 8 columns]</code></pre>
+<p>There are so many different ways to perform an operation like this.
+You could use the <code>apply()</code> function, the <code>.agg()</code>
+function, <code>.map()</code> function, and more!</p>
 <div class="exercise">
-<p>This is a two parter.</p>
-<p>First, in <code>sq_colnames</code>, re-name
-‘Above.Ground.Sighter.Measurement’ to be more concise and indicate its
-scale; in fact, re-name it to <code>agsm.f</code>.
-<code>sq_colnames</code> is a vector, so we’ll want to use indexing by
-number.</p>
-<p>Second, using <code>colnames()</code>, update the variable names of
-<code>sq_data</code> to match those now in the vector
-<code>sq_colnames</code>.</p>
-<p>A plain language approach to this might be:</p>
+<p>Try creating your own column using either a basic mathematical
+operation on an existing column, or by combining two columns, or
+anything else you can think of!</p>
+<p>Some examples:</p>
 <ol style="list-style-type: decimal">
-<li>Identify the index position of ‘Above.Ground.Sighter.Measurement’ in
-<code>sq_colnames</code>.</li>
-<li>Re-assign the value associated with this index point to
-<code>agsm.f</code></li>
-<li>Re-assign the column names of <code>sq_data</code> to
-<code>sq_colnames</code></li>
+<li>Create a new column with the first three letters of the country
+name</li>
+<li>Convert the total GDP column back to the GDP per cap column by
+multiplying by 1 billion and then dividing by the population.</li>
+<li>Combine the country name with the year.</li>
 </ol>
 </div>
 <div class="solution">
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sq_colnames <span class="co"># list the columns and their index numbers</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sq_colnames[<span class="dv">14</span>] <span class="ot">&lt;-</span> <span class="st">&quot;agsm.f&quot;</span> <span class="co"># change the value at index point 14 to &#39;agsm.f&#39;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sq_data) <span class="ot">&lt;-</span> sq_colnames <span class="co"># re-assign the values in colnames(sq_data) to match those in sq_colnames</span></span></code></pre></div>
+<p>Here are the solutions to the examples provided above. If you thought
+of your own column, that is great!</p>
+<p>Solution to #1</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;first_3_letters&#39;</span>] <span class="op">=</span> df.country.<span class="bu">str</span>[:<span class="dv">3</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  year  ...  TotalGDP_Bil      Country_Cont  first_3_letters
+## 0  Afghanistan      Asia  1952  ...      6.567086  Afghanistan_Asia              Afg
+## 1  Afghanistan      Asia  1957  ...      7.585449  Afghanistan_Asia              Afg
+## 2  Afghanistan      Asia  1962  ...      8.758856  Afghanistan_Asia              Afg
+## 3  Afghanistan      Asia  1967  ...      9.648014  Afghanistan_Asia              Afg
+## 4  Afghanistan      Asia  1972  ...      9.678553  Afghanistan_Asia              Afg
+## 
+## [5 rows x 9 columns]</code></pre>
+<p>Solution to #2</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;converted_gdp_per_cap&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;TotalGDP_Bil&#39;</span>] <span class="op">*</span> <span class="dv">1000000000</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;converted_gdp_per_cap&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;converted_gdp_per_cap&#39;</span>] <span class="op">/</span> df[<span class="st">&#39;pop&#39;</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  ...  first_3_letters  converted_gdp_per_cap
+## 0  Afghanistan      Asia  ...              Afg             779.445314
+## 1  Afghanistan      Asia  ...              Afg             820.853030
+## 2  Afghanistan      Asia  ...              Afg             853.100710
+## 3  Afghanistan      Asia  ...              Afg             836.197138
+## 4  Afghanistan      Asia  ...              Afg             739.981106
+## 
+## [5 rows x 10 columns]</code></pre>
+<p>Solution to #3</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;Country_Year&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;country&#39;</span>].astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">&#39;_&#39;</span> <span class="op">+</span> df[<span class="st">&#39;year&#39;</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  ...  converted_gdp_per_cap      Country_Year
+## 0  Afghanistan      Asia  ...             779.445314  Afghanistan_1952
+## 1  Afghanistan      Asia  ...             820.853030  Afghanistan_1957
+## 2  Afghanistan      Asia  ...             853.100710  Afghanistan_1962
+## 3  Afghanistan      Asia  ...             836.197138  Afghanistan_1967
+## 4  Afghanistan      Asia  ...             739.981106  Afghanistan_1972
+## 
+## [5 rows x 11 columns]</code></pre>
 </div>
-<p>We now have any easy variable name to type and adapt!</p>
-<p>Creating a new variable in a dataframe is simply a matter of
-assigning some values to the desired variable.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sq_data<span class="sc">$</span>agsm.m <span class="ot">&lt;-</span> sq_data<span class="sc">$</span>agsm.f <span class="sc">*</span> .<span class="dv">3048</span> <span class="co"># create the variable agsm.m and populate it with the values in agsm.f times .3048</span></span></code></pre></div>
-<div class="summary">
-<p>Occasionally we need to rename variables, but when doing so we should
-be wary about cascading impacts on our documentation. We can easily add
-variables to an existing data frame.</p>
-</div>
-<div class="functions">
-<table>
-<thead>
-<tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><code>colnames</code></td>
-<td align="left">access the column names of a data frame.</td>
-</tr>
-</tbody>
-</table>
 </div>
 
 

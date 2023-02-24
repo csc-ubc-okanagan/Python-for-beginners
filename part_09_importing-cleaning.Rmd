@@ -7,7 +7,7 @@ output:
 
 Let's get back to importing data and doing some prelimiary analysis and cleaning.
 
-Recall, the Gapminder dataset. Let's reload it:
+Recall, the Gapminder data set. Let's reload it:
 
 ```{python}
 import pandas as pd
@@ -29,106 +29,91 @@ df['country'].isnull().sum()
 
 We could also replace the `.isnull()` with `.isna()`.
 
-If we wanted to look at changing the names of the columns in the data frame, 
-
-#### Renaming columns
-
-
-
-If it's not already loaded, read in the data set
-
-```{r, eval = FALSE}
-sq_data <- read.csv(file = 'data/2018-cp_squirrel_census.csv',
-                    header = TRUE,
-                    na.strings = c("", " ", "NA", "NULL", ".", "+")
-                    )
-```
-
-## Dates & Factors
-
-In addition to logical variables, our data set also has categorical data and date data. Categorical data in R is called factor data. We'll convert a single variable to factor to see how this behaves.
-
-```{r}
-sq_data$Age <- as.factor(sq_data$Age)
-
-str(sq_data$Age)
-
-levels(sq_data$Age)
-```
-
-This process highlights that we have one additional string character that should be converted to `NA` on import, `?`. Calling `str` tells us that we have a factor with three levels or categories. Calling `levels` lists those categories.
-
-Sometime the levels are not in the order we want them for ordinal categorical data. We can re-assign these.
-
-```{r}
-sq_data$Age <- factor(sq_data$Age, levels = c("Juvenile", "Adult", "?"))
-
-levels(sq_data$Age)
-
-str(sq_data$Age)
-```
+If there were missing values, we could view them in a graph using different formulas.
 
 :::exercise
 
-Using the help page for `as.Date`, convert the Date variable, currently structured as `int` to a date class variable.
+Try to create these graphs yourself! First, use the import statement:
+
+`import missingno as msno`
+
+Then try a few of the following lines:
+
+`msno.bar(df)`
+`msno.matrix(df)`
+`msno.heatmap(df)`
+`msno.dendrogram(df)`
 
 :::
 
-:::solution
+Checking for null or empty values is an important step in the data cleaning process. We will look at a few other steps to take in the cleaning process.
 
-`as.Date` requires a character input, so we must first convert our variable to a character format
+### Renaming Columns
 
-```{r, class.source = 'fold-hide', results = FALSE}
-sq_data$Date <- as.character(sq_data$Date)
+If we wanted to look at changing the names of the columns in the data frame, whether it is because of formatting or lack of clarity in the existing titles, we can do so easily.
+
+Let's say we wanted to change `country` to `Country`. In order for the changes to save, we have to update our stored variable by starting the code with `df = ...`.
+
+```{python}
+df = df.rename({'country': 'Country'}, axis = 1)
+df.head()
 ```
 
-Next, we need to specify to `as.Date` how our data is structured - where the year, month, and date are articulated, and whether the year is 4 digits or 2, and the months and days are abbreviated.
+Now let's say we want to change `lifeExp` to `Life_Expectancy`, `pop` to `Population` and `gdpPercap` to `GDP_per_Cap`.
 
-```{r, class.source = 'fold-hide', results = FALSE}
-sq_data$Date <- as.Date(sq_data$Date, "%m%d%Y")
+
+```{python}
+df = df.rename({'lifeExp': 'Life_Expectancy',
+                'pop': 'Population',
+                'gdpPercap': 'GDP_per_Cap'}, axis = 1)
+df.head()
 ```
 
-:::
+Now that our column titles are in order, we can determine the relevance of all of them. Let's say our analysis doesn't need the `continent` column, so we can get rid of it to simplify our data. To delete columns, we can do so like this:
 
-# Importing with a Data Dictionary
-
-The value of having a data dictionary in advance will go a long ways in facilitating this process.
-
-A data dictionary generally describes key attributes about your data - it will list your variables, provide a description of them, and indicate the base type of data it is.
-
-I have a very simple data dictionary for this project. Let's load that in
-
-```{r}
-dict_src <- "https://tinyurl.com/4kxt9n8e" # source of the file
-
-download.file(url = dict_src, destfile = 'data/_datadictionary.csv') # download and name the file
-
-data_dict <- read.csv("data/_datadictionary.csv") # read in the file
+```{python}
+df = df.drop(columns = {'continent'}, axis = 1)
+df.head()
 ```
 
-We'll now import our data in a slightly more efficient way
+If we deleted the column by accident, you just have to go back and run the original line of code where we loaded the data set to start fresh and remove the changes.
 
-```{r}
-na_values <- c("" , " ", ".", "NA", "NULL", "?", "+") # a list of values to use for na.strings
+Let's take a look at the data types in our data frame.
 
-data_types <- data_dict$data.import.class # a list of data types to feed to colClass
-
-sq_data <- read.csv(file = "data/2018-cp_squirrel_census.csv",
-         na.strings = na_values,
-         colClasses = data_types
-           )
-
-str(sq_data)
+```{python}
+df.dtypes
 ```
 
-At this point, we've got a pretty clean imported data set. It's likely we'll still find some issues with, but for now let's save it as a cleaned, version 0
+Let's say we want to change `Life_Expectancy` from a float (decimal value) to an integer.
 
-```{r}
-write.csv(sq_data, "data/2018-cp_squirrel_census_cleaned_v0.csv", row.names = FALSE)
+```{python}
+df['Life_Expectancy'] = df['Life_Expectancy'].astype(int)
+df.dtypes
 ```
 
-:::summary
+We could also convert multiple column types at once like this:
 
-On import, we can control many aspects of our data set, including setting NA values and assigning datat types and classes. This work is facilitated by being organized in advance. Creating a data dictionary will help to facilitate this process.
+```{python}
+df = df.astype({"Life_Expectancy": float, 
+                "Population": float})
+df.dtypes
+```
 
-:::
+If we wanted to count the number of unique in a column, we could do so like this:
+
+```{python}
+df.Country.unique().size
+```
+
+This means that there are 142 different countries in this data set. If we wanted to know how many years are recorded, we could do so similarly.
+
+```{python}
+df.year.unique().size
+```
+There are 12 different years of data for each of the 142 countries in this dataset. If we wanted to know the unique values for the years column, we can do so like this:
+
+```{python}
+df.year.unique()
+```
+
+Next, we'll continue the cleaning process by creating some of our own columns to help with our analysis.
