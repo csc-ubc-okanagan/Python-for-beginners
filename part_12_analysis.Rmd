@@ -17,13 +17,61 @@ url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapmin
 df = pd.read_csv(url)
 ```
 
+Let's say we want to fit a linear model to see if there is a relationship between population and time. First, let's do this with the entire dataset with all countries.
+
+```{python}
+import statsmodels.api as sm
+# define our x and y variables for clarity
+y = df['pop']
+x = df['year']
+x = sm.add_constant(x)
+model = sm.OLS(y,x).fit()
+model.summary()
+```
+
+There is a lot of information automatically calculated for us above. If we see the R squared value, it is very low, which is bad, because it means that our model is not explaining most of the variability in population.
+
+If we look at the p-values for the coefficient year, it is significant, which is a good sign.
+
+If we wanted the equation for this model, it would be:
+
+`Population = 506,100 * Year - 972,200,000`
+
+If we look at a scatter plot, we can visualize why our linear model isn't the best.
+
+```{r setup, include=FALSE}  
+library(knitr)  
+library(reticulate)  
+knitr::knit_engines$set(python = reticulate::eng_python)  
+```
 
 
 ```{python}
-import pandas_profiling as pp
-pp.ProfileReport(df)
+import matplotlib.pyplot as plt
+plt.scatter(x = df['year'], y = df['pop'])
 ```
 
-```{r}
-1+1
+We see that there are some countries that have a positive linear relationship with time and population, but not all, which could be why our model isn't fitting perfectly.
+
+Let's try fitting another linear model, but using only data from Africa.
+
+```{python}
+df_AF = df[df['continent'] == 'Africa']
+df_AF.head()
 ```
+
+```{python}
+y = df_AF['pop']
+x = df_AF['year']
+x = sm.add_constant(x)
+model1 = sm.OLS(y,x).fit()
+model1.summary()
+```
+
+Again, let's see how this data appears on a scatter plot.
+
+```{python}
+plt.scatter(x = df_AF['year'], y = df_AF['pop'])
+```
+
+Next, we'll take a look at more visualization tools available in Python.

@@ -11,7 +11,7 @@
 
 
 
-<title>Libraries</title>
+<title>Analysis</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,10 +405,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -447,149 +447,183 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Libraries</h1>
+<h1 class="title toc-ignore">Analysis</h1>
 
 </div>
 
 
-<p>So far, we’ve only been working with functions built in to a basic
-install of R. People write a lot of additional code and build or gather
-a lot of data sets that they package up ready for others to use in R.
-These bundles of code and data are called packages. Packages add
-additional functionality to what we can do with R. The central
-repository for R packages is CRAN – <a
-href="https://cran.r-project.org/">The Comprehensive R Archive
-Network</a>.</p>
-<p>Packages are installed in libraries on your system. Because of this,
-in R we install packages, but we load libraries to make them available
-for use. Libraries need to be loaded each time we launch R.</p>
-<p>You can see what packages are currently installed on you system
-with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>()</span></code></pre></div>
-<pre><code>##             Package      
-## abind       &quot;abind&quot;      
-## antiword    &quot;antiword&quot;   
-## ape         &quot;ape&quot;        
-## aplot       &quot;aplot&quot;      
-## AsioHeaders &quot;AsioHeaders&quot;
-## askpass     &quot;askpass&quot;    
-##             LibPath                                                               
-## abind       &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-## antiword    &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-## ape         &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-## aplot       &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-## AsioHeaders &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-## askpass     &quot;/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library&quot;
-##             Version    Priority Depends       
-## abind       &quot;1.4-5&quot;    NA       &quot;R (&gt;= 1.5.0)&quot;
-## antiword    &quot;1.3.1&quot;    NA       NA            
-## ape         &quot;5.6-2&quot;    NA       &quot;R (&gt;= 3.2.0)&quot;
-## aplot       &quot;0.1.9&quot;    NA       NA            
-## AsioHeaders &quot;1.22.1-2&quot; NA       NA            
-## askpass     &quot;1.1&quot;      NA       NA            
-##             Imports                                                                             
-## abind       &quot;methods, utils&quot;                                                                    
-## antiword    &quot;sys (&gt;= 2.0)&quot;                                                                      
-## ape         &quot;nlme, lattice, graphics, methods, stats, tools, utils,\nparallel, Rcpp (&gt;= 0.12.0)&quot;
-## aplot       &quot;ggfun (&gt;= 0.0.9), ggplot2, ggplotify, patchwork, magrittr,\nmethods, utils&quot;        
-## AsioHeaders NA                                                                                  
-## askpass     &quot;sys (&gt;= 2.1)&quot;                                                                      
-##             LinkingTo Suggests                      Enhances
-## abind       NA        NA                            NA      
-## antiword    NA        NA                            NA      
-## ape         &quot;Rcpp&quot;    &quot;gee, expm, igraph, phangorn&quot; NA      
-## aplot       NA        &quot;ggtree&quot;                      NA      
-## AsioHeaders NA        NA                            NA      
-## askpass     NA        &quot;testthat&quot;                    NA      
-##             License              License_is_FOSS License_restricts_use OS_type
-## abind       &quot;LGPL (&gt;= 2)&quot;        NA              NA                    NA     
-## antiword    &quot;GPL-2&quot;              NA              NA                    NA     
-## ape         &quot;GPL-2 | GPL-3&quot;      NA              NA                    NA     
-## aplot       &quot;Artistic-2.0&quot;       NA              NA                    NA     
-## AsioHeaders &quot;BSL-1.0&quot;            NA              NA                    NA     
-## askpass     &quot;MIT + file LICENSE&quot; NA              NA                    NA     
-##             MD5sum NeedsCompilation Built  
-## abind       NA     &quot;no&quot;             &quot;4.2.0&quot;
-## antiword    NA     &quot;yes&quot;            &quot;4.2.0&quot;
-## ape         NA     &quot;yes&quot;            &quot;4.2.0&quot;
-## aplot       NA     &quot;no&quot;             &quot;4.2.0&quot;
-## AsioHeaders NA     &quot;no&quot;             &quot;4.2.0&quot;
-## askpass     NA     &quot;yes&quot;            &quot;4.2.0&quot;</code></pre>
-<div class="exercise">
-<p>Calculate how many packages are installed on your system.</p>
-</div>
-<div class="solution">
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>installed_packages <span class="ot">&lt;-</span> <span class="fu">installed.packages</span>() <span class="co"># load the contents into a variable</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(installed_packages) <span class="co"># print the number of rows</span></span></code></pre></div>
-</div>
-<div id="installing-packages" class="section level2">
-<h2>Installing packages</h2>
-<p>New packages can be installed with</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;package-name&quot;</span>)</span></code></pre></div>
-<p>We need to install ggplot2</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
-</div>
-<div id="loading-packages" class="section level2">
-<h2>Loading packages</h2>
-<p>Packages can be loaded with</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(package<span class="sc">-</span>name)</span></code></pre></div>
-<p>So, to load ggplot</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
-<div class="note">
-<p>You will sometimes see people use <code>require()</code> instead of
-<code>library()</code> to load a package. Generally, either may be
-used.</p>
-<p>You’ll also note that when you install a package, the name is wrapped
-in quotation marks, <code>" "</code>, but when you load a package, it is
-not.</p>
-</div>
-</div>
-<div id="updating-packages" class="section level2">
-<h2>Updating packages</h2>
-<p>You can get a list of any packages with updates available with</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">old.packages</span>()</span></code></pre></div>
-<p>And packages can be updated with</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code></pre></div>
-<div class="summary">
-<p>Packages provide additional functionality. You can install packages
-with <code>install.packages()</code> and load them with
-<code>library()</code>.</p>
-</div>
-<div class="functions">
-<table>
-<thead>
-<tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
+<p>So far we have looked at cleaning, summarizing, and subsetting data,
+with some minor calculations, but we haven’t yet looked at analyzing our
+data.</p>
+<p>Python is a very powerful tool for data analysis. Similarly to R, we
+can fit linear models and view graphs. First, we will look at some basic
+data analysis processes in Python.</p>
+<p>Let’s re-load in our Gapminder data:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span></code></pre></div>
+<p>Let’s say we want to fit a linear model to see if there is a
+relationship between population and time. First, let’s do this with the
+entire dataset with all countries.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># define our x and y variables for clarity</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">&#39;pop&#39;</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df[<span class="st">&#39;year&#39;</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sm.add_constant(x)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y,x).fit()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code></pre></div>
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>           <td>pop</td>       <th>  R-squared:         </th> <td>   0.007</td> 
 </tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><code>installed.packages</code></td>
-<td align="left">print a matrix of installed packages</td>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.006</td> 
 </tr>
-<tr class="even">
-<td align="left"><code>install.packages</code></td>
-<td align="left">Install a new package.</td>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   11.61</td> 
 </tr>
-<tr class="odd">
-<td align="left"><code>library</code></td>
-<td align="left">Load an installed package.</td>
+<tr>
+  <th>Date:</th>             <td>Fri, 24 Feb 2023</td> <th>  Prob (F-statistic):</th> <td>0.000672</td> 
 </tr>
-<tr class="even">
-<td align="left"><code>old.packages</code></td>
-<td align="left">List packages with updates.</td>
+<tr>
+  <th>Time:</th>                 <td>13:32:52</td>     <th>  Log-Likelihood:    </th> <td> -33902.</td> 
 </tr>
-<tr class="odd">
-<td align="left"><code>update.packages</code></td>
-<td align="left">Update packages to the latest release.</td>
+<tr>
+  <th>No. Observations:</th>      <td>  1704</td>      <th>  AIC:               </th> <td>6.781e+04</td>
 </tr>
-</tbody>
+<tr>
+  <th>Df Residuals:</th>          <td>  1702</td>      <th>  BIC:               </th> <td>6.782e+04</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>    
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
+</tr>
 </table>
-</div>
-</div>
+<table class="simpletable">
+<tr>
+    <td></td>       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th> <td>-9.722e+08</td> <td> 2.94e+08</td> <td>   -3.306</td> <td> 0.001</td> <td>-1.55e+09</td> <td>-3.95e+08</td>
+</tr>
+<tr>
+  <th>year</th>  <td> 5.061e+05</td> <td> 1.49e+05</td> <td>    3.407</td> <td> 0.001</td> <td> 2.15e+05</td> <td> 7.97e+05</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>2403.823</td> <th>  Durbin-Watson:     </th>  <td>   0.187</td> 
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th>  <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>438354.240</td>
+</tr>
+<tr>
+  <th>Skew:</th>           <td> 8.286</td>  <th>  Prob(JB):          </th>  <td>    0.00</td> 
+</tr>
+<tr>
+  <th>Kurtosis:</th>       <td>79.807</td>  <th>  Cond. No.          </th>  <td>2.27e+05</td> 
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 2.27e+05. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+<p>There is a lot of information automatically calculated for us above.
+If we see the R squared value, it is very low, which is bad, because it
+means that our model is not explaining most of the variability in
+population.</p>
+<p>If we look at the p-values for the coefficient year, it is
+significant, which is a good sign.</p>
+<p>If we wanted the equation for this model, it would be:</p>
+<p><code>Population = 506,100 * Year - 972,200,000</code></p>
+<p>If we look at a scatter plot, we can visualize why our linear model
+isn’t the best.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(x <span class="op">=</span> df[<span class="st">&#39;year&#39;</span>], y <span class="op">=</span> df[<span class="st">&#39;pop&#39;</span>])</span></code></pre></div>
+<p><img src="part_12_analysis_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We see that there are some countries that have a positive linear
+relationship with time and population, but not all, which could be why
+our model isn’t fitting perfectly.</p>
+<p>Let’s try fitting another linear model, but using only data from
+Africa.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_AF <span class="op">=</span> df[df[<span class="st">&#39;continent&#39;</span>] <span class="op">==</span> <span class="st">&#39;Africa&#39;</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_AF.head()</span></code></pre></div>
+<pre><code>##     country continent  year  lifeExp       pop    gdpPercap
+## 24  Algeria    Africa  1952   43.077   9279525  2449.008185
+## 25  Algeria    Africa  1957   45.685  10270856  3013.976023
+## 26  Algeria    Africa  1962   48.303  11000948  2550.816880
+## 27  Algeria    Africa  1967   51.407  12760499  3246.991771
+## 28  Algeria    Africa  1972   54.518  14760787  4182.663766</code></pre>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_AF[<span class="st">&#39;pop&#39;</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df_AF[<span class="st">&#39;year&#39;</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sm.add_constant(x)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> sm.OLS(y,x).fit()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>model1.summary()</span></code></pre></div>
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>           <td>pop</td>       <th>  R-squared:         </th> <td>   0.074</td> 
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.072</td> 
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   49.66</td> 
+</tr>
+<tr>
+  <th>Date:</th>             <td>Fri, 24 Feb 2023</td> <th>  Prob (F-statistic):</th> <td>4.87e-12</td> 
+</tr>
+<tr>
+  <th>Time:</th>                 <td>13:32:56</td>     <th>  Log-Likelihood:    </th> <td> -11192.</td> 
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   624</td>      <th>  AIC:               </th> <td>2.239e+04</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   622</td>      <th>  BIC:               </th> <td>2.240e+04</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>    
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+    <td></td>       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th> <td>-4.728e+08</td> <td> 6.85e+07</td> <td>   -6.902</td> <td> 0.000</td> <td>-6.07e+08</td> <td>-3.38e+08</td>
+</tr>
+<tr>
+  <th>year</th>  <td> 2.438e+05</td> <td> 3.46e+04</td> <td>    7.047</td> <td> 0.000</td> <td> 1.76e+05</td> <td> 3.12e+05</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>477.344</td> <th>  Durbin-Watson:     </th> <td>   0.284</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>7771.738</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 3.336</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td>18.950</td>  <th>  Cond. No.          </th> <td>2.27e+05</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 2.27e+05. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+<p>Again, let’s see how this data appears on a scatter plot.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(x <span class="op">=</span> df_AF[<span class="st">&#39;year&#39;</span>], y <span class="op">=</span> df_AF[<span class="st">&#39;pop&#39;</span>])</span></code></pre></div>
+<p><img src="part_12_analysis_files/figure-html/unnamed-chunk-6-3.png" width="672" /></p>
+<p>Next, we’ll take a look at more visualization tools available in
+Python.</p>
 
 
 
