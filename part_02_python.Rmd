@@ -1,14 +1,17 @@
 ---
-title: "R & RStudio"
+title: "Python and Jupyter Notebook"
 output:
   html_document:
     code_folding: show
 ---
 
+
+
 ```{r echo=FALSE}
 knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
+
 
 ## What is Python
 
