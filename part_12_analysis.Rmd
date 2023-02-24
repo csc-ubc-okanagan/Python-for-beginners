@@ -29,6 +29,8 @@ model = sm.OLS(y,x).fit()
 model.summary()
 ```
 
+
+
 There is a lot of information automatically calculated for us above. If we see the R squared value, it is very low, which is bad, because it means that our model is not explaining most of the variability in population.
 
 If we look at the p-values for the coefficient year, it is significant, which is a good sign.
@@ -67,6 +69,8 @@ x = sm.add_constant(x)
 model1 = sm.OLS(y,x).fit()
 model1.summary()
 ```
+
+
 
 Again, let's see how this data appears on a scatter plot.
 

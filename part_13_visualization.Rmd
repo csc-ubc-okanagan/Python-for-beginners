@@ -5,3 +5,98 @@ output:
     code_folding: show
 ---
 
+matplotlib is a standard package used in Python for plotting. This is a basic plotting package, but does have limitations.
+
+If you are familiar with R, you may have used ggplot2 before. In Python, the equivalent package would be Altair. We will take a look at some basic Altair plotting tools.
+
+Let's switch things up now and use a different data set to visualize. Like R, Python has a few built-in data sets. A popular R dataset, iris, can also be found in Python. Let's load the iris data set here.
+
+```{python}
+import statsmodels.api as sm
+iris = sm.datasets.get_rdataset('iris').data
+iris
+```
+
+Let's first start by looking at matplotlib.
+
+We will take a look at a scatterplot of the first two columns in iris.
+
+```{python}
+import matplotlib.pyplot as plt
+plt.scatter(x = iris['Sepal.Length'], y = iris['Sepal.Width'])
+```
+
+How about a boxplot?
+
+```{python}
+new_data = iris[["Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"]]
+new_data.boxplot()
+```
+
+If we wanted to add a title and axis labels to the plot:
+
+```{python}
+new_data.boxplot()
+plt.title("Sample Boxplot")
+plt.xlabel("Measurements")
+plt.ylabel("Values")
+```
+
+::: exercise
+
+Try using the functions `plt.hist()` and `plt.bar()` to generate some other plots!
+
+:::
+
+Now, let's take a look at a few of Altair's functions. First, let's view a scatterplot of the first two columns in iris.
+
+```{r setup, include=FALSE}  
+library(knitr)  
+library(reticulate)  
+knitr::knit_engines$set(python = reticulate::eng_python)  
+knitr::include_graphics
+```
+
+
+```{python}
+import altair as alt
+alt.Chart(iris).mark_point().encode(
+      x = 'Sepal.Length',
+      y = 'Sepal.Width'
+)
+```
+
+If we wanted to view this same scatterplot but also distinguish by colour, we could add in one small line at the end.
+
+```{python}
+alt.Chart(iris).mark_point().encode(
+      x = 'Sepal.Length',
+      y = 'Sepal.Width',
+      color = 'Species'
+)
+```
+
+Unfortunately, Altair only accepts the US spelling of colour!
+
+If we wanted to show a boxplot for the different petal lengths, we could do so like this:
+
+```{python}
+alt.Chart(iris).mark_boxplot().encode(
+      x = 'Species',
+      y = 'Petal.Length'
+)
+```
+
+To make it look nicer, we could add colour to each species.
+
+```{python}
+alt.Chart(iris).mark_boxplot().encode(
+      x = 'Species',
+      y = 'Petal.Length',
+      color = 'Species'
+)
+```
+
+Many different Altair charts can be created using `mark_bar()`, `mark_line()`, `mark_point()`, `mark_rect()`, ad so many more!
+
+A complete list can be found [here](https://altair-viz.github.io/user_guide/marks.html#:~:text=Altair%20provides%20a%20number%20of%20basic%20mark%20properties%3A,Dot%20Per%20Zipcode%20%2010%20more%20rows%20)!

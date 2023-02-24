@@ -11,7 +11,7 @@
 
 
 
-<title>ggplot2</title>
+<title>Visualization</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,10 +405,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -447,478 +447,237 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">ggplot2</h1>
+<h1 class="title toc-ignore">Visualization</h1>
 
 </div>
 
 
-<div class="note">
-<p>This is a brief introduction. For more in depth examples and
-solutions, check out <a
-href="https://ggplot2-book.org/index.html">ggplot2: Elegant Graphics for
-Data Analysis</a> by Hadley Wickham, Danielle Navarro, and Thomas Lin
-Pedersen.</p>
-</div>
-<p><code>ggplot()</code> is based on a grammar graphics – a way of
-approaching describing the construction of a graphic from common
-building blocks. Building a graphic with ggplot then follows some common
-patterns of construction.</p>
-<p>At its most basic, we supply ggplot with a data set and some
-aesthetics to map – that is, the variables we wish to display on the
-plot and how they should appear. We then define a plot type.</p>
-<p>Step by step this looks like</p>
-<ol style="list-style-type: decimal">
-<li>call ggplot()</li>
-<li>provide ggplot with a data set</li>
-<li>provide ggplot with the variables of interest and their aesthetic
-properties</li>
-<li>define a plot type with geom_<em>plotType</em>()</li>
-</ol>
-<p>After this, we continue to add on layers. We can add on additional
-<code>geoms</code>, we can add on scale adjustments, statistical
-summaries etc. and finally we can adjust how the overall presentation
-looks, adjusting titles, labels, legends etc. The general form of this
-is something like:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># call ggplot and potentially feed in data and variables to plot to specific aesthetics</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom</span>() <span class="sc">+</span> <span class="co"># pick a plot type. Data and variables to plot to specific aesthetics can also be assigned here</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>() <span class="sc">+</span> <span class="co"># make adjustments to the scales</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>() <span class="sc">+</span> <span class="co"># customize labels</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  ... <span class="sc">+</span> <span class="co"># there are other options!</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>() <span class="co"># add some style</span></span></code></pre></div>
-<div id="levels-of-measurement-data-types" class="section level2">
-<h2>Levels of Measurement &amp; Data Types</h2>
-<p>We should briefly discuss levels of measurement. A common taxonomy
-breaks values into four levels:</p>
-<table>
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Level</th>
-<th align="left">Order</th>
-<th align="left">Description</th>
-<th align="left">Example</th>
-<th align="left">General Note</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Nominal</td>
-<td align="left">N</td>
-<td align="left">Classifies</td>
-<td align="left">Marital status</td>
-<td align="left">Pick a category</td>
-</tr>
-<tr class="even">
-<td align="left">Ordinal</td>
-<td align="left">Y</td>
-<td align="left">Classifies, &gt; &lt; comparisons</td>
-<td align="left">Education</td>
-<td align="left">Pick a preference</td>
-</tr>
-<tr class="odd">
-<td align="left">Interval</td>
-<td align="left">Y</td>
-<td align="left">Difference, - + comparisons</td>
-<td align="left">Number of people</td>
-<td align="left">Count something</td>
-</tr>
-<tr class="even">
-<td align="left">Ratio</td>
-<td align="left">Y</td>
-<td align="left">Magnitude, x / comparisons</td>
-<td align="left">Height</td>
-<td align="left">Measure something</td>
-</tr>
-</tbody>
-</table>
-<p>Not all visuals are appropriate for all levels. As a consequence, the
-options available to the various <code>geoms</code> that define the plot
-type will differ.</p>
-<p>Reflecting back on our earlier discussion of data types in R, nominal
-and ordinal data are generally categorical or ‘factor’, interval will be
-classified as integers, and ratio will be classified as double. If our
-data types are not properly assigned, R will generally try to ‘coerce’
-the data type to something that will work, but this isn’t always
-successful, nor is very good practice to make the system guess!</p>
-</div>
-<div id="get-some-data" class="section level2">
-<h2>Get Some Data</h2>
-<p>First we get some data</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span></code></pre></div>
-<p>And of course, check out the data</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(penguins)</span></code></pre></div>
-<pre><code>## tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
-##  $ species          : Factor w/ 3 levels &quot;Adelie&quot;,&quot;Chinstrap&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ island           : Factor w/ 3 levels &quot;Biscoe&quot;,&quot;Dream&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
-##  $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
-##  $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
-##  $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
-##  $ sex              : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 1 NA 1 2 1 2 NA NA ...
-##  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
-<div class="note">
-<p>The penguins data structure is a <code>tibble</code>. A tibble is
-very much like a data frame. It is not part of base R, but is introduced
-through Tidyverse, of which ggplot2 is one piece.</p>
-</div>
-<p>And optionally, view the data</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(penguins)</span></code></pre></div>
-</div>
-<div id="the-basic-graph" class="section level2">
-<h2>The Basic Graph</h2>
-<p>Following on the above, first we call ggplot and define our data
-set:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins)</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/ggplot_data-1.png" width="672" /></p>
-<p>An blank slate is prepared for us! Next, we add in the variables we
-want mapped.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> flipper_length_mm))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/ggplot_aes-1.png" width="672" /></p>
-<p>This sets us up with a blank grid with x and y axis ticks
-corresponding to your variable values and x and y axis labels
-corresponding to your variables.</p>
-<p>Now we call a plot type to represent our data, in this case, a
-scatter plot</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/ggplot_point-1.png" width="672" /></p>
-<p>There are several <code>geoms_</code> that we can choose from. These
-include:</p>
-<ul>
-<li>geom_bar() and geom_col() for bar charts</li>
-<li>geom_boxplot() for box and whisker plots</li>
-<li>geom_density() for density plots</li>
-<li>geom_freqpoly(), geom_histogram(), geom_violin(), and geom_dotplot
-for distributions</li>
-<li>geom_line() for connecting observations</li>
-<li>geom_point() and geom_jitter() for scatter plots</li>
-<li>geom_map() and geom_sf() for GIS data</li>
-</ul>
-<p>There are more…</p>
-<div class="note">
-<p>There are many aesthetics that we can map to <code>aes()</code> and
-each <code>geom_</code> will accept different aesthetics. You can review
-available aesthetics using the help pages. Those aesthetics in
-<strong>bold</strong> are required.</p>
-</div>
+<p>matplotlib is a standard package used in Python for plotting. This is
+a basic plotting package, but does have limitations.</p>
+<p>If you are familiar with R, you may have used ggplot2 before. In
+Python, the equivalent package would be Altair. We will take a look at
+some basic Altair plotting tools.</p>
+<p>Let’s switch things up now and use a different data set to visualize.
+Like R, Python has a few built-in data sets. A popular R dataset, iris,
+can also be found in Python. Let’s load the iris data set here.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> sm.datasets.get_rdataset(<span class="st">&#39;iris&#39;</span>).data</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>iris</span></code></pre></div>
+<pre><code>##      Sepal.Length  Sepal.Width  Petal.Length  Petal.Width    Species
+## 0             5.1          3.5           1.4          0.2     setosa
+## 1             4.9          3.0           1.4          0.2     setosa
+## 2             4.7          3.2           1.3          0.2     setosa
+## 3             4.6          3.1           1.5          0.2     setosa
+## 4             5.0          3.6           1.4          0.2     setosa
+## ..            ...          ...           ...          ...        ...
+## 145           6.7          3.0           5.2          2.3  virginica
+## 146           6.3          2.5           5.0          1.9  virginica
+## 147           6.5          3.0           5.2          2.0  virginica
+## 148           6.2          3.4           5.4          2.3  virginica
+## 149           5.9          3.0           5.1          1.8  virginica
+## 
+## [150 rows x 5 columns]</code></pre>
+<p>Let’s first start by looking at matplotlib.</p>
+<p>We will take a look at a scatterplot of the first two columns in
+iris.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(x <span class="op">=</span> iris[<span class="st">&#39;Sepal.Length&#39;</span>], y <span class="op">=</span> iris[<span class="st">&#39;Sepal.Width&#39;</span>])</span></code></pre></div>
+<p><img src="part_13_visualization_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>How about a boxplot?</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="op">=</span> iris[[<span class="st">&quot;Sepal.Length&quot;</span>, <span class="st">&quot;Sepal.Width&quot;</span>, <span class="st">&quot;Petal.Length&quot;</span>, <span class="st">&quot;Petal.Width&quot;</span>]]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>new_data.boxplot()</span></code></pre></div>
+<p><img src="part_13_visualization_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<p>If we wanted to add a title and axis labels to the plot:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>new_data.boxplot()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&quot;Sample Boxplot&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Measurements&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Values&quot;</span>)</span></code></pre></div>
+<p><img src="part_13_visualization_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
 <div class="exercise">
-<p>Using the above as a model, use <code>geom_jitter()</code> to plot
-<code>flipper_length_mm</code> against <code>species</code>.</p>
+<p>Try using the functions <code>plt.hist()</code> and
+<code>plt.bar()</code> to generate some other plots!</p>
 </div>
-<div class="solution">
+<p>Now, let’s take a look at a few of Altair’s functions. First, let’s
+view a scatterplot of the first two columns in iris.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>alt.Chart(iris).mark_point().encode(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="st">&#39;Sepal.Length&#39;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">&#39;Sepal.Width&#39;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="unnamed-chunk-5-altair-viz"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-cec64a69603471250e34d4faa36aa021"}, "mark": "point", "encoding": {"x": {"field": "Sepal.Length", "type": "quantitative"}, "y": {"field": "Sepal.Width", "type": "quantitative"}}, "height": 480.0, "width": 672.0, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-cec64a69603471250e34d4faa36aa021": [{"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.7, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 2.9, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.3, "Sepal.Width": 3.0, "Petal.Length": 1.1, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.8, "Sepal.Width": 4.0, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 4.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.3, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.8, "Petal.Length": 1.7, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.5, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.7, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.6, "Petal.Length": 1.0, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.3, "Petal.Length": 1.7, "Petal.Width": 0.5, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.9, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.0, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.5, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.1, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 4.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 4.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.2, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.0, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.5, "Sepal.Width": 2.3, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.6, "Petal.Width": 0.6, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.9, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.3, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.3, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 7.0, "Sepal.Width": 3.2, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.3, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.5, "Sepal.Width": 2.8, "Petal.Length": 4.6, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.5, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 4.7, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.4, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 2.9, "Petal.Length": 4.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.2, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.0, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 4.0, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.9, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.9, "Petal.Length": 3.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 4.1, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.5, "Petal.Length": 3.9, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.2, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.7, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 3.0, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.8, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.0, "Petal.Width": 1.7, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.9, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.6, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.8, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.7, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.4, "Petal.Length": 4.5, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.7, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.3, "Petal.Length": 4.4, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.5, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.6, "Petal.Length": 4.4, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.6, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.6, "Petal.Length": 4.0, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.3, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.7, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.9, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.1, "Sepal.Width": 2.5, "Petal.Length": 3.0, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 6.0, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.1, "Sepal.Width": 3.0, "Petal.Length": 5.9, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.9, "Petal.Length": 5.6, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.6, "Sepal.Width": 3.0, "Petal.Length": 6.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.5, "Petal.Length": 4.5, "Petal.Width": 1.7, "Species": "virginica"}, {"Sepal.Length": 7.3, "Sepal.Width": 2.9, "Petal.Length": 6.3, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 2.5, "Petal.Length": 5.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.6, "Petal.Length": 6.1, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.2, "Petal.Length": 5.1, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.7, "Petal.Length": 5.3, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 5.3, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.8, "Petal.Length": 6.7, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.6, "Petal.Length": 6.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 5.0, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.2, "Petal.Length": 5.7, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.8, "Petal.Length": 4.9, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.8, "Petal.Length": 6.7, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.7, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.2, "Petal.Length": 6.0, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 1.6, "Species": "virginica"}, {"Sepal.Length": 7.4, "Sepal.Width": 2.8, "Petal.Length": 6.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.9, "Sepal.Width": 3.8, "Petal.Length": 6.4, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.6, "Petal.Length": 5.6, "Petal.Width": 1.4, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.0, "Petal.Length": 6.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.4, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.1, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.0, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.4, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.2, "Petal.Length": 5.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 3.4, "Petal.Length": 5.4, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 5.1, "Petal.Width": 1.8, "Species": "virginica"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('unnamed-chunk-5-altair-viz');
+      vegaEmbed("#unnamed-chunk-5-altair-viz", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
+<p>If we wanted to view this same scatterplot but also distinguish by
+colour, we could add in one small line at the end.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>alt.Chart(iris).mark_point().encode(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="st">&#39;Sepal.Length&#39;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">&#39;Sepal.Width&#39;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      color <span class="op">=</span> <span class="st">&#39;Species&#39;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="unnamed-chunk-6-altair-viz"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-cec64a69603471250e34d4faa36aa021"}, "mark": "point", "encoding": {"color": {"field": "Species", "type": "nominal"}, "x": {"field": "Sepal.Length", "type": "quantitative"}, "y": {"field": "Sepal.Width", "type": "quantitative"}}, "height": 480.0, "width": 672.0, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-cec64a69603471250e34d4faa36aa021": [{"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.7, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 2.9, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.3, "Sepal.Width": 3.0, "Petal.Length": 1.1, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.8, "Sepal.Width": 4.0, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 4.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.3, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.8, "Petal.Length": 1.7, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.5, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.7, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.6, "Petal.Length": 1.0, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.3, "Petal.Length": 1.7, "Petal.Width": 0.5, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.9, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.0, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.5, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.1, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 4.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 4.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.2, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.0, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.5, "Sepal.Width": 2.3, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.6, "Petal.Width": 0.6, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.9, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.3, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.3, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 7.0, "Sepal.Width": 3.2, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.3, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.5, "Sepal.Width": 2.8, "Petal.Length": 4.6, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.5, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 4.7, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.4, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 2.9, "Petal.Length": 4.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.2, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.0, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 4.0, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.9, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.9, "Petal.Length": 3.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 4.1, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.5, "Petal.Length": 3.9, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.2, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.7, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 3.0, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.8, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.0, "Petal.Width": 1.7, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.9, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.6, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.8, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.7, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.4, "Petal.Length": 4.5, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.7, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.3, "Petal.Length": 4.4, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.5, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.6, "Petal.Length": 4.4, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.6, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.6, "Petal.Length": 4.0, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.3, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.7, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.9, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.1, "Sepal.Width": 2.5, "Petal.Length": 3.0, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 6.0, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.1, "Sepal.Width": 3.0, "Petal.Length": 5.9, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.9, "Petal.Length": 5.6, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.6, "Sepal.Width": 3.0, "Petal.Length": 6.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.5, "Petal.Length": 4.5, "Petal.Width": 1.7, "Species": "virginica"}, {"Sepal.Length": 7.3, "Sepal.Width": 2.9, "Petal.Length": 6.3, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 2.5, "Petal.Length": 5.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.6, "Petal.Length": 6.1, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.2, "Petal.Length": 5.1, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.7, "Petal.Length": 5.3, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 5.3, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.8, "Petal.Length": 6.7, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.6, "Petal.Length": 6.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 5.0, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.2, "Petal.Length": 5.7, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.8, "Petal.Length": 4.9, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.8, "Petal.Length": 6.7, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.7, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.2, "Petal.Length": 6.0, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 1.6, "Species": "virginica"}, {"Sepal.Length": 7.4, "Sepal.Width": 2.8, "Petal.Length": 6.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.9, "Sepal.Width": 3.8, "Petal.Length": 6.4, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.6, "Petal.Length": 5.6, "Petal.Width": 1.4, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.0, "Petal.Length": 6.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.4, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.1, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.0, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.4, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.2, "Petal.Length": 5.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 3.4, "Petal.Length": 5.4, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 5.1, "Petal.Width": 1.8, "Species": "virginica"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('unnamed-chunk-6-altair-viz');
+      vegaEmbed("#unnamed-chunk-6-altair-viz", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
+<p>Unfortunately, Altair only accepts the US spelling of colour!</p>
+<p>If we wanted to show a boxplot for the different petal lengths, we
+could do so like this:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>alt.Chart(iris).mark_boxplot().encode(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="st">&#39;Species&#39;</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">&#39;Petal.Length&#39;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="unnamed-chunk-7-altair-viz"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-cec64a69603471250e34d4faa36aa021"}, "mark": "boxplot", "encoding": {"x": {"field": "Species", "type": "nominal"}, "y": {"field": "Petal.Length", "type": "quantitative"}}, "height": 480.0, "width": 672.0, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-cec64a69603471250e34d4faa36aa021": [{"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.7, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 2.9, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.3, "Sepal.Width": 3.0, "Petal.Length": 1.1, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.8, "Sepal.Width": 4.0, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 4.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.3, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.8, "Petal.Length": 1.7, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.5, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.7, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.6, "Petal.Length": 1.0, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.3, "Petal.Length": 1.7, "Petal.Width": 0.5, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.9, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.0, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.5, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.1, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 4.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 4.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.2, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.0, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.5, "Sepal.Width": 2.3, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.6, "Petal.Width": 0.6, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.9, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.3, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.3, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 7.0, "Sepal.Width": 3.2, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.3, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.5, "Sepal.Width": 2.8, "Petal.Length": 4.6, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.5, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 4.7, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.4, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 2.9, "Petal.Length": 4.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.2, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.0, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 4.0, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.9, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.9, "Petal.Length": 3.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 4.1, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.5, "Petal.Length": 3.9, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.2, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.7, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 3.0, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.8, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.0, "Petal.Width": 1.7, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.9, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.6, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.8, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.7, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.4, "Petal.Length": 4.5, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.7, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.3, "Petal.Length": 4.4, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.5, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.6, "Petal.Length": 4.4, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.6, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.6, "Petal.Length": 4.0, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.3, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.7, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.9, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.1, "Sepal.Width": 2.5, "Petal.Length": 3.0, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 6.0, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.1, "Sepal.Width": 3.0, "Petal.Length": 5.9, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.9, "Petal.Length": 5.6, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.6, "Sepal.Width": 3.0, "Petal.Length": 6.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.5, "Petal.Length": 4.5, "Petal.Width": 1.7, "Species": "virginica"}, {"Sepal.Length": 7.3, "Sepal.Width": 2.9, "Petal.Length": 6.3, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 2.5, "Petal.Length": 5.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.6, "Petal.Length": 6.1, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.2, "Petal.Length": 5.1, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.7, "Petal.Length": 5.3, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 5.3, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.8, "Petal.Length": 6.7, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.6, "Petal.Length": 6.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 5.0, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.2, "Petal.Length": 5.7, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.8, "Petal.Length": 4.9, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.8, "Petal.Length": 6.7, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.7, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.2, "Petal.Length": 6.0, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 1.6, "Species": "virginica"}, {"Sepal.Length": 7.4, "Sepal.Width": 2.8, "Petal.Length": 6.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.9, "Sepal.Width": 3.8, "Petal.Length": 6.4, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.6, "Petal.Length": 5.6, "Petal.Width": 1.4, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.0, "Petal.Length": 6.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.4, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.1, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.0, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.4, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.2, "Petal.Length": 5.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 3.4, "Petal.Length": 5.4, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 5.1, "Petal.Width": 1.8, "Species": "virginica"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('unnamed-chunk-7-altair-viz');
+      vegaEmbed("#unnamed-chunk-7-altair-viz", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
+<p>To make it look nicer, we could add colour to each species.</p>
 <div class="sourceCode" id="cb9"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/solution_1-1.png" width="672" /></p>
-</div>
-</div>
-<div id="a-basic-bar-graph" class="section level2">
-<h2>A Basic Bar Graph</h2>
-<p>We’ll now plot a bar plot, which only maps one variable as the other
-variable is simply a count of observations, which is computed as part of
-the process of generating the graph.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> sex)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/basic_bar-1.png" width="672" /></p>
-<p>If we already had the count data, we would use
-<code>geom_col()</code>, but then we need to provide the y aesthetic. R
-provides an easy way to get a frequency table with the function
-<code>table()</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(sex_freqtable <span class="ot">&lt;-</span> <span class="fu">table</span>(penguins<span class="sc">$</span>sex))</span></code></pre></div>
-<pre><code>## 
-## female   male 
-##    165    168</code></pre>
-<p><code>NA</code> values are dropped by default.</p>
-<p>We can’t plot a table. To be able to plot this, we need to convert
-the table into a data frame.</p>
-<div class="exercise">
-<p>Use <code>geom_col()</code> to plot <code>sex_freqtable</code>. A
-plain language articulation of the process would read something
-like:</p>
-<ol style="list-style-type: decimal">
-<li>convert <code>sex_freqtable</code> to a dataframe</li>
-<li>figure out the variable names in the dataframe that is created</li>
-<li>call ggplot, feed it the data frame and the variables to be
-plotted</li>
-<li>add <code>geom_col()</code></li>
-</ol>
-</div>
-<div class="solution">
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sex_freqtable_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sex_freqtable) <span class="co"># convert to data frame</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sex_freqtable_df) <span class="co"># pull up the struture</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> sex_freqtable_df, <span class="fu">aes</span>(<span class="at">x =</span> Var1, <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/solution_2-1.png" width="672" /></p>
-</div>
-</div>
-<div id="additional-aesthetics" class="section level2">
-<h2>Additional Aesthetics</h2>
-<p>Beyond articulating the variables on the x and y plane, we can also
-articulate variables according to other aesthetics properties, such as
-colour and size.</p>
-<p>Using a bar plot</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/bar_fill-1.png" width="672" /></p>
-<p>Let’s get rid of those <code>NA</code> values. ggplot allows us to
-subset.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/bar_fill_na-1.png" width="672" /></p>
-<p>Using our jitter plot</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> flipper_length_mm, <span class="at">colour =</span> island)) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/jitter-1.png" width="672" /></p>
-<div class="exercise">
-<p>Using the penguins data set, use <code>geom_point()</code> to plot
-<code>flipper_length_mm</code> against <code>bill_length_mm</code> only
-for those instances where the variable <code>sex</code> is not
-<code>NA</code>, and map the aesthetic <code>size</code> to the variable
-<code>sex</code>.</p>
-<p>A plain language summary might read:</p>
-<ol style="list-style-type: decimal">
-<li>call ggplot</li>
-<li>feed it the penguins data set subsetted to remove <code>NA</code>
-values from the variable <code>sex</code></li>
-<li>map the variable <code>bill_length_mm</code> to the x axis,
-<code>flipper_length_mm</code> to the y axis, and <code>sex</code> to
-size</li>
-<li>call <code>geom_point()</code></li>
-</ol>
-</div>
-<div class="solution">
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> flipper_length_mm, <span class="at">size =</span> sex)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/size_point-1.png" width="672" /></p>
-</div>
-<div class="note">
-<p>You should get a warning that reads
-<code>Using size for a discrete variable is not advised.</code> This is
-valid. Size comparisons are one of magnitude while the <code>sex</code>
-variable represents two discrete, non-ordinal categories. The graph can
-be produced, but that doesn’t mean it’s a good graph for the data.</p>
-</div>
-<p>It would be more appropriate to use colour to distinguish between a
-non-ordinal, categorical variable and to use size for something like
-body mass.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">subset</span>(penguins,<span class="sc">!</span><span class="fu">is.na</span>(sex)),</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> flipper_length_mm,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> sex,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/colour_point-1.png" width="672" /></p>
-<p>Things get a little hard to see here though!</p>
-<div class="note">
-<p>To keep things legible in our code, you may wish to use a line break
-at the end of each argument.</p>
-</div>
-</div>
-<div id="scales" class="section level2">
-<h2>Scales</h2>
-<p>Our scales can be adjusted in many different ways, for example,
-changing the colour, fill, alpha, x, or y scales.</p>
-<div class="note">
-<p><code>alpha</code> controls opacity and is on a scale of 0 to 1, with
-0 being transparent and 1 being solid. Like jitter, this helps us to see
-overlapping data points.</p>
-</div>
-<p>We’ll start by mapping the variable <code>sex</code> to the
-<code>alpha</code> aesthetic and then adjust the alpha scale, which
-allows us to set each category at a different opacity.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)),</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> flipper_length_mm,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> sex,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> body_mass_g,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> sex)) <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>)) <span class="co"># we have to levels to our factor, so we need to supply two values </span></span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/alpha_point-1.png" width="672" /></p>
-<p>Since alpha only refers to colour, we can also provide the argument
-with a single value within the aesthetic mapping, which maps that alpha
-value to all variables</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)),</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> flipper_length_mm,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> sex,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> body_mass_g,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/alpha_point_2-1.png" width="672" /></p>
-<p>The result is a little odd, since 0.5 is now being treated as a
-variable that requires a legend. We’ll sort that one out later!</p>
-<p>In these cases, we’ve manually adjusted the alpha scale. Similarly,
-we could manually adjust the colour scale</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)),</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> flipper_length_mm,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> sex,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> body_mass_g,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/colour_point_alpha-1.png" width="672" /></p>
-<p>We don’t need to complete all scales manually. One situation in which
-this might be handy is for colours. There is a great tool called
-ColourBrewer that has set scales for working with non-ordinal, ordinal,
-and ratio data.</p>
-<p>Install the package and load the library</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RColourBrewer&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code></pre></div>
-<p>Check out what’s available:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/list_cb-1.png" width="672" /></p>
-<p>Pick a colour set and add the scale</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)),</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> flipper_length_mm,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> sex,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> body_mass_g,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/custom_cb-1.png" width="672" /></p>
-</div>
-<div id="labeling-and-captions" class="section level2">
-<h2>Labeling and captions</h2>
-<p>Labels default to our variable names, which may not be what we want
-on our graph. We can override this with <code>labs()</code>. We’ll
-investigate this with a box plot.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body Mass (grams)&quot;</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/labs_1-1.png" width="672" /></p>
-<p>We can also add titles and captions.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body Mass (grams)&quot;</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Palmer Penguins&quot;</span>,</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Palmer Penguins. Body mass grouped by sex. n = 333.&quot;</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/labs_2-1.png" width="672" /></p>
-<p>And our text can leverage variables, using for example
-<code>paste0()</code>, which combines strings together.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>observations <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex))) <span class="co"># count the number of observations</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body Mass (grams)&quot;</span>,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Palmer Penguins&quot;</span>,</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">&quot;Palmer Penguins. Body mass grouped by sex. n = &quot;</span>, observations, <span class="st">&quot;.&quot;</span>) <span class="co"># print the number of observations</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-</div>
-<div id="more-than-one-geom" class="section level2">
-<h2>More than one geom</h2>
-<p>More than one geom can help to convey more information. To do this,
-we feed our data set and aesthetic mappings into <code>ggplot()</code>,
-and then call multiple geoms to represent those variables.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.10</span>) <span class="sc">+</span> <span class="co"># control the width of the jitter geom</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body Mass (grams)&quot;</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Palmer Penguins&quot;</span>,</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="fu">paste0</span>(<span class="st">&quot;Palmer Penguins. Body mass grouped by sex. n = &quot;</span>, observations, <span class="st">&quot;.&quot;</span>))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-</div>
-<div id="more-than-one-plot" class="section level2">
-<h2>More than one plot</h2>
-<p>There are several ways to place more than one plot side by side. One
-of the easiest is to use patchwork.</p>
-<p>Install</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;patchwork&quot;</span>)</span></code></pre></div>
-<p>Load</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
-<p>We can store plots inside variables to be called when we want. This
-is necessary with patchwork.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">subset</span>(penguins, <span class="sc">!</span><span class="fu">is.na</span>(sex)), <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass_g))</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>penguins_boxplot <span class="ot">&lt;-</span> base_plot <span class="sc">+</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>penguins_jitter <span class="ot">&lt;-</span> base_plot <span class="sc">+</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.10</span>)</span></code></pre></div>
-<p>We can then use patchwork to arrange our plots</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>penguins_boxplot <span class="sc">+</span> penguins_jitter</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>penguins_boxplot <span class="sc">/</span> penguins_jitter</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div class="note">
-<p>There are many ways in which patchwork can arrange plots. See the
-chapter <a
-href="https://ggplot2-book.org/arranging-plots.html">Arranging Plots</a>
-in <em>ggplot2: Elegant Graphics for Data Analysis</em> for more complex
-examples.</p>
-</div>
-</div>
-<div id="faceting-a-plot" class="section level2">
-<h2>Faceting a Plot</h2>
-<p>ggplot also has built in faceting options, <code>facet_grid()</code>
-and <code>facet_wrap()</code>, allowing use to break a plot on discrete
-variables.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>penguins_jitter <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(island))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/facet_grid_1-1.png" width="672" /></p>
-<p><code>facet_grid()</code> produces produces a grid for each
-combination of variables, whether there are values for that combination
-or not.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penguins_jitter <span class="sc">+</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(species), <span class="at">rows =</span> <span class="fu">vars</span>(island))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/facet_grid_2-1.png" width="672" /></p>
-<p><code>facet_wrap()</code> on the other hand, only produces a grid for
-those variables with combinations.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>penguins_jitter <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(species, island))</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/facet_grid_3-1.png" width="672" /></p>
-</div>
-<div id="themes" class="section level2 unnumbered">
-<h2 class="unnumbered">Themes</h2>
-<p>There are many built in themes, as well as ways to customize
-themes.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/density_1-1.png" width="672" /></p>
-<p>Within a theme, we can start to customize other elements. Things that
-we can customize included axes elements, legend elements, panel
-elements, and plot elements. For example, we can build on the theme
-minimal and remove the panel grids above, we do this with a separate,
-additional call to theme():</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">fill =</span> species, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="part_13_ggplot2_files/figure-html/density_2-1.png" width="672" /></p>
-<div class="note">
-<p>A full list of theme options are available on the <a
-href="https://ggplot2.tidyverse.org/reference/theme.html">ggplot theme
-reference page</a>.</p>
-</div>
-</div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>alt.Chart(iris).mark_boxplot().encode(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="st">&#39;Species&#39;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">&#39;Petal.Length&#39;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      color <span class="op">=</span> <span class="st">&#39;Species&#39;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="unnamed-chunk-8-altair-viz"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-cec64a69603471250e34d4faa36aa021"}, "mark": "boxplot", "encoding": {"color": {"field": "Species", "type": "nominal"}, "x": {"field": "Species", "type": "nominal"}, "y": {"field": "Petal.Length", "type": "quantitative"}}, "height": 480.0, "width": 672.0, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-cec64a69603471250e34d4faa36aa021": [{"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.7, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 2.9, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.3, "Sepal.Width": 3.0, "Petal.Length": 1.1, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.8, "Sepal.Width": 4.0, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 4.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.9, "Petal.Length": 1.3, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.5, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.8, "Petal.Length": 1.7, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.5, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.7, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.6, "Petal.Length": 1.0, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.3, "Petal.Length": 1.7, "Petal.Width": 0.5, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.4, "Petal.Length": 1.9, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.0, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.4, "Petal.Length": 1.6, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.5, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 3.4, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.7, "Sepal.Width": 3.2, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.1, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 5.2, "Sepal.Width": 4.1, "Petal.Length": 1.5, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 4.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.1, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.2, "Petal.Length": 1.2, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.5, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.9, "Sepal.Width": 3.6, "Petal.Length": 1.4, "Petal.Width": 0.1, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.0, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.4, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.5, "Sepal.Width": 2.3, "Petal.Length": 1.3, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 4.4, "Sepal.Width": 3.2, "Petal.Length": 1.3, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.5, "Petal.Length": 1.6, "Petal.Width": 0.6, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.9, "Petal.Width": 0.4, "Species": "setosa"}, {"Sepal.Length": 4.8, "Sepal.Width": 3.0, "Petal.Length": 1.4, "Petal.Width": 0.3, "Species": "setosa"}, {"Sepal.Length": 5.1, "Sepal.Width": 3.8, "Petal.Length": 1.6, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 4.6, "Sepal.Width": 3.2, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.3, "Sepal.Width": 3.7, "Petal.Length": 1.5, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 5.0, "Sepal.Width": 3.3, "Petal.Length": 1.4, "Petal.Width": 0.2, "Species": "setosa"}, {"Sepal.Length": 7.0, "Sepal.Width": 3.2, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.3, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.5, "Sepal.Width": 2.8, "Petal.Length": 4.6, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.5, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 4.7, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.4, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 2.9, "Petal.Length": 4.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.2, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.0, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 4.0, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.9, "Petal.Length": 4.7, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.9, "Petal.Length": 3.6, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 4.1, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.2, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.5, "Petal.Length": 3.9, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.2, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 4.9, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.8, "Petal.Length": 4.7, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.6, "Sepal.Width": 3.0, "Petal.Length": 4.4, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.8, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.0, "Petal.Width": 1.7, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.9, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.6, "Petal.Length": 3.5, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.8, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.4, "Petal.Length": 3.7, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 3.9, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 5.4, "Sepal.Width": 3.0, "Petal.Length": 4.5, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.4, "Petal.Length": 4.5, "Petal.Width": 1.6, "Species": "versicolor"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 4.7, "Petal.Width": 1.5, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.3, "Petal.Length": 4.4, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 3.0, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.5, "Petal.Length": 4.0, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.5, "Sepal.Width": 2.6, "Petal.Length": 4.4, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.6, "Petal.Width": 1.4, "Species": "versicolor"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.6, "Petal.Length": 4.0, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.0, "Sepal.Width": 2.3, "Petal.Length": 3.3, "Petal.Width": 1.0, "Species": "versicolor"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.7, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 3.0, "Petal.Length": 4.2, "Petal.Width": 1.2, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.9, "Petal.Length": 4.2, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.9, "Petal.Length": 4.3, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 5.1, "Sepal.Width": 2.5, "Petal.Length": 3.0, "Petal.Width": 1.1, "Species": "versicolor"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.8, "Petal.Length": 4.1, "Petal.Width": 1.3, "Species": "versicolor"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.3, "Petal.Length": 6.0, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.1, "Sepal.Width": 3.0, "Petal.Length": 5.9, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.9, "Petal.Length": 5.6, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.6, "Sepal.Width": 3.0, "Petal.Length": 6.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 4.9, "Sepal.Width": 2.5, "Petal.Length": 4.5, "Petal.Width": 1.7, "Species": "virginica"}, {"Sepal.Length": 7.3, "Sepal.Width": 2.9, "Petal.Length": 6.3, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 2.5, "Petal.Length": 5.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.6, "Petal.Length": 6.1, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.2, "Petal.Length": 5.1, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.7, "Petal.Length": 5.3, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 5.7, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.2, "Petal.Length": 5.3, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.8, "Petal.Length": 6.7, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.6, "Petal.Length": 6.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 2.2, "Petal.Length": 5.0, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.2, "Petal.Length": 5.7, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.6, "Sepal.Width": 2.8, "Petal.Length": 4.9, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 2.8, "Petal.Length": 6.7, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.7, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.2, "Petal.Length": 6.0, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 2.8, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 3.0, "Petal.Length": 4.9, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 7.2, "Sepal.Width": 3.0, "Petal.Length": 5.8, "Petal.Width": 1.6, "Species": "virginica"}, {"Sepal.Length": 7.4, "Sepal.Width": 2.8, "Petal.Length": 6.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 7.9, "Sepal.Width": 3.8, "Petal.Length": 6.4, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 2.8, "Petal.Length": 5.6, "Petal.Width": 2.2, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.8, "Petal.Length": 5.1, "Petal.Width": 1.5, "Species": "virginica"}, {"Sepal.Length": 6.1, "Sepal.Width": 2.6, "Petal.Length": 5.6, "Petal.Width": 1.4, "Species": "virginica"}, {"Sepal.Length": 7.7, "Sepal.Width": 3.0, "Petal.Length": 6.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 3.4, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.4, "Sepal.Width": 3.1, "Petal.Length": 5.5, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.0, "Sepal.Width": 3.0, "Petal.Length": 4.8, "Petal.Width": 1.8, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.4, "Petal.Width": 2.1, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.1, "Petal.Length": 5.6, "Petal.Width": 2.4, "Species": "virginica"}, {"Sepal.Length": 6.9, "Sepal.Width": 3.1, "Petal.Length": 5.1, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.8, "Sepal.Width": 2.7, "Petal.Length": 5.1, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.8, "Sepal.Width": 3.2, "Petal.Length": 5.9, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.3, "Petal.Length": 5.7, "Petal.Width": 2.5, "Species": "virginica"}, {"Sepal.Length": 6.7, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 6.3, "Sepal.Width": 2.5, "Petal.Length": 5.0, "Petal.Width": 1.9, "Species": "virginica"}, {"Sepal.Length": 6.5, "Sepal.Width": 3.0, "Petal.Length": 5.2, "Petal.Width": 2.0, "Species": "virginica"}, {"Sepal.Length": 6.2, "Sepal.Width": 3.4, "Petal.Length": 5.4, "Petal.Width": 2.3, "Species": "virginica"}, {"Sepal.Length": 5.9, "Sepal.Width": 3.0, "Petal.Length": 5.1, "Petal.Width": 1.8, "Species": "virginica"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('unnamed-chunk-8-altair-viz');
+      vegaEmbed("#unnamed-chunk-8-altair-viz", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
+<p>Many different Altair charts can be created using
+<code>mark_bar()</code>, <code>mark_line()</code>,
+<code>mark_point()</code>, <code>mark_rect()</code>, ad so many
+more!</p>
+<p>A complete list can be found <a
+href="https://altair-viz.github.io/user_guide/marks.html#:~:text=Altair%20provides%20a%20number%20of%20basic%20mark%20properties%3A,Dot%20Per%20Zipcode%20%2010%20more%20rows%20">here</a>!</p>
 
 
 
