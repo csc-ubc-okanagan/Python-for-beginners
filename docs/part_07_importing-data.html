@@ -345,7 +345,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -366,7 +366,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -393,7 +393,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -405,7 +405,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -423,10 +423,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -452,248 +452,163 @@ $(document).ready(function () {
 </div>
 
 
-<p>We’re going to work with a (hopefully) fun data set today, which
-we’ll download and then import.</p>
+<p>We’re going to work with a data set today, which we won’t even have
+to download. We are going to access this data set through a URL which
+will save on storage.</p>
 <div class="note">
 <ul>
 <li>See the data here: <a
-href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-29"
-class="uri">https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-29</a></li>
-<li>Read about the project here: <a
-href="https://www.thesquirrelcensus.com/"
-class="uri">https://www.thesquirrelcensus.com/</a></li>
+href="https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv"
+class="uri">https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv</a></li>
 </ul>
 </div>
-<p>First things first, we’ll use R to set up a place for us to work.
-We’ll begin by creating a directory on our desktop</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;~/Desktop/r-for-beginners&quot;</span>) <span class="co"># create a project directory</span></span></code></pre></div>
-<div class="note">
-<p>Most systems - MacOS, Windows, Linux - will set your home directory
-to your user directory. The tilde <code>~</code> is shorthand for your
-user directory. If your home directory is not your user directory, the
-above will not work.</p>
-</div>
-<p>We’ll then make sure that our current session is working with the
-files in this folder, we’ll verify where we are, and finally create a
-directory to hold our data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;~/Desktop/r-for-beginners&quot;</span>) <span class="co"># set the working directory to the directory we just created</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># print current working directory</span></span></code></pre></div>
-<pre><code>## [1] &quot;/Users/vdunbar/Desktop/r-for-beginners&quot;</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>) <span class="co"># create a directory in our working directory called data</span></span></code></pre></div>
-<pre><code>## Warning in dir.create(&quot;data&quot;): &#39;data&#39; already exists</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.dirs</span>() <span class="co"># list the directories to verify things.</span></span></code></pre></div>
-<pre><code>## [1] &quot;.&quot;      &quot;./data&quot;</code></pre>
-<p>And then we’ll download our data</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_src <span class="ot">&lt;-</span> <span class="st">&quot;https://tinyurl.com/mu8y9n29&quot;</span> <span class="co"># define the source of our data, in this case, a url</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url =</span> data_src, <span class="at">destfile =</span> <span class="st">&#39;data/2018-cp_squirrel_census.csv&#39;</span>) <span class="co"># download the file, and save it with a specified name</span></span></code></pre></div>
-<p>Now that our data is downloaded and we have a local copy, we’ll pull
-it into R</p>
-<p>We can simply import the data and display it to our console</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&#39;data/2018-cp_squirrel_census.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) <span class="co"># read the data</span></span></code></pre></div>
-<p>But this isn’t terribly useful. We want to store this data in memory,
-so we’ll load it into a variable</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sq_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;data/2018-cp_squirrel_census.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) <span class="co"># read the data into a variable called sq_data</span></span></code></pre></div>
-<p>We can now explore the data, looking at the data types and data
-structures R is defaulting to when importing this csv file</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sq_data) <span class="co"># explore the structure of the data set.</span></span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    3023 obs. of  31 variables:
-##  $ X                                         : num  -74 -74 -74 -74 -74 ...
-##  $ Y                                         : num  40.8 40.8 40.8 40.8 40.8 ...
-##  $ Unique.Squirrel.ID                        : chr  &quot;37F-PM-1014-03&quot; &quot;21B-AM-1019-04&quot; &quot;11B-PM-1014-08&quot; &quot;32E-PM-1017-14&quot; ...
-##  $ Hectare                                   : chr  &quot;37F&quot; &quot;21B&quot; &quot;11B&quot; &quot;32E&quot; ...
-##  $ Shift                                     : chr  &quot;PM&quot; &quot;AM&quot; &quot;PM&quot; &quot;PM&quot; ...
-##  $ Date                                      : int  10142018 10192018 10142018 10172018 10172018 10102018 10102018 10082018 10062018 10102018 ...
-##  $ Hectare.Squirrel.Number                   : int  3 4 8 14 5 3 2 2 1 3 ...
-##  $ Age                                       : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;Adult&quot; ...
-##  $ Primary.Fur.Color                         : chr  &quot;&quot; &quot;&quot; &quot;Gray&quot; &quot;Gray&quot; ...
-##  $ Highlight.Fur.Color                       : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ Combination.of.Primary.and.Highlight.Color: chr  &quot;+&quot; &quot;+&quot; &quot;Gray+&quot; &quot;Gray+&quot; ...
-##  $ Color.notes                               : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;Nothing selected as Primary. Gray selected as Highlights. Made executive adjustments.&quot; ...
-##  $ Location                                  : chr  &quot;&quot; &quot;&quot; &quot;Above Ground&quot; &quot;&quot; ...
-##  $ Above.Ground.Sighter.Measurement          : int  NA NA 10 NA NA NA 0 0 0 30 ...
-##  $ Specific.Location                         : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ Running                                   : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Chasing                                   : chr  &quot;false&quot; &quot;false&quot; &quot;true&quot; &quot;false&quot; ...
-##  $ Climbing                                  : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Eating                                    : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Foraging                                  : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Other.Activities                          : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ Kuks                                      : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Quaas                                     : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Moans                                     : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Tail.flags                                : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Tail.twitches                             : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Approaches                                : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Indifferent                               : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Runs.from                                 : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Other.Interactions                        : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ Lat.Long                                  : chr  &quot;POINT (-73.9561344937861 40.7940823884086)&quot; &quot;POINT (-73.9688574691102 40.7837825208444)&quot; &quot;POINT (-73.97428114848522 40.775533619083)&quot; &quot;POINT (-73.9596413903948 40.7903128889029)&quot; ...</code></pre>
-<p>We can get slightly better access to the data itself with
-<code>View()</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(sq_data) <span class="co"># look at the data in a &#39;spreadsheet&#39; like format. Note the capital V.</span></span></code></pre></div>
-<p>This output tells us that we’re working with a data frame, that there
-are 3023 rows or observations, and 31 columns or variables. It then
-lists all of the variables, tells us what data type they were
-interpreted as on import, and show us the first six values of each
-variable.</p>
-<div id="missing-values" class="section level2">
-<h2>Missing Values</h2>
-<p>Before digging much deeper into the data set, one of the first things
-we’ll note is that there are a lot of missing values. Missing values
-need to be properly encoded to be programatically useful. An application
-– or user – may represent missing values in many ways. Sometimes it’s by
-using an out of range value, so when a variable is binary, and values
-are represented as 0 or 1, 99 may be used to indicate a missing value.
-Files exported from SPSS might be encoded with a period, <code>.</code>.
-In Excel, it’s extremely easy for a user to accidentally introduce
-spaces, <code></code>, in an otherwise empty cell, or they may choose to
-write the characters <code>NA</code>. A data base export might include
-either <code>NA</code> or <code>NULL</code>.</p>
-<p>When exported, especially using a format like <code>csv</code>, all
-of these notations for missing values are converted to character strings
-or numbers. Ideally, when importing into a piece of software, like R, we
-would have a way to provide a list of possible ways of encoding missing
-values and standardize how these are presented.</p>
-<p>In R, <code>NA</code> values are a specific way of indicating that a
-value is missing. And <code>read.csv()</code> has a specific argument
-for converting strings into <code>NA</code> encoded values on
-import.</p>
-<div class="exercise">
-<p>Using the help documentation – <code>?read.csv</code> – see if you
-can figure out how to update your data import –
-<code>sq_data &lt;- read.csv('data/2018-cp_squirrel_census.csv', header = TRUE)</code>
-– to convert a list of strings to <code>NA</code> values.</p>
-</div>
-<div class="solution">
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sq_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;2018-cp_squirrel_census.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot; &quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;NULL&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="st">&quot;+&quot;</span>))</span></code></pre></div>
-</div>
-<p>Review the data structure again…</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sq_data)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    3023 obs. of  31 variables:
-##  $ X                                         : num  -74 -74 -74 -74 -74 ...
-##  $ Y                                         : num  40.8 40.8 40.8 40.8 40.8 ...
-##  $ Unique.Squirrel.ID                        : chr  &quot;37F-PM-1014-03&quot; &quot;21B-AM-1019-04&quot; &quot;11B-PM-1014-08&quot; &quot;32E-PM-1017-14&quot; ...
-##  $ Hectare                                   : chr  &quot;37F&quot; &quot;21B&quot; &quot;11B&quot; &quot;32E&quot; ...
-##  $ Shift                                     : chr  &quot;PM&quot; &quot;AM&quot; &quot;PM&quot; &quot;PM&quot; ...
-##  $ Date                                      : int  10142018 10192018 10142018 10172018 10172018 10102018 10102018 10082018 10062018 10102018 ...
-##  $ Hectare.Squirrel.Number                   : int  3 4 8 14 5 3 2 2 1 3 ...
-##  $ Age                                       : chr  NA NA NA &quot;Adult&quot; ...
-##  $ Primary.Fur.Color                         : chr  NA NA &quot;Gray&quot; &quot;Gray&quot; ...
-##  $ Highlight.Fur.Color                       : chr  NA NA NA NA ...
-##  $ Combination.of.Primary.and.Highlight.Color: chr  NA NA &quot;Gray+&quot; &quot;Gray+&quot; ...
-##  $ Color.notes                               : chr  NA NA NA &quot;Nothing selected as Primary. Gray selected as Highlights. Made executive adjustments.&quot; ...
-##  $ Location                                  : chr  NA NA &quot;Above Ground&quot; NA ...
-##  $ Above.Ground.Sighter.Measurement          : int  NA NA 10 NA NA NA 0 0 0 30 ...
-##  $ Specific.Location                         : chr  NA NA NA NA ...
-##  $ Running                                   : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Chasing                                   : chr  &quot;false&quot; &quot;false&quot; &quot;true&quot; &quot;false&quot; ...
-##  $ Climbing                                  : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Eating                                    : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Foraging                                  : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Other.Activities                          : chr  NA NA NA NA ...
-##  $ Kuks                                      : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Quaas                                     : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Moans                                     : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Tail.flags                                : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Tail.twitches                             : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Approaches                                : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Indifferent                               : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;false&quot; ...
-##  $ Runs.from                                 : chr  &quot;false&quot; &quot;false&quot; &quot;false&quot; &quot;true&quot; ...
-##  $ Other.Interactions                        : chr  NA NA NA NA ...
-##  $ Lat.Long                                  : chr  &quot;POINT (-73.9561344937861 40.7940823884086)&quot; &quot;POINT (-73.9688574691102 40.7837825208444)&quot; &quot;POINT (-73.97428114848522 40.775533619083)&quot; &quot;POINT (-73.9596413903948 40.7903128889029)&quot; ...</code></pre>
-<p>We’ll see a number of other things that we need to sort out before we
-can do much with our data. For example, many of our variable of have not
-been assigned to the appropriate data type. We have logical variables,
-date variables etc not yet sorted.</p>
-</div>
-<div id="changing-data-types" class="section level2">
-<h2>Changing Data Types</h2>
-<p>We can isolate or target a single variable in our data set using the
-dollar sign <code>$</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sq_data<span class="sc">$</span>Running</span></code></pre></div>
-<p>Now that we can target a variable, we can assign new properties to
-that variable. R has a series of <code>as.</code> functions to allow us
-to manipulate data types and classes. To view all <code>as.</code>
-functions available to you</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apropos</span>(<span class="st">&quot;^as</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;as.array&quot;               &quot;as.array.default&quot;       &quot;as.call&quot;               
-## [4] &quot;as.character&quot;           &quot;as.character.condition&quot; &quot;as.character.Date&quot;</code></pre>
-<pre><code>## ...</code></pre>
-<p>We can see in the list, that we have several useful <code>as.</code>
-functions for our current data set, including <code>as.Date</code> and
-<code>as.logical</code>. We’ll start with the latter.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sq_data<span class="sc">$</span>Running <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(sq_data<span class="sc">$</span>Running) <span class="co"># re-assign the variable Running from character to logical</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sq_data<span class="sc">$</span>Running) <span class="co"># view the results</span></span></code></pre></div>
-<pre><code>##  logi [1:3023] FALSE FALSE FALSE FALSE FALSE FALSE ...</code></pre>
-<div class="exercise">
-<p><code>read.csv</code> allows us to assign variable types on import.
-Revisit the help documentation for <code>read.csv</code> and see if you
-can update your import line –
-<code>sq_data &lt;- read.csv('data/2018-cp_squirrel_census.csv', na.strings = c("", " ", "NA", "NULL", ".", "+"))</code>
-– to also convert the columns ‘Running’, ‘Chasing’, and ‘Climbing’ to
-logical on import.</p>
-</div>
-<div class="solution">
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sq_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;2018-cp_squirrel_census.csv&#39;</span>,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot; &quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;NULL&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="st">&quot;+&quot;</span>),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">colClasses =</span> <span class="fu">c</span>(<span class="st">&quot;Chasing&quot;</span> <span class="ot">=</span> <span class="st">&quot;logical&quot;</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;Running&quot;</span> <span class="ot">=</span> <span class="st">&quot;logical&quot;</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;Climbing&quot;</span> <span class="ot">=</span> <span class="st">&quot;logical&quot;</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                    )</span></code></pre></div>
-</div>
-<div class="functions">
-<table>
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><code>dir.create</code></td>
-<td align="left">create a directory on your file system.</td>
-</tr>
-<tr class="even">
-<td align="left"><code>setwd</code></td>
-<td align="left">set the working directory. See also <code>getwd</code>
-to get current working directory.</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>read.csv</code></td>
-<td align="left">read a csv file into R.</td>
-</tr>
-<tr class="even">
-<td align="left"><code>str</code></td>
-<td align="left">display information about the data including structure,
-types, and a few values.</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>View</code></td>
-<td align="left">open the data set in a spreadsheet like viewer.</td>
-</tr>
-<tr class="even">
-<td align="left"><code>apropos</code></td>
-<td align="left">search for functions and variables.</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>as.</code></td>
-<td align="left">a family of functions for converting data types and
-structures.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>First things first, we need to use the trusty pandas package. This is
+the go-to Python package for dataframes and data set analysis. We will
+talk about packages more later on.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># we nickname it pd to save time when calling it later</span></span></code></pre></div>
+<p>We can enter the URL to the data set and save it as a variable so
+that it is easily accessible. Since the data set is a <code>.csv</code>
+file, we can use the pandas function <code>read_csv()</code> to save the
+data into a dataframe!</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span></code></pre></div>
+<p>The <code>head()</code> function is often used to show the first few
+rows of a dataframe. The default is the first five rows, but you can
+enter a different value inside the brackets to get the first n number of
+rows.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##        country continent  year  lifeExp       pop   gdpPercap
+## 0  Afghanistan      Asia  1952   28.801   8425333  779.445314
+## 1  Afghanistan      Asia  1957   30.332   9240934  820.853030
+## 2  Afghanistan      Asia  1962   31.997  10267083  853.100710
+## 3  Afghanistan      Asia  1967   34.020  11537966  836.197138
+## 4  Afghanistan      Asia  1972   36.088  13079460  739.981106</code></pre>
+<p>But if we only wanted to see the first 3 rows….</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        country continent  year  lifeExp       pop   gdpPercap
+## 0  Afghanistan      Asia  1952   28.801   8425333  779.445314
+## 1  Afghanistan      Asia  1957   30.332   9240934  820.853030
+## 2  Afghanistan      Asia  1962   31.997  10267083  853.100710</code></pre>
+<p>Remember, Python starts at 0 and not 1, so the first row of data is
+technically zero! Also, notice that pandas noticed that the first row of
+the csv file was header names, so it automatically created column
+titles.</p>
+<p>We can also do this for the last few rows of the data set, know as
+the tail.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code></pre></div>
+<pre><code>##        country continent  year  lifeExp       pop   gdpPercap
+## 1699  Zimbabwe    Africa  1987   62.351   9216418  706.157306
+## 1700  Zimbabwe    Africa  1992   60.377  10704340  693.420786
+## 1701  Zimbabwe    Africa  1997   46.809  11404948  792.449960
+## 1702  Zimbabwe    Africa  2002   39.989  11926563  672.038623
+## 1703  Zimbabwe    Africa  2007   43.487  12311143  469.709298</code></pre>
+<p>We can now explore the data a bit more, looking at the data types and
+data structures.</p>
+<p>We can use the <code>.info()</code> function to get a summary of data
+frame information, such as teh count of null values, data types, etc.
+Take a look below.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 1704 entries, 0 to 1703
+## Data columns (total 6 columns):
+##  #   Column     Non-Null Count  Dtype  
+## ---  ------     --------------  -----  
+##  0   country    1704 non-null   object 
+##  1   continent  1704 non-null   object 
+##  2   year       1704 non-null   int64  
+##  3   lifeExp    1704 non-null   float64
+##  4   pop        1704 non-null   int64  
+##  5   gdpPercap  1704 non-null   float64
+## dtypes: float64(2), int64(2), object(2)
+## memory usage: 80.0+ KB</code></pre>
+<p>We can also quickly see summary statistics using the
+<code>.describe()</code> function.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code></pre></div>
+<pre><code>##              year      lifeExp           pop      gdpPercap
+## count  1704.00000  1704.000000  1.704000e+03    1704.000000
+## mean   1979.50000    59.474439  2.960121e+07    7215.327081
+## std      17.26533    12.917107  1.061579e+08    9857.454543
+## min    1952.00000    23.599000  6.001100e+04     241.165876
+## 25%    1965.75000    48.198000  2.793664e+06    1202.060309
+## 50%    1979.50000    60.712500  7.023596e+06    3531.846988
+## 75%    1993.25000    70.845500  1.958522e+07    9325.462346
+## max    2007.00000    82.603000  1.318683e+09  113523.132900</code></pre>
+<p>If we wanted to know the number of unique values of a specific
+column, we could use the <code>value_counts()</code> function.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.country.value_counts()</span></code></pre></div>
+<pre><code>## Afghanistan          12
+## Pakistan             12
+## New Zealand          12
+## Nicaragua            12
+## Niger                12
+##                      ..
+## Eritrea              12
+## Equatorial Guinea    12
+## El Salvador          12
+## Egypt                12
+## Zimbabwe             12
+## Name: country, Length: 142, dtype: int64</code></pre>
+<p>This shows that there are 12 occurrences of each unique country
+value.</p>
+<p>If we wanted to find specific values, let’s say the maximum values,
+we could use the function <code>.max()</code>.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">max</span>()</span></code></pre></div>
+<pre><code>## country         Zimbabwe
+## continent        Oceania
+## year                2007
+## lifeExp           82.603
+## pop           1318683096
+## gdpPercap    113523.1329
+## dtype: object</code></pre>
+<p>Other similar functions include <code>.min()</code>,
+<code>.mean()</code>, and <code>.median()</code>.</p>
+<p>If we wanted to group by specific data, let’s say country, and then
+apply an aggregate function, we could do it like this:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">&#39;country&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<pre><code>##                    continent  year  lifeExp       pop     gdpPercap
+## country                                                            
+## Afghanistan             Asia  2007   43.828  31889923    978.011439
+## Albania               Europe  2007   76.423   3600523   5937.029526
+## Algeria               Africa  2007   72.301  33333216   6223.367465
+## Angola                Africa  2007   42.731  12420476   5522.776375
+## Argentina           Americas  2007   75.320  40301927  12779.379640
+## ...                      ...   ...      ...       ...           ...
+## Vietnam                 Asia  2007   74.249  85262356   2441.576404
+## West Bank and Gaza      Asia  2007   73.422   4018332   7110.667619
+## Yemen, Rep.             Asia  2007   62.698  22211743   2280.769906
+## Zambia                Africa  2007   51.821  11746035   1777.077318
+## Zimbabwe              Africa  2007   62.351  12311143    799.362176
+## 
+## [142 rows x 5 columns]</code></pre>
+<p>We can also group by multiple columns.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">&#39;country&#39;</span>, <span class="st">&#39;year&#39;</span>]).mean(<span class="st">&#39;lifeExp&#39;</span>)</span></code></pre></div>
+<pre><code>##                   lifeExp         pop   gdpPercap
+## country     year                                 
+## Afghanistan 1952   28.801   8425333.0  779.445314
+##             1957   30.332   9240934.0  820.853030
+##             1962   31.997  10267083.0  853.100710
+##             1967   34.020  11537966.0  836.197138
+##             1972   36.088  13079460.0  739.981106
+## ...                   ...         ...         ...
+## Zimbabwe    1987   62.351   9216418.0  706.157306
+##             1992   60.377  10704340.0  693.420786
+##             1997   46.809  11404948.0  792.449960
+##             2002   39.989  11926563.0  672.038623
+##             2007   43.487  12311143.0  469.709298
+## 
+## [1704 rows x 3 columns]</code></pre>
+<p>Next, we’ll take a step back and talk about packages.</p>
 
 
 

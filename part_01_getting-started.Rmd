@@ -10,6 +10,10 @@ knitr::opts_chunk$set(warning = FALSE,
                       comment = NA)
 ```
 
+## Getting Started
+
+In this workshop, we will be using Python via Jupyter Notebook. To use this, you will need to use your UBC login information and head to this [link ](https://ubc.syzygy.ca/). Click the 'Sign in' button on the top right.
+
 #### Some basic syntax
 
 Syntax is the rules that define the combination and order of symbols in a computer language.

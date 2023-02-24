@@ -11,7 +11,7 @@
 
 
 
-<title>RProject</title>
+<title>Packages</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -231,7 +231,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">R for Beginners</a>
+      <a class="navbar-brand" href="index.html">Python for Beginners</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -252,7 +252,7 @@ $(document).ready(function () {
       <a href="part_01_getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="part_02_r-rstudio.html">R &amp; RStudio</a>
+      <a href="part_02_python.html">Python and Jupyter Notebook</a>
     </li>
     <li>
       <a href="part_03_functions.html">Functions</a>
@@ -279,7 +279,7 @@ $(document).ready(function () {
       <a href="part_07_importing-data.html">Importing Data</a>
     </li>
     <li>
-      <a href="part_08_rproject.html">RProjects</a>
+      <a href="part_08_packages.html">Packages</a>
     </li>
   </ul>
 </li>
@@ -291,7 +291,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_09_dates-factors-dictionary.html">Dates &amp; Factors</a>
+      <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
       <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
@@ -309,10 +309,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="part_12_libraries.html">Libraries</a>
+      <a href="part_12_analysis.html">Preliminary Analysis</a>
     </li>
     <li>
-      <a href="part_13_ggplot2.html">ggplot2</a>
+      <a href="part_13_visualization.html">Visualization</a>
     </li>
   </ul>
 </li>
@@ -333,21 +333,75 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">RProject</h1>
+<h1 class="title toc-ignore">Packages</h1>
 
 </div>
 
 
-<p>Using <code>setwd()</code> every time you open a file or set of files
-in R can be cumbersome and problematic; it can also hinder the
-reproducibility of your code. One solution to this is to create an
-RPoject file, and to use that to launch your project instead of opening
-an individual script from your desktop.</p>
-<p>First, we’ll save our script to our folder.</p>
-<p>Then we’ll create an RProject by going to file &gt; new project… and
-selecting ‘existing directory’ and then navigating to the directory we
-created for this project. Next time you load this project using the
-RProj file, your working directory will be set for you.</p>
+<p>Since Python is so widely used, there are many people who contribute
+to continuously improving and developing it. Let’s imagine Python as a
+base version. It can do basic calculations, but it requires extra
+efforts to do more complicated things. People have created extras or
+add-ons to help create shortcuts for more complicated specific tasks or
+functions. These ‘add-ons’ are called modules. A module allows us to use
+already defined classes, functions, variables, and more. Packages are a
+collection of similar modules. These modules are stored together in a
+package to help with storage and ease of use.</p>
+<p>Packages can be imported to use to help make things easier. For
+example, there is a Python package called math that helps with basic
+mathematical operations.</p>
+<p>To use a package or specific module within it, we use the
+<code>import</code> command. The format of these commands is as
+followed:</p>
+<p>import package.subpackage.modulename</p>
+<p>We can also rename the packages to make it easier when we use
+them.</p>
+<p>A few of the main packages used in python include:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package Name</th>
+<th>Usage</th>
+<th>Standard Import Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NumPy</td>
+<td>Used for arrays, matricies and mathematical functions</td>
+<td>import numpy as np</td>
+</tr>
+<tr class="even">
+<td>pandas</td>
+<td>Used with data frames</td>
+<td>import pandas as pd</td>
+</tr>
+<tr class="odd">
+<td>matplotlib</td>
+<td>Typically used for plotting functions</td>
+<td>from matplotlib import pyplot as plt</td>
+</tr>
+<tr class="even">
+<td>altair</td>
+<td>More advanced plotting options</td>
+<td>import altair as alt</td>
+</tr>
+<tr class="odd">
+<td>SciPy</td>
+<td>Used for scientific and technical computing</td>
+<td>import scipy</td>
+</tr>
+</tbody>
+</table>
+<p>There are many other packages available, and you can even create your
+own as well! To see a list of the top packages available in Python,
+visit this <a
+href="https://www.ubuntupit.com/best-python-libraries-and-packages-for-beginners/#:~:text=Best%20Python%20Libraries%20and%20Packages.%2001.%20Pillow.%20Pillow,Matplotlib.%2003.%20Numpy.%2004.%20OpenCV%20Python.%2005.%20Requests.">link</a>.</p>
 
 
 

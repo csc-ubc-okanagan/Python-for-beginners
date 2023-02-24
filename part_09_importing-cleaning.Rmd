@@ -5,6 +5,36 @@ output:
     code_folding: show
 ---
 
+Let's get back to importing data and doing some prelimiary analysis and cleaning.
+
+Recall, the Gapminder dataset. Let's reload it:
+
+```{python}
+import pandas as pd
+url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
+df = pd.read_csv(url)
+```
+
+If we wanted to check and see if there are any empty values in the data frame, we could do so like this:
+
+```{python}
+df.isnull().sum().sum()
+```
+
+Above, we summed over all rows and columns to see if there were null values. if we wanted to check for null values in just one column, we could do so like this:
+
+```{python}
+df['country'].isnull().sum()
+```
+
+We could also replace the `.isnull()` with `.isna()`.
+
+If we wanted to look at changing the names of the columns in the data frame, 
+
+#### Renaming columns
+
+
+
 If it's not already loaded, read in the data set
 
 ```{r, eval = FALSE}

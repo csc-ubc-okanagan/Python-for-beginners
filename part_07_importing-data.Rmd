@@ -40,119 +40,51 @@ df.head(3)
 
 Remember, Python starts at 0 and not 1, so the first row of data is technically zero! Also, notice that pandas noticed that the first row of the csv file was header names, so it automatically created column titles.
 
+We can also do this for the last few rows of the data set, know as the tail.
+
+```{python}
+df.tail()
+```
+
 We can now explore the data a bit more, looking at the data types and data structures.
 
+We can use the `.info()` function to get a summary of data frame information, such as teh count of null values, data types, etc. Take a look below.
 
-
-
-
-
-
-
-
-```{r squirrel-var-str}
-str(sq_data) # explore the structure of the data set.
+```{python}
+df.info()
 ```
 
-We can get slightly better access to the data itself with `View()`
+We can also quickly see summary statistics using the `.describe()` function.
 
-```{r squireel-var-view, eval = FALSE}
-View(sq_data) # look at the data in a 'spreadsheet' like format. Note the capital V.
+```{python}
+df.describe()
 ```
 
-This output tells us that we're working with a data frame, that there are 3023 rows or observations, and 31 columns or variables. It then lists all of the variables, tells us what data type they were interpreted as on import, and show us the first six values of each variable.
+If we wanted to know the number of unique values of a specific column, we could use the `value_counts()` function.
 
-## Missing Values
+```{python}
+df.country.value_counts()
+```
+This shows that there are 12 occurrences of each unique country value.
 
-Before digging much deeper into the data set, one of the first things we'll note is that there are a lot of missing values. Missing values need to be properly encoded to be programatically useful. An application -- or user -- may represent missing values in many ways. Sometimes it's by using an out of range value, so when a variable is binary, and values are represented as 0 or 1, 99 may be used to indicate a missing value. Files exported from SPSS might be encoded with a period, `.`. In Excel, it's extremely easy for a user to accidentally introduce spaces, ` `, in an otherwise empty cell, or they may choose to write the characters `NA`. A data base export might include either `NA` or `NULL`.
+If we wanted to find specific values, let's say the maximum values, we could use the function `.max()`.
 
-When exported, especially using a format like `csv`, all of these notations for missing values are converted to character strings or numbers. Ideally, when importing into a piece of software, like R, we would have a way to provide a list of possible ways of encoding missing values and standardize how these are presented.
-
-In R, `NA` values are a specific way of indicating that a value is missing. And `read.csv()` has a specific argument for converting strings into `NA` encoded values on import.
-
-:::exercise
-
-Using the help documentation -- `?read.csv` -- see if you can figure out how to update your data import -- `sq_data <- read.csv('data/2018-cp_squirrel_census.csv', header = TRUE)` -- to convert a list of strings to `NA` values.
-
-:::
-
-:::solution
-
-```{r, class.source = 'fold-hide', results = FALSE}
-sq_data <- read.csv('2018-cp_squirrel_census.csv', header = TRUE, na.strings = c("", " ", "NA", "NULL", ".", "+"))
+```{python}
+df.max()
 ```
 
-:::
+Other similar functions include `.min()`, `.mean()`, and `.median()`.
 
-```{r, echo = FALSE}
-sq_data <- read.csv('2018-cp_squirrel_census.csv', header = TRUE, na.strings = c("", " ", "NA", "NULL", ".", "+"))
+If we wanted to group by specific data, let's say country, and then apply an aggregate function, we could do it like this:
+
+```{python}
+df.groupby('country').max()
 ```
 
-Review the data structure again...
+We can also group by multiple columns.
 
-```{r}
-str(sq_data)
+```{python}
+df.groupby(['country', 'year']).mean('lifeExp')
 ```
 
-We'll see a number of other things that we need to sort out before we can do much with our data. For example, many of our variable of have not been assigned to the appropriate data type. We have logical variables, date variables etc not yet sorted.
-
-## Changing Data Types
-
-We can isolate or target a single variable in our data set using the dollar sign `$`.
-
-```{r, eval = FALSE}
-sq_data$Running
-```
-
-Now that we can target a variable, we can assign new properties to that variable. R has a series of `as.` functions to allow us to manipulate data types and classes. To view all `as.` functions available to you
-
-```{r, eval = FALSE}
-apropos("^as\\.")
-```
-
-```{r, echo = FALSE}
-head(apropos("^as\\."))
-cat("...")
-```
-
-We can see in the list, that we have several useful `as.` functions for our current data set, including `as.Date` and `as.logical`. We'll start with the latter.
-
-```{r}
-sq_data$Running <- as.logical(sq_data$Running) # re-assign the variable Running from character to logical
-
-str(sq_data$Running) # view the results
-```
-
-:::exercise
-
-`read.csv` allows us to assign variable types on import. Revisit the help documentation for `read.csv` and see if you can update your import line -- `sq_data <- read.csv('data/2018-cp_squirrel_census.csv', na.strings = c("", " ", "NA", "NULL", ".", "+"))` -- to also convert the columns 'Running', 'Chasing', and 'Climbing' to logical on import.
-
-:::
-
-:::solution
-
-```{r, class.source = 'fold-hide', results = FALSE}
-sq_data <- read.csv('2018-cp_squirrel_census.csv',
-                    header = TRUE,
-                    na.strings = c("", " ", "NA", "NULL", ".", "+"),
-                    colClasses = c("Chasing" = "logical",
-                                   "Running" = "logical",
-                                   "Climbing" = "logical")
-                    )
-```
-
-:::
-
-:::functions
-
-| Function | Description |
-| :--- | :--- |
-| `dir.create` | create a directory on your file system. |
-| `setwd` | set the working directory. See also `getwd` to get current working directory. |
-| `read.csv` | read a csv file into R. |
-| `str` | display information about the data including structure, types, and a few values. |
-| `View` | open the data set in a spreadsheet like viewer. |
-| `apropos` | search for functions and variables. |
-| `as.` | a family of functions for converting data types and structures. |
-
-:::
+Next, we'll take a step back and talk about packages.

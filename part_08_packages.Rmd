@@ -1,17 +1,28 @@
 ---
-title: "RProject"
+title: "Packages"
 output:
   html_document:
     code_folding: show
 ---
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(warning = FALSE,
-                      comment = NA)
-```
+Since Python is so widely used, there are many people who contribute to continuously improving and developing it. Let’s imagine Python as a base version. It can do basic calculations, but it requires extra efforts to do more complicated things. People have created extras or add-ons to help create shortcuts for more complicated specific tasks or functions. These ‘add-ons’ are called modules. A module allows us to use already defined classes, functions, variables, and more. Packages are a collection of similar modules. These modules are stored together in a package to help with storage and ease of use.
 
-Using `setwd()` every time you open a file or set of files in R can be cumbersome and problematic; it can also hinder the reproducibility of your code. One solution to this is to create an RPoject file, and to use that to launch your project instead of opening an individual script from your desktop.
+Packages can be imported to use to help make things easier. For example, there is a Python package called math that helps with basic mathematical operations.
 
-First, we'll save our script to our folder.
+To use a package or specific module within it, we use the `import` command. The format of these commands is as followed:
 
-Then we'll create an RProject by going to file > new project... and selecting 'existing directory' and then navigating to the directory we created for this project. Next time you load this project using the RProj file, your working directory will be set for you.
+import package.subpackage.modulename
+
+We can also rename the packages to make it easier when we use them.
+
+A few of the main packages used in python include:
+
+Package Name | Usage | Standard Import Command
+--- | --- | ---
+NumPy | Used for arrays, matricies and mathematical functions | import numpy as np
+pandas | Used with data frames | import pandas as pd
+matplotlib | Typically used for plotting functions | from matplotlib import pyplot as plt
+altair | More advanced plotting options | import altair as alt
+SciPy | Used for scientific and technical computing | import scipy
+
+There are many other packages available, and you can even create your own as well! To see a list of the top packages available in Python, visit this [link](https://www.ubuntupit.com/best-python-libraries-and-packages-for-beginners/#:~:text=Best%20Python%20Libraries%20and%20Packages.%2001.%20Pillow.%20Pillow,Matplotlib.%2003.%20Numpy.%2004.%20OpenCV%20Python.%2005.%20Requests.).
