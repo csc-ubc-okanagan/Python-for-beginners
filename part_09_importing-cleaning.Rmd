@@ -99,7 +99,7 @@ df = df.astype({"Life_Expectancy": float,
 df.dtypes
 ```
 
-If we wanted to count the number of unique in a column, we could do so like this:
+If we wanted to count the number of unique values in a column, we could do so like this:
 
 ```{python}
 df.Country.unique().size
