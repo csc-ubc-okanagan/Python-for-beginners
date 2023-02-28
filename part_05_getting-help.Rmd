@@ -30,7 +30,7 @@ help(print)
 
 Millions of people all over the world use Python, and it's likely that if you're having a problem, someone else has come across that problem too. There are many blogs and forums where people share their problems and crowd source solutions! It is a great tool for others to learn from and share their knowledge and tips.
 
-As a new user, they can also be a bit confusing. This is partly because there are many ways to solve the same problem when programming, so you’ll likely see lots of different approaches, some of which are more familiar to you than others. The other is that Python supports multiple syntaxes; that is, multiple ways of expressing or constructing the arguments that one puts together. This is kind of an unusual feature and as a result, you may see a solution that uses a different syntax than you’re used to.
+As a new user, they can also be a bit confusing. This is partly because there are many ways to solve the same problem when programming, so you’ll likely see lots of different approaches, some of which are more familiar to you than others. 
 
 The key here is to spend time reading blogs and forum responses and working your way through problems; the proposed solutions will start to make more sense with time and familiarity, just like learning any other language.
 
