@@ -408,7 +408,7 @@ $(document).ready(function () {
       <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -463,19 +463,19 @@ class="uri">https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/g
 </ul>
 </div>
 <p>First things first, we need to use the trusty pandas package. This is
-the go-to Python package for dataframes and data set analysis. We will
+the go-to Python package for data frames and data set analysis. We will
 talk about packages more later on.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># we nickname it pd to save time when calling it later</span></span></code></pre></div>
 <p>We can enter the URL to the data set and save it as a variable so
 that it is easily accessible. Since the data set is a <code>.csv</code>
 file, we can use the pandas function <code>read_csv()</code> to save the
-data into a dataframe!</p>
+data into a data frame!</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span></code></pre></div>
 <p>The <code>head()</code> function is often used to show the first few
-rows of a dataframe. The default is the first five rows, but you can
+rows of a data frame. The default is the first five rows, but you can
 enter a different value inside the brackets to get the first n number of
 rows.</p>
 <div class="sourceCode" id="cb3"><pre
@@ -510,7 +510,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 <p>We can now explore the data a bit more, looking at the data types and
 data structures.</p>
 <p>We can use the <code>.info()</code> function to get a summary of data
-frame information, such as teh count of null values, data types, etc.
+frame information, such as the count of null values, data types, etc.
 Take a look below.</p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div>

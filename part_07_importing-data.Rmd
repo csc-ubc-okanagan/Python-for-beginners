@@ -13,20 +13,20 @@ We're going to work with a data set today, which we won't even have to download.
 
 :::
 
-First things first, we need to use the trusty pandas package. This is the go-to Python package for dataframes and data set analysis. We will talk about packages more later on.
+First things first, we need to use the trusty pandas package. This is the go-to Python package for data frames and data set analysis. We will talk about packages more later on.
 
 ```{python}
 import pandas as pd # we nickname it pd to save time when calling it later
 ```
 
-We can enter the URL to the data set and save it as a variable so that it is easily accessible. Since the data set is a `.csv` file, we can use the pandas function `read_csv()` to save the data into a dataframe!
+We can enter the URL to the data set and save it as a variable so that it is easily accessible. Since the data set is a `.csv` file, we can use the pandas function `read_csv()` to save the data into a data frame!
 
 ```{python}
 url = 'https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv'
 df = pd.read_csv(url)
 ```
 
-The `head()` function is often used to show the first few rows of a dataframe. The default is the first five rows, but you can enter a different value inside the brackets to get the first n number of rows.
+The `head()` function is often used to show the first few rows of a data frame. The default is the first five rows, but you can enter a different value inside the brackets to get the first n number of rows.
 
 ```{python}
 df.head()
@@ -48,7 +48,7 @@ df.tail()
 
 We can now explore the data a bit more, looking at the data types and data structures.
 
-We can use the `.info()` function to get a summary of data frame information, such as teh count of null values, data types, etc. Take a look below.
+We can use the `.info()` function to get a summary of data frame information, such as the count of null values, data types, etc. Take a look below.
 
 ```{python}
 df.info()
