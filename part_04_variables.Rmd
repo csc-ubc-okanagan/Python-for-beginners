@@ -60,11 +60,13 @@ x ** 2 # square the variable x
 When naming variables in `Python`, keep in mind that variable names:
 
 * Should first and foremost be meaningful. This is not a rule, just best practice.
-* **Cannot** start with a number or a dot followed by a number.
-* **Cannot** contain spaces or hyphens.
+* Must start with letter or underscore character.
+* **Cannot** start with a number.
 * **Can** contain letters, numbers, and underscores.
 
-Additionally, some words are *reserved* and cannot be used, such as *if* and *for*.
+Additionally, some words are *reserved* and cannot be used, such as *if* and *for*. 
+
+**Note** that variable names are case-sensitive, so `Variable_Name` and `variable_name` are different!
 
 :::   
 

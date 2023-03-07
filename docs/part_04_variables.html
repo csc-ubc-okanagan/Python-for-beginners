@@ -408,7 +408,7 @@ $(document).ready(function () {
       <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -500,13 +500,15 @@ variable names:</p>
 <ul>
 <li>Should first and foremost be meaningful. This is not a rule, just
 best practice.</li>
-<li><strong>Cannot</strong> start with a number or a dot followed by a
-number.</li>
-<li><strong>Cannot</strong> contain spaces or hyphens.</li>
+<li>Must start with letter or underscore character.</li>
+<li><strong>Cannot</strong> start with a number.</li>
 <li><strong>Can</strong> contain letters, numbers, and underscores.</li>
 </ul>
 <p>Additionally, some words are <em>reserved</em> and cannot be used,
 such as <em>if</em> and <em>for</em>.</p>
+<p><strong>Note</strong> that variable names are case-sensitive, so
+<code>Variable_Name</code> and <code>variable_name</code> are
+different!</p>
 </div>
 <div class="exercise">
 <p>Save the output of a random sample of 10 digits between 1 and 100 to
