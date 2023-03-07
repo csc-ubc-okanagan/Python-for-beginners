@@ -14,6 +14,23 @@ Functions take in data and do things with that data. We can write our own functi
 
 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify -- one of these arguments is the data source, but there are usually other parameters we can specify.
 
+If we want to understand how the built-in functions work, let's define our own function for addition.
+
+```{python}
+def add(x,y):
+    answer = x + y
+    return answer
+
+add(1,1)
+```
+
+This is cool, but unnecessary work. It's much easier to use the built-in function.
+
+```{python}
+sum((1,1))
+```
+
+
 ## Descriptive Stats
 
 We'll explore the basics of a handful of functions for descriptive stats with a randomized set of data. We can generate a random list of data using a package called random.

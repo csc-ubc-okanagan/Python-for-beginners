@@ -408,7 +408,7 @@ $(document).ready(function () {
       <a href="part_09_importing-cleaning.html">Importing &amp; Cleaning</a>
     </li>
     <li>
-      <a href="part_10_variables-continued.html">Adding &amp; Renaming Variables</a>
+      <a href="part_10_variables-continued.html">Adding Variables</a>
     </li>
     <li>
       <a href="part_11_subsetting.html">Subsetting</a>
@@ -460,42 +460,56 @@ have already been written or built. You’ve already seen the functions,
 arguments the function allows us to specify – one of these arguments is
 the data source, but there are usually other parameters we can
 specify.</p>
+<p>If we want to understand how the built-in functions work, let’s
+define our own function for addition.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(x,y):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> answer</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>add(<span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>2</code></pre>
+<p>This is cool, but unnecessary work. It’s much easier to use the
+built-in function.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>((<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<pre><code>2</code></pre>
 <div id="descriptive-stats" class="section level2">
 <h2>Descriptive Stats</h2>
 <p>We’ll explore the basics of a handful of functions for descriptive
 stats with a randomized set of data. We can generate a random list of
 data using a package called random.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate 50 random numbers between 10 and 200</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>randomlist <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">200</span>), <span class="dv">50</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(randomlist)</span></code></pre></div>
-<pre><code>[113, 63, 168, 76, 11, 162, 181, 92, 123, 97, 171, 149, 78, 124, 129, 189, 133, 29, 114, 173, 195, 19, 93, 151, 193, 28, 25, 132, 130, 158, 34, 185, 180, 44, 135, 146, 115, 199, 117, 116, 150, 86, 10, 174, 161, 98, 51, 80, 89, 112]</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate 50 random numbers between 10 and 200</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>randomlist <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">200</span>), <span class="dv">50</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(randomlist)</span></code></pre></div>
+<pre><code>[52, 15, 106, 32, 198, 185, 184, 75, 21, 175, 167, 97, 131, 117, 66, 158, 143, 140, 122, 194, 17, 182, 142, 148, 80, 174, 93, 134, 166, 153, 89, 82, 99, 20, 36, 54, 59, 110, 178, 11, 60, 171, 92, 94, 115, 123, 50, 71, 38, 96]</code></pre>
 <p>To calculate the mean of this data, we use the function
 <code>mean()</code> which is a part of the package numpy</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>np.mean(randomlist) <span class="co"># calculate the mean </span></span></code></pre></div>
-<pre><code>115.62</code></pre>
-<p>Alternatively, the mean could also be calculated with this:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(randomlist) <span class="op">/</span> <span class="bu">len</span>(randomlist) <span class="co"># calculate the mean</span></span></code></pre></div>
-<pre><code>115.62</code></pre>
-<p>For the median,</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics <span class="im">as</span> st</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>st.median(randomlist) <span class="co"># calculate the median</span></span></code></pre></div>
-<pre><code>120.0</code></pre>
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>np.mean(randomlist) <span class="co"># calculate the mean </span></span></code></pre></div>
+<pre><code>106.3</code></pre>
+<p>Alternatively, the mean could also be calculated with this:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(randomlist) <span class="op">/</span> <span class="bu">len</span>(randomlist) <span class="co"># calculate the mean</span></span></code></pre></div>
+<pre><code>106.3</code></pre>
+<p>For the median,</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics <span class="im">as</span> st</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>st.median(randomlist) <span class="co"># calculate the median</span></span></code></pre></div>
+<pre><code>102.5</code></pre>
 <p>The statistics and numpy package are very useful for computing
 functions.</p>
 <p>But we can calculate the variance and standard deviation using NumPy
 again,</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>np.var(randomlist) <span class="co"># variance</span></span></code></pre></div>
-<pre><code>2869.1956</code></pre>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.std(randomlist) <span class="co"># standard deviation</span></span></code></pre></div>
-<pre><code>53.56487281792052</code></pre>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>np.var(randomlist) <span class="co"># variance</span></span></code></pre></div>
+<pre><code>2941.6899999999996</code></pre>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.std(randomlist) <span class="co"># standard deviation</span></span></code></pre></div>
+<pre><code>54.23734875526273</code></pre>
 </div>
 <div id="arguments" class="section level2">
 <h2>Arguments</h2>
