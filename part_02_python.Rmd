@@ -19,7 +19,7 @@ Python is a general programming language used to create many different programs.
 
 Python is the second most widely used programming language in 2022, only behind Java. Knowing basic Python can open up many job opportunities in a variety of industries, for virtually any background. Did you know that YouTube (owned by Google) is written mostly in Python? How about Instagram? Reddit? Pinterest?
 
-In academia, Python is widely used in data science and computer science. It is also used in a lot of research in a variety of subject areas, including the humanities, sciences, and engineering. Python is also great for sentiment analysis, which is when language or text is processed.
+In academia, Python is widely used in data science and computer science. It is also used in a lot of research in a variety of subject areas, including the humanities, sciences, and engineering. Python is also great for Natural Language Processing (NLP), which is when language or text is processed.
 
 Speaking of text, let's see how we print a line of text in Python.
 
