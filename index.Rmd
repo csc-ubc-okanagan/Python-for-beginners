@@ -42,11 +42,3 @@ Instead, the hope is that you will walk away with a base set of skills and langu
 | March 21, 2023 | 2:00pm - 3:00pm | LIB 111 |
 | March 28, 2023 | 2:00pm - 3:00pm | LIB 111 |
 
-### Files
-
-Here are the files which include the code chunks from Parts 1 through 4. 
-
-Right click or ctrl + left click on a Mac to save files.
-
-```{r loadfiles, results='asis', echo=FALSE}
-```
