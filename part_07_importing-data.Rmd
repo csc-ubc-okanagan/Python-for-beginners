@@ -67,6 +67,22 @@ df.country.value_counts()
 ```
 This shows that there are 12 occurrences of each unique country value.
 
+::: exercise
+
+If we wanted to know the number of countries recorded for each year, how would we find that information?
+
+Hint: Very similar to the most recent example above.
+
+:::
+
+:::solution
+
+```{python, class.source = 'fold-hide'}
+df.year.value_counts()
+```
+
+:::
+
 If we wanted to find specific values, let's say the maximum values, we could use the function `.max()`.
 
 ```{python}
@@ -84,7 +100,28 @@ df.groupby('country').max()
 We can also group by multiple columns.
 
 ```{python}
-df.groupby(['country', 'year']).mean('lifeExp')
+df.groupby(['country', 'year']).max()
 ```
+
+Note that because we are grouping by country and year, there is only one value for each variable, so the max function will show the same as `.min()` or `.mean()`, etc.
+
+
+::: exercise
+
+If we wanted to know the number of countries in each continent recorded for each year, how would we find that information?
+
+Hint: Try grouping by year, and then using the `value_counts()` function with continent.
+
+:::
+
+:::solution
+
+```{python, class.source = 'fold-hide'}
+df.groupby(['year']).continent.value_counts()
+```
+
+:::
+
+
 
 Next, we'll take a step back and talk about packages.

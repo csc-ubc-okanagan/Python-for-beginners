@@ -558,10 +558,32 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 ## Name: country, Length: 142, dtype: int64</code></pre>
 <p>This shows that there are 12 occurrences of each unique country
 value.</p>
+<div class="exercise">
+<p>If we wanted to know the number of countries recorded for each year,
+how would we find that information?</p>
+<p>Hint: Very similar to the most recent example above.</p>
+</div>
+<div class="solution">
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.year.value_counts()</span></code></pre></div>
+<pre><code>## 1952    142
+## 1957    142
+## 1962    142
+## 1967    142
+## 1972    142
+## 1977    142
+## 1982    142
+## 1987    142
+## 1992    142
+## 1997    142
+## 2002    142
+## 2007    142
+## Name: year, dtype: int64</code></pre>
+</div>
 <p>If we wanted to find specific values, let’s say the maximum values,
 we could use the function <code>.max()</code>.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">max</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">max</span>()</span></code></pre></div>
 <pre><code>## country         Zimbabwe
 ## continent        Oceania
 ## year                2007
@@ -573,8 +595,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <code>.mean()</code>, and <code>.median()</code>.</p>
 <p>If we wanted to group by specific data, let’s say country, and then
 apply an aggregate function, we could do it like this:</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">&#39;country&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">&#39;country&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
 <pre><code>##                    continent  year  lifeExp       pop     gdpPercap
 ## country                                                            
 ## Afghanistan             Asia  2007   43.828  31889923    978.011439
@@ -591,23 +613,98 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a h
 ## 
 ## [142 rows x 5 columns]</code></pre>
 <p>We can also group by multiple columns.</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">&#39;country&#39;</span>, <span class="st">&#39;year&#39;</span>]).mean(<span class="st">&#39;lifeExp&#39;</span>)</span></code></pre></div>
-<pre><code>##                   lifeExp         pop   gdpPercap
-## country     year                                 
-## Afghanistan 1952   28.801   8425333.0  779.445314
-##             1957   30.332   9240934.0  820.853030
-##             1962   31.997  10267083.0  853.100710
-##             1967   34.020  11537966.0  836.197138
-##             1972   36.088  13079460.0  739.981106
-## ...                   ...         ...         ...
-## Zimbabwe    1987   62.351   9216418.0  706.157306
-##             1992   60.377  10704340.0  693.420786
-##             1997   46.809  11404948.0  792.449960
-##             2002   39.989  11926563.0  672.038623
-##             2007   43.487  12311143.0  469.709298
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">&#39;country&#39;</span>, <span class="st">&#39;year&#39;</span>]).<span class="bu">max</span>()</span></code></pre></div>
+<pre><code>##                  continent  lifeExp       pop   gdpPercap
+## country     year                                         
+## Afghanistan 1952      Asia   28.801   8425333  779.445314
+##             1957      Asia   30.332   9240934  820.853030
+##             1962      Asia   31.997  10267083  853.100710
+##             1967      Asia   34.020  11537966  836.197138
+##             1972      Asia   36.088  13079460  739.981106
+## ...                    ...      ...       ...         ...
+## Zimbabwe    1987    Africa   62.351   9216418  706.157306
+##             1992    Africa   60.377  10704340  693.420786
+##             1997    Africa   46.809  11404948  792.449960
+##             2002    Africa   39.989  11926563  672.038623
+##             2007    Africa   43.487  12311143  469.709298
 ## 
-## [1704 rows x 3 columns]</code></pre>
+## [1704 rows x 4 columns]</code></pre>
+<p>Note that because we are grouping by country and year, there is only
+one value for each variable, so the max function will show the same as
+<code>.min()</code> or <code>.mean()</code>, etc.</p>
+<div class="exercise">
+<p>If we wanted to know the number of countries in each continent
+recorded for each year, how would we find that information?</p>
+<p>Hint: Try grouping by year, and then using the
+<code>value_counts()</code> function with continent.</p>
+</div>
+<div class="solution">
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">&#39;year&#39;</span>]).continent.value_counts()</span></code></pre></div>
+<pre><code>## year  continent
+## 1952  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1957  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1962  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1967  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1972  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1977  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1982  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1987  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1992  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 1997  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 2002  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## 2007  Africa       52
+##       Asia         33
+##       Europe       30
+##       Americas     25
+##       Oceania       2
+## Name: continent, dtype: int64</code></pre>
+</div>
 <p>Next, we’ll take a step back and talk about packages.</p>
 
 

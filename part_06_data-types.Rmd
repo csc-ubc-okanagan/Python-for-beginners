@@ -89,8 +89,13 @@ five < seven
 ```
 
 ```{python}
-5.0 > 5
+5.0 == 5
 ```
+
+```{python}
+5.0 == '5'
+```
+
 
 ## Lists
 
@@ -128,13 +133,36 @@ list2[1]
 ```
 
 ```{python}
-
 type(list2)
 ```
 
 ```{python}
 type(list2[1])
 ```
+
+:::exercise
+
+Create a list that contains an integer, float, Boolean value, and string. Make sure to save it to a variable. Then, practice indexing each element individually. Check the type of the list itself, and then each element individually.
+
+:::
+
+:::solution
+
+```{python, class.source = 'fold-hide'}
+mixed_list = [13, 3.14, True, 'UBC']
+mixed_list[0]
+mixed_list[1]
+mixed_list[2]
+mixed_list[3]
+type(mixed_list)
+type(mixed_list[0])
+type(mixed_list[1])
+type(mixed_list[2])
+type(mixed_list[3])
+```
+
+:::
+
 
 ## Dictionaries
 
@@ -143,20 +171,47 @@ A dictionary lists key-value pairs, which could also be thought of as associated
 ```{python}
 # Dictionary - mapping between values
 house = {'bedrooms': 3, 'bathrooms': 2, 
-         'city': 'Kelowna', 'price': 2499999}
+         'city': 'Kelowna', 'price': 250000}
 ```
+
+
+```{python}
+house['price']
+```
+
 
 ```{python}
 course = {'Data Science': ['DATA100', 'DATA200', 'DATA300'],
             'Science': ['SCIENCE100', 'SCIENCE200', 'SCIENCE300']}
 ```
 
-```{python}
-house['price']
-```
+
 ```{python}
 course['Data Science']
 ```
+
+:::exercise
+
+Turn the following information into a dictionary. Don't forget to save it as a variable!
+
+Name | ID | Campus | Courses
+--- | --- | --- | ---
+Dan | 12345678 | Okanagan | DATA100, ENGL100, HIST100, CHEM100
+
+:::
+
+:::solution
+
+```{python, class.source = 'fold-hide'}
+student = {'Name' : 'Dan',
+            'ID' : 12345678,
+            'Campus' : 'Okanagan',
+            'Courses': ['DATA100', 'ENGL100', 'HIST100', 'CHEM100']}
+student
+```
+
+:::
+
 
 ## Loops
 
@@ -177,7 +232,7 @@ for n in [0, 1, 5, 2, -5]:
 ## Loop
 s = "Python"
 for c in s:
-    print("Gimme a " + c + "!")
+    print(c + "!")
 ```
 
 ```{python}
@@ -246,3 +301,45 @@ df1
 ```
 
 Data frames are a VERY powerful data type in Python. We will spend most of our remaining time working with data frames because there is so much to learn about. 
+
+:::exercise
+
+Using whichever method you prefer, turn the following information into a data frame.
+
+Name | ID | Campus 
+--- | --- | --- 
+Dan | 1234 | O 
+Sam | 5678 | V 
+Jim | 9012 | V 
+Matt | 3456 | O 
+
+:::
+
+:::solution
+
+Method 1
+```{python, class.source = 'fold-hide'}
+students = pd.DataFrame({'Name' : ['Dan', 'Sam', 'Jim', 'Matt'],
+                   'ID' : [1234, 5678, 9012, 3456],
+                   'Campus' : ['O', 'V', 'V', 'O']})
+students
+```
+
+Method 2
+```{python, class.source = 'fold-hide'}
+names = ['Dan', 'Sam', 'Jim', 'Matt']
+IDs = [1234, 5678, 9012, 3456]
+campuses = ['O', 'V', 'V', 'O']
+
+students2 = pd.DataFrame(
+    {'Name': names,
+     'ID': IDs,
+     'Campus': campuses})
+
+students2
+
+```
+
+:::
+
+Note: Think about what the difference would be if you entered the ID numbers as strings rather than integers.
