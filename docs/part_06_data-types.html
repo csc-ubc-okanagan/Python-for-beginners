@@ -721,24 +721,77 @@ class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb
 class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(mixed_list[<span class="dv">3</span>])</span></code></pre></div>
 <pre><code>&lt;class &#39;str&#39;&gt;</code></pre>
 </div>
+<p>As we mentioned earlier, a main difference between lists and tuples
+is that lists are mutable. Mutable means that elements in a list can be
+appended, changed, or deleted.</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mixed_list.append(<span class="st">&#39;New&#39;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>mixed_list</span></code></pre></div>
+<pre><code>[13, 3.14, True, &#39;UBC&#39;, &#39;New&#39;]</code></pre>
+<p>If we decided that we wanted to replace ‘New’ with 4, we could do so
+like this:</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mixed_list[<span class="dv">4</span>]<span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>mixed_list</span></code></pre></div>
+<pre><code>[13, 3.14, True, &#39;UBC&#39;, 4]</code></pre>
+<p>If we wanted to remove elements from the list, we could do so like
+this:</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mixed_list.remove(<span class="st">&#39;UBC&#39;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>mixed_list</span></code></pre></div>
+<pre><code>[13, 3.14, True, 4]</code></pre>
+<p>Note that this will only remove the first occurrence, if this
+happened to be in the list more than once. It would also call an error
+message if the element doesn’t exist.</p>
+<p>If we wanted to remove it based on the index of the list:</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> mixed_list[<span class="dv">0</span>]</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>mixed_list</span></code></pre></div>
+<pre><code>[3.14, True, 4]</code></pre>
+<div class="exercise">
+<p>Create an empty list. Try adding an element to the list, and then
+deleting it, either by using <code>remove</code> or
+<code>del</code>.</p>
+</div>
+<div class="solution">
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>empty_list <span class="op">=</span> []</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>empty_list.append(<span class="dv">5</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>empty_list</span></code></pre></div>
+<pre><code>[5]</code></pre>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>empty_list.remove(<span class="dv">5</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>empty_list</span></code></pre></div>
+<pre><code>[]</code></pre>
+<p>Alternatively,</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>empty_list <span class="op">=</span> []</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>empty_list.append(<span class="dv">5</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>empty_list</span></code></pre></div>
+<pre><code>[5]</code></pre>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> empty_list[<span class="dv">0</span>]</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>empty_list</span></code></pre></div>
+<pre><code>[]</code></pre>
+</div>
 </div>
 <div id="dictionaries" class="section level2">
 <h2>Dictionaries</h2>
 <p>A dictionary lists key-value pairs, which could also be thought of as
 associated values where a key matches to the associated value. Let’s
 look at a few examples.</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary - mapping between values</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>house <span class="op">=</span> {<span class="st">&#39;bedrooms&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;bathrooms&#39;</span>: <span class="dv">2</span>, </span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&#39;city&#39;</span>: <span class="st">&#39;Kelowna&#39;</span>, <span class="st">&#39;price&#39;</span>: <span class="dv">250000</span>}</span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>house[<span class="st">&#39;price&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary - mapping between values</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>house <span class="op">=</span> {<span class="st">&#39;bedrooms&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;bathrooms&#39;</span>: <span class="dv">2</span>, </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&#39;city&#39;</span>: <span class="st">&#39;Kelowna&#39;</span>, <span class="st">&#39;price&#39;</span>: <span class="dv">250000</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>house[<span class="st">&#39;price&#39;</span>]</span></code></pre></div>
 <pre><code>250000</code></pre>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>course <span class="op">=</span> {<span class="st">&#39;Data Science&#39;</span>: [<span class="st">&#39;DATA100&#39;</span>, <span class="st">&#39;DATA200&#39;</span>, <span class="st">&#39;DATA300&#39;</span>],</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Science&#39;</span>: [<span class="st">&#39;SCIENCE100&#39;</span>, <span class="st">&#39;SCIENCE200&#39;</span>, <span class="st">&#39;SCIENCE300&#39;</span>]}</span></code></pre></div>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>course[<span class="st">&#39;Data Science&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>course <span class="op">=</span> {<span class="st">&#39;Data Science&#39;</span>: [<span class="st">&#39;DATA100&#39;</span>, <span class="st">&#39;DATA200&#39;</span>, <span class="st">&#39;DATA300&#39;</span>],</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Science&#39;</span>: [<span class="st">&#39;SCIENCE100&#39;</span>, <span class="st">&#39;SCIENCE200&#39;</span>, <span class="st">&#39;SCIENCE300&#39;</span>]}</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>course[<span class="st">&#39;Data Science&#39;</span>]</span></code></pre></div>
 <pre><code>[&#39;DATA100&#39;, &#39;DATA200&#39;, &#39;DATA300&#39;]</code></pre>
 <div class="exercise">
 <p>Turn the following information into a dictionary. Don’t forget to
@@ -763,12 +816,12 @@ save it as a variable!</p>
 </table>
 </div>
 <div class="solution">
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>student <span class="op">=</span> {<span class="st">&#39;Name&#39;</span> : <span class="st">&#39;Dan&#39;</span>,</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;ID&#39;</span> : <span class="dv">12345678</span>,</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Campus&#39;</span> : <span class="st">&#39;Okanagan&#39;</span>,</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Courses&#39;</span>: [<span class="st">&#39;DATA100&#39;</span>, <span class="st">&#39;ENGL100&#39;</span>, <span class="st">&#39;HIST100&#39;</span>, <span class="st">&#39;CHEM100&#39;</span>]}</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>student</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>student <span class="op">=</span> {<span class="st">&#39;Name&#39;</span> : <span class="st">&#39;Dan&#39;</span>,</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;ID&#39;</span> : <span class="dv">12345678</span>,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Campus&#39;</span> : <span class="st">&#39;Okanagan&#39;</span>,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;Courses&#39;</span>: [<span class="st">&#39;DATA100&#39;</span>, <span class="st">&#39;ENGL100&#39;</span>, <span class="st">&#39;HIST100&#39;</span>, <span class="st">&#39;CHEM100&#39;</span>]}</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>student</span></code></pre></div>
 <pre><code>{&#39;Name&#39;: &#39;Dan&#39;, &#39;ID&#39;: 12345678, &#39;Campus&#39;: &#39;Okanagan&#39;, &#39;Courses&#39;: [&#39;DATA100&#39;, &#39;ENGL100&#39;, &#39;HIST100&#39;, &#39;CHEM100&#39;]}</code></pre>
 </div>
 </div>
@@ -778,33 +831,33 @@ class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb
 lists, or perform the same operation numerous times without added
 efforts.</p>
 <p>Let’s look at a few examples:</p>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loops</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="op">-</span><span class="dv">5</span>]:</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is inside the loop</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The number is&quot;</span>, n, <span class="st">&quot;and its squared value is&quot;</span>, n<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this is outside the loop</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loops</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="op">-</span><span class="dv">5</span>]:</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is inside the loop</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The number is&quot;</span>, n, <span class="st">&quot;and its squared value is&quot;</span>, n<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this is outside the loop</span></span></code></pre></div>
 <pre><code>The number is 0 and its squared value is 0
 The number is 1 and its squared value is 1
 The number is 5 and its squared value is 25
 The number is 2 and its squared value is 4
 The number is -5 and its squared value is 25</code></pre>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loop</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;Python&quot;</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> s:</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c <span class="op">+</span> <span class="st">&quot;!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loop</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;Python&quot;</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> s:</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c <span class="op">+</span> <span class="st">&quot;!&quot;</span>)</span></code></pre></div>
 <pre><code>P!
 y!
 t!
 h!
 o!
 n!</code></pre>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># range(10) sets values 0-9, because recall Python starts at 0, not 1</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># range(10) sets values 0-9, because recall Python starts at 0, not 1</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
 <pre><code>0
 1
 2
@@ -816,9 +869,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a h
 8
 9</code></pre>
 <p>This is equivalent to writing:</p>
-<div class="sourceCode" id="cb65"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
 <pre><code>0
 1
 2
@@ -831,9 +884,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a h
 9</code></pre>
 <p>If we wanted it to start at 1 and go to 10 (inclusive), we would
 write:</p>
-<div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">11</span>):</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">11</span>):</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
 <pre><code>1
 2
 3
@@ -845,10 +898,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a h
 9
 10</code></pre>
 <p>Other examples:</p>
-<div class="sourceCode" id="cb69"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(start,end,increments)</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">101</span>,<span class="dv">10</span>):</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(start,end,increments)</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">101</span>,<span class="dv">10</span>):</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
 <pre><code>0
 10
 20
@@ -860,16 +913,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a h
 80
 90
 100</code></pre>
-<div class="sourceCode" id="cb71"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>3
 2
 1</code></pre>
-<div class="sourceCode" id="cb73"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Smile!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Smile!&quot;</span>)</span></code></pre></div>
 <pre><code>Smile!</code></pre>
 </div>
 <div id="data-frames" class="section level2">
@@ -881,15 +934,15 @@ frame is also a special kind of list.</p>
 each vector must hold the same data type, not all vectors need to be of
 the same data type. Data frames also allow us to apply column names.</p>
 <p>Let’s look at an example of creating a dataframe from two lists.</p>
-<div class="sourceCode" id="cb75"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>letter_list <span class="op">=</span> [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;f&#39;</span>, <span class="st">&#39;g&#39;</span>, <span class="st">&#39;h&#39;</span>, <span class="st">&#39;i&#39;</span>]</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>number_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;Letters&#39;</span>: letter_list,</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;Numbers&#39;</span>: number_list})</span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>letter_list <span class="op">=</span> [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;f&#39;</span>, <span class="st">&#39;g&#39;</span>, <span class="st">&#39;h&#39;</span>, <span class="st">&#39;i&#39;</span>]</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>number_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;Letters&#39;</span>: letter_list,</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;Numbers&#39;</span>: number_list})</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>  Letters  Numbers
 0       a        1
 1       b        2
@@ -901,11 +954,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a h
 7       h        8
 8       i        9</code></pre>
 <p>Alternatively, you could write a data frame directly like this:</p>
-<div class="sourceCode" id="cb77"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame({<span class="st">&#39;x&#39;</span> : [<span class="fl">1.</span>, <span class="fl">2.</span>, <span class="fl">3.</span>, <span class="fl">4.</span>],</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;y&#39;</span> : [<span class="fl">4.</span>, <span class="fl">3.</span>, <span class="fl">2.</span>, <span class="fl">1.</span>],</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;z&#39;</span> : [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]})</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>df1</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame({<span class="st">&#39;x&#39;</span> : [<span class="fl">1.</span>, <span class="fl">2.</span>, <span class="fl">3.</span>, <span class="fl">4.</span>],</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;y&#39;</span> : [<span class="fl">4.</span>, <span class="fl">3.</span>, <span class="fl">2.</span>, <span class="fl">1.</span>],</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;z&#39;</span> : [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]})</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>df1</span></code></pre></div>
 <pre><code>     x    y  z
 0  1.0  4.0  1
 1  2.0  3.0  2
@@ -951,28 +1004,28 @@ into a data frame.</p>
 </div>
 <div class="solution">
 <p>Method 1</p>
-<div class="sourceCode" id="cb79"><pre
-class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Name&#39;</span> : [<span class="st">&#39;Dan&#39;</span>, <span class="st">&#39;Sam&#39;</span>, <span class="st">&#39;Jim&#39;</span>, <span class="st">&#39;Matt&#39;</span>],</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;ID&#39;</span> : [<span class="dv">1234</span>, <span class="dv">5678</span>, <span class="dv">9012</span>, <span class="dv">3456</span>],</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;Campus&#39;</span> : [<span class="st">&#39;O&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;O&#39;</span>]})</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>students</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Name&#39;</span> : [<span class="st">&#39;Dan&#39;</span>, <span class="st">&#39;Sam&#39;</span>, <span class="st">&#39;Jim&#39;</span>, <span class="st">&#39;Matt&#39;</span>],</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;ID&#39;</span> : [<span class="dv">1234</span>, <span class="dv">5678</span>, <span class="dv">9012</span>, <span class="dv">3456</span>],</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&#39;Campus&#39;</span> : [<span class="st">&#39;O&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;O&#39;</span>]})</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>students</span></code></pre></div>
 <pre><code>   Name    ID Campus
 0   Dan  1234      O
 1   Sam  5678      V
 2   Jim  9012      V
 3  Matt  3456      O</code></pre>
 <p>Method 2</p>
-<div class="sourceCode" id="cb81"><pre
-class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">&#39;Dan&#39;</span>, <span class="st">&#39;Sam&#39;</span>, <span class="st">&#39;Jim&#39;</span>, <span class="st">&#39;Matt&#39;</span>]</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>IDs <span class="op">=</span> [<span class="dv">1234</span>, <span class="dv">5678</span>, <span class="dv">9012</span>, <span class="dv">3456</span>]</span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>campuses <span class="op">=</span> [<span class="st">&#39;O&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;O&#39;</span>]</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>students2 <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;Name&#39;</span>: names,</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;ID&#39;</span>: IDs,</span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;Campus&#39;</span>: campuses})</span>
-<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>students2</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre
+class="sourceCode python fold-hide"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">&#39;Dan&#39;</span>, <span class="st">&#39;Sam&#39;</span>, <span class="st">&#39;Jim&#39;</span>, <span class="st">&#39;Matt&#39;</span>]</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>IDs <span class="op">=</span> [<span class="dv">1234</span>, <span class="dv">5678</span>, <span class="dv">9012</span>, <span class="dv">3456</span>]</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>campuses <span class="op">=</span> [<span class="st">&#39;O&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;V&#39;</span>, <span class="st">&#39;O&#39;</span>]</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>students2 <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;Name&#39;</span>: names,</span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;ID&#39;</span>: IDs,</span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;Campus&#39;</span>: campuses})</span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>students2</span></code></pre></div>
 <pre><code>   Name    ID Campus
 0   Dan  1234      O
 1   Sam  5678      V

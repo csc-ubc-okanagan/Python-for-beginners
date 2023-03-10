@@ -163,6 +163,63 @@ type(mixed_list[3])
 
 :::
 
+As we mentioned earlier, a main difference between lists and tuples is that lists are mutable. Mutable means that elements in a list can be appended, changed, or deleted. 
+
+```{python}
+mixed_list.append('New')
+mixed_list
+```
+If we decided that we wanted to replace 'New' with 4, we could do so like this:
+
+```{python}
+mixed_list[4]= 4
+mixed_list
+```
+If we wanted to remove elements from the list, we could do so like this:
+
+```{python}
+mixed_list.remove('UBC')
+mixed_list
+```
+
+Note that this will only remove the first occurrence, if this happened to be in the list more than once. It would also call an error message if the element doesn't exist.
+
+If we wanted to remove it based on the index of the list:
+
+```{python}
+del mixed_list[0]
+mixed_list
+```
+
+:::exercise
+
+Create an empty list. Try adding an element to the list, and then deleting it, either by using `remove` or `del`.
+
+:::
+
+:::solution
+
+```{python, class.source = 'fold-hide'}
+empty_list = []
+empty_list.append(5)
+empty_list
+
+empty_list.remove(5)
+empty_list
+```
+
+Alternatively,
+
+```{python, class.source = 'fold-hide'}
+empty_list = []
+empty_list.append(5)
+empty_list
+
+del empty_list[0]
+empty_list
+```
+
+:::
 
 ## Dictionaries
 
@@ -211,6 +268,7 @@ student
 ```
 
 :::
+
 
 
 ## Loops
