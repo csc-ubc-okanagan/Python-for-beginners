@@ -252,7 +252,7 @@ course['Data Science']
 Turn the following information into a dictionary. Don't forget to save it as a variable!
 
 Name | ID | Campus | Courses
---- | --- | --- | ---
+:--- | :--- | :--- | :---
 Dan | 12345678 | Okanagan | DATA100, ENGL100, HIST100, CHEM100
 
 :::
@@ -365,7 +365,7 @@ Data frames are a VERY powerful data type in Python. We will spend most of our r
 Using whichever method you prefer, turn the following information into a data frame.
 
 Name | ID | Campus 
---- | --- | --- 
+:--- | :--- | :--- 
 Dan | 1234 | O 
 Sam | 5678 | V 
 Jim | 9012 | V 
