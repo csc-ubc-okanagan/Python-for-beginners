@@ -194,8 +194,9 @@ line + point
 We can also show multiple plots at once using the arguments we learned in part 3.
 
 Recall:
-* or `|`
-* and `&`
+
+- or means horizontal and it is represented by `|`
+- and means vertical and it is represented by `&`
 
 ```{python}
 # We have line and point defined above. Let's separate them into two plots.
