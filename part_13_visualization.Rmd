@@ -85,7 +85,7 @@ alt.Chart(iris).mark_point().encode(
 )
 ```
 
-If we wanted to view this same scatterplot but also distinguish by colour, we could add in one small line at the end. Also, let's add some axis titles and change the scale to reduce the whitespace.
+If we wanted to view this same scatterplot but also distinguish by colour, we could add in one small line at the end. Also, let's add some axis titles and change the scale to reduce the white space.
 
 ```{python}
 alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().encode(
@@ -108,6 +108,94 @@ alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().enco
 )
 ```
 
+### Tooltips
+
+There is a feature in Altair called a `tooltip` that allows users to interact with the plot.
+
+Let's add a tooltip to the scatterplot above to see how it looks.
+
+```{python}
+alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      shape = 'Species',
+      tooltip = ('Species'))
+```
+
+We can add as many different columns to the tooltip as we want.
+
+```{python}
+alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      shape = 'Species',
+      tooltip = (['Species','SepalLength','SepalWidth','PetalLength','PetalWidth'])
+)
+```
+
+Another feature we can add is the ability to make the graph interactive. This would allow the user to scroll or zoom.
+
+```{python}
+alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      shape = 'Species',
+      tooltip = (['Species','SepalLength','SepalWidth','PetalLength','PetalWidth'])
+).interactive()
+```
+
+Let's take a look at `mark_line()`, and let's remove the `shape` argument.
+
+```{python}
+alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_line().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      tooltip = (['Species','SepalLength','SepalWidth','PetalLength','PetalWidth'])
+).interactive()
+```
+
+We can overlay plots on top of each other. Let's plot the scatterplot and lines together.
+
+```{python}
+line = alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_line().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      tooltip = (['Species','SepalLength','SepalWidth','PetalLength','PetalWidth'])
+).interactive()
+
+point = alt.Chart(iris).mark_point().encode(
+  x = 'SepalLength',
+  y = 'SepalWidth',
+   color = 'Species')
+  
+line + point
+```
+
+
+We can also show multiple plots at once using the arguments we learned in part 3.
+
+Recall:
+* or `|`
+* and `&`
+
+```{python}
+# We have line and point defined above. Let's separate them into two plots.
+line | point
+```
+
+We can also stack them vertically.
+
+```{python}
+line & point
+```
+
+We can also combine these features to design whatever layout you would like. First, let's introduce a boxplot.
+
 If we wanted to show a boxplot for the different petal lengths, we could do so like this:
 
 ```{python}
@@ -120,13 +208,24 @@ alt.Chart(iris, title = 'Petal Lengths of Species').mark_boxplot().encode(
 To make it look nicer, we could add colour to each species.
 
 ```{python}
-alt.Chart(iris, title = 'Petal Lengths of Species').mark_boxplot().encode(
+box = alt.Chart(iris, title = 'Petal Lengths of Species').mark_boxplot().encode(
       x = alt.X('Species', title = 'Type of Species'),
       y = alt.Y('PetalLength', title = 'Petal Length'),
       color = 'Species'
 )
+box
 ```
 
-Many different Altair charts can be created using `mark_bar()`, `mark_line()`, `mark_point()`, `mark_rect()`, ad so many more!
+Now, let's show all three plots together.
+
+```{python}
+line | point | box
+```
+
+```{python}
+line | (point & box)
+```
+
+Many different Altair charts can be created using `mark_bar()`, `mark_line()`, `mark_point()`, `mark_rect()`, and so many more!
 
 A complete list can be found [here](https://altair-viz.github.io/user_guide/marks.html#:~:text=Altair%20provides%20a%20number%20of%20basic%20mark%20properties%3A,Dot%20Per%20Zipcode%20%2010%20more%20rows%20)!
