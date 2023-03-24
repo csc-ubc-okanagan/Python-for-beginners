@@ -147,6 +147,20 @@ alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_point().enco
 ).interactive()
 ```
 
+Notice also there is something called `mark_circle()` which is different than `mark_point()`.
+
+We can show the same graph as above, but with `mark_circle()` instead of `mark_point()`.
+
+```{python}
+alt.Chart(iris, title="Comparing Sepal Length to Sepal Width").mark_circle().encode(
+      x = alt.X('SepalLength', title = 'Sepal Length', scale = alt.Scale(domain = (4,9))),
+      y = alt.Y('SepalWidth', title = 'Sepal Width', scale = alt.Scale(domain = (1.5,4.5))),
+      color = 'Species',
+      shape = 'Species',
+      tooltip = (['Species','SepalLength','SepalWidth','PetalLength','PetalWidth'])
+).interactive()
+```
+
 Let's take a look at `mark_line()`, and let's remove the `shape` argument.
 
 ```{python}
