@@ -243,4 +243,4 @@ line | (point & box)
 
 Many different Altair charts can be created using `mark_bar()`, `mark_line()`, `mark_point()`, `mark_rect()`, and so many more!
 
-A complete list can be found [here](https://altair-viz.github.io/user_guide/marks.html#:~:text=Altair%20provides%20a%20number%20of%20basic%20mark%20properties%3A,Dot%20Per%20Zipcode%20%2010%20more%20rows%20)!
+A complete list can be found [here](https://altair-viz.github.io/gallery/index.html)!
